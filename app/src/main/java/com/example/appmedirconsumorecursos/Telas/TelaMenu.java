@@ -68,7 +68,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		if(view == btnAtualizar) // vai atualizar com novos dados?
 		{
-			
+
 		}
 		if(view == btnHistorico) // Abre a pagina de estatisticas?
 		{
