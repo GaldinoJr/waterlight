@@ -1,6 +1,5 @@
 package com.example.appmedirconsumorecursos.Dominio;
 
-import com.example.appmedirconsumorecursos.AbsRecurso;
 import com.example.appmedirconsumorecursos.R;
 
 public class Agua extends AbsRecurso {

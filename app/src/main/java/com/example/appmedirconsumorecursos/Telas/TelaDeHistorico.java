@@ -13,7 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.appmedirconsumorecursos.AbsRecurso;
+import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
 import com.example.appmedirconsumorecursos.R;
 import com.example.appmedirconsumorecursos.R.id;
 

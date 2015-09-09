@@ -1,4 +1,4 @@
-package com.example.appmedirconsumorecursos;
+package com.example.appmedirconsumorecursos.Dominio;
 
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 

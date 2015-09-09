@@ -1,6 +1,6 @@
 package com.example.appmedirconsumorecursos.Telas;
 
-import com.example.appmedirconsumorecursos.AbsRecurso;
+import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
 import com.example.appmedirconsumorecursos.Controle.Servlet.Servlet;
 import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
@@ -8,7 +8,6 @@ import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.GastoAtual;
 import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
-import com.example.appmedirconsumorecursos.Dominio.Residencia;
 import com.example.appmedirconsumorecursos.R;
 import com.example.appmedirconsumorecursos.R.id;
 

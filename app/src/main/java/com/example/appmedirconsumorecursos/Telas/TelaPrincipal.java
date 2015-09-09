@@ -1,6 +1,6 @@
 package com.example.appmedirconsumorecursos.Telas;
 
-import com.example.appmedirconsumorecursos.AbsRecurso;
+import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
 import com.example.appmedirconsumorecursos.Dominio.Agua;
 import com.example.appmedirconsumorecursos.Dominio.Luz;
 import com.example.appmedirconsumorecursos.R;
