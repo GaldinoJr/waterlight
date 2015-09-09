@@ -25,7 +25,7 @@ public class GastoHoje extends EntidadeDominio {
             nrWatts,
             nrMetroCubicoAgua;
 
-    private int cdResidencia;
+    private Integer cdResidencia;
 
     // SETS
 
@@ -50,7 +50,7 @@ public class GastoHoje extends EntidadeDominio {
         this.nrMetroCubicoAgua = nrMetroCubicoAgua;
     }
 
-    public void setCdResidencia(int cdResidencia) {
+    public void setCdResidencia(Integer cdResidencia) {
         this.cdResidencia = cdResidencia;
     }
 
@@ -77,7 +77,7 @@ public class GastoHoje extends EntidadeDominio {
         return nrMetroCubicoAgua;
     }
 
-    public int getCdResidencia() {
+    public Integer getCdResidencia() {
         return cdResidencia;
     }
 
