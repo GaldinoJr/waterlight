@@ -127,8 +127,9 @@ public class Residencia extends EntidadeDominio{
     }
 
 
-    public void popularMap(Residencia residencia,String acao, String nomeClasse)
+    public void popularMap(EntidadeDominio entidadeDominio,String acao, String nomeClasse)
     {
+        Residencia residencia = (Residencia)entidadeDominio;
         map = new HashMap<String, String>();
         map.put(residencia.DF_NOME, residencia.getNome());
         map.put(residencia.DF_ENDERECO,residencia.getEndereco());

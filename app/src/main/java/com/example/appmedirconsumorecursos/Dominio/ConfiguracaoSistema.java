@@ -20,8 +20,9 @@ public class ConfiguracaoSistema extends EntidadeDominio{
         return fg_logar_automaticamente;
     }
 
-    public void popularMap(ConfiguracaoSistema configSistema,String acao, String nomeClasse)
+    public void popularMap(EntidadeDominio entidadeDominio,String acao, String nomeClasse)
     {
+        ConfiguracaoSistema configSistema = (ConfiguracaoSistema)entidadeDominio;
         map = new HashMap<String, String>();
         map.put(configSistema.DF_ID, configSistema.getId());
         map.put(configSistema.DF_FG_LOGAR_AUTOMATICAMENTE,String.valueOf(configSistema.getFgLogarAutomaticamente()));

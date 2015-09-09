@@ -13,4 +13,9 @@ public class Luz extends AbsRecurso {
 	{
 		idIcone = R.drawable.icone_luz;
 	}
+
+	@Override
+	public void popularMap(EntidadeDominio entidadeDominio, String acao, String nomeClasse) {
+		
+	}
 }

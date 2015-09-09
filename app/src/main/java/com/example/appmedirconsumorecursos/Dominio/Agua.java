@@ -14,4 +14,9 @@ public class Agua extends AbsRecurso {
 	{
 		idIcone = R.drawable.icone_agua;
 	}
+
+	@Override
+	public void popularMap(EntidadeDominio entidadeDominio, String acao, String nomeClasse) {
+
+	}
 }

@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * Created by Galdino on 19/08/2015.
  */
-public class EntidadeDominio {
+public class EntidadeDominio implements IEntidade{
     public String DF_ID = "ID";
     private String id;
     protected Map<String, String> map;
@@ -26,5 +26,10 @@ public class EntidadeDominio {
 
     public Map<String, String> getMap() {
         return map;
+    }
+
+    @Override
+    public void popularMap(EntidadeDominio entidadeDominio, String acao, String nomeClasse) {
+
     }
 }

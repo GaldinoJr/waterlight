@@ -2,6 +2,8 @@ package com.example.appmedirconsumorecursos.Controle.Servlet;
 
 import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.AguaViewHelper;
 import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.ConfiguracaoSistemaViewHelper;
+import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.GastoAtualViewHelper;
+import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.GastoHojeViewHelper;
 import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.LuzViewHelper;
 import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.ResidenciaViewHelper;
 import com.example.appmedirconsumorecursos.Controle.ViewHelper2.IViewHelper;
@@ -14,6 +16,8 @@ import com.example.appmedirconsumorecursos.Core.command.Impl.SalvarCommand;
 import com.example.appmedirconsumorecursos.Dominio.Agua;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
+import com.example.appmedirconsumorecursos.Dominio.GastoAtual;
+import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
 import com.example.appmedirconsumorecursos.Dominio.Luz;
 import com.example.appmedirconsumorecursos.Dominio.Residencia;
 
@@ -43,7 +47,9 @@ public class Servlet {
         vhs.put(Luz.class.getName(), new AguaViewHelper());
         vhs.put(Agua.class.getName(), new LuzViewHelper());
         vhs.put(Residencia.class.getName(), new ResidenciaViewHelper());
-        vhs.put((ConfiguracaoSistema.class.getName()), new ConfiguracaoSistemaViewHelper());
+        vhs.put(ConfiguracaoSistema.class.getName(), new ConfiguracaoSistemaViewHelper());
+        vhs.put(GastoAtual.class.getName(), new GastoAtualViewHelper());
+        vhs.put(GastoHoje.class.getName(), new GastoHojeViewHelper());
 
     }
     public Resultado doPost(Map request){
