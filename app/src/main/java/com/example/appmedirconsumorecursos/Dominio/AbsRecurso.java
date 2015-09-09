@@ -9,6 +9,7 @@ import java.io.Serializable;
 // Serializable para poder passar o objeto entre as telas
 public abstract class AbsRecurso extends EntidadeDominio implements Serializable
 {
+	// Padrão design pattern: abstract Factory
 	protected String nome;
 	protected int idIcone;
 	protected String id;

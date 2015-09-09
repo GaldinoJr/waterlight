@@ -9,7 +9,7 @@ import com.example.appmedirconsumorecursos.Dominio.Residencia;
  */
 //http://pt.stackoverflow.com/questions/54588/como-criar-manter-variavel-global-em-java-para-login
 public class Session {
-    // design pattern singleton.
+    // padrão design pattern: singleton.
     private static Session session;
     private static Context context;
     private Residencia residencia;
