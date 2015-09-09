@@ -20,10 +20,10 @@ import java.util.List;
  */
 public class GastoHojeDAO extends AbstractJdbcDAO {
     private List<EntidadeDominio> listResidencias;
-    private GastoHoje gastoHoje = new GastoHoje();
+    private GastoHoje gastoHoje;
 
     public GastoHojeDAO() {
-        super( gastoHoje.DF_NOME_TABELA, gastoHoje.DF_CD_TABELA, gastoHoje.DF_NOME_PHP);
+        super( GastoHoje.DF_NOME_TABELA, GastoHoje.DF_CD_TABELA, GastoHoje.DF_NOME_PHP);
     }
 
     @Override
