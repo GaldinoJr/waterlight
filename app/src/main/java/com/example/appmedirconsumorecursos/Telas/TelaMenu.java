@@ -48,6 +48,8 @@ public class TelaMenu extends Activity implements OnClickListener {
 	private List<EntidadeDominio> listEntDom;
 	private Resultado resultado;
 	private ConfiguracaoSistema configSistema;
+	//
+	private Integer idRecurso;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 		absRecurso = (AbsRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
 		txtNome.setText(absRecurso.getNome()); // Recebe o nome do recurso e manda pra tela
 		imgRecurso.setImageResource(absRecurso.getIdIcone()); // Recebe o id da imagem e manda pra tela
-		
+		idRecurso = Integer.parseInt(absRecurso.getIdRecurso());
 	}
 
 	@Override
@@ -96,9 +98,17 @@ public class TelaMenu extends Activity implements OnClickListener {
 			listEntDom = resultado.getEntidades();
 			if(listEntDom != null) // Achou algum registro?
 			{
+
 				gastoHoje = (GastoHoje) listEntDom.get(0);
-				txtGastoHj.setText(String.valueOf(gastoHoje.getNrWatts()));
-				txtValorGastoHj.setText(String.valueOf(gastoHoje.getVlrGastLuz()));
+				if(idRecurso == 1) // agua?
+				{
+					txtGastoHj.setText(String.valueOf(gastoHoje.getNrMetroCubicoAgua()));
+					txtValorGastoHj.setText(String.valueOf(gastoHoje.getVlrGastoAgua()));
+				}
+				if(idRecurso == 2) { // luz?
+					txtGastoHj.setText(String.valueOf(gastoHoje.getNrWatts()));
+					txtValorGastoHj.setText(String.valueOf(gastoHoje.getVlrGastLuz()));
+				}
 			}
 			instanciarClasses(false); // consulta no banco interno
 			gastoAtual.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
@@ -108,8 +118,16 @@ public class TelaMenu extends Activity implements OnClickListener {
 			if(listEntDom != null) // Achou algum registro?
 			{
 				gastoAtual = (GastoAtual) listEntDom.get(0);
-				txtGastoAtual.setText(String.valueOf(gastoAtual.getNrWatts()));
-				txtValorGastoAtual.setText(String.valueOf(gastoAtual.getVlrGastLuz()));
+				if(idRecurso == 1) // agua?
+				{
+					txtGastoHj.setText(String.valueOf(gastoHoje.getNrMetroCubicoAgua()));
+					txtValorGastoHj.setText(String.valueOf(gastoHoje.getVlrGastoAgua()));
+				}
+				if(idRecurso == 2)  // luz?
+				{
+					txtGastoAtual.setText(String.valueOf(gastoAtual.getNrWatts()));
+					txtValorGastoAtual.setText(String.valueOf(gastoAtual.getVlrGastLuz()));
+				}
 			}
 			Toast.makeText(TelaMenu.this, "Dados atualizados com sucesso", Toast.LENGTH_LONG).show();
 		}

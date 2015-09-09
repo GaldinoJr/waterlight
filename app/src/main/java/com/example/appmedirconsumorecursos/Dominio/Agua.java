@@ -4,7 +4,11 @@ import com.example.appmedirconsumorecursos.AbsRecurso;
 import com.example.appmedirconsumorecursos.R;
 
 public class Agua extends AbsRecurso {
-	
+	protected void setIdRecurso()
+	{
+		id = "1";
+	}
+
 	protected void setNome()
 	{
 		nome = "Água";

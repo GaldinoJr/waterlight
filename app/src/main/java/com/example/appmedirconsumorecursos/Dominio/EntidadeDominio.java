@@ -7,7 +7,7 @@ import java.util.Map;
  */
 public class EntidadeDominio implements IEntidade{
     public String DF_ID = "ID";
-    private String id;
+    protected String id;
     protected Map<String, String> map;
 
     // sets

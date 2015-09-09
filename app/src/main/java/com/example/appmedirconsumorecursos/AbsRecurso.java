@@ -11,10 +11,12 @@ public abstract class AbsRecurso extends EntidadeDominio implements Serializable
 {
 	protected String nome;
 	protected int idIcone;
-	
+	protected String id;
+
 	protected abstract void setNome();
 	protected abstract void setIdImage();
-	
+	protected abstract void setIdRecurso();
+
 	public String getNome()
 	{
 		setNome();
@@ -24,6 +26,11 @@ public abstract class AbsRecurso extends EntidadeDominio implements Serializable
 	public int getIdIcone() {
 		setIdImage();
 		return idIcone;
+	}
+
+	public String getIdRecurso() {
+		setIdRecurso();
+		return id;
 	}
 	/*
 	 * responsável por popular os campos do objeto desseralizado.
