@@ -1,6 +1,14 @@
 package com.example.appmedirconsumorecursos.Telas;
 
 import com.example.appmedirconsumorecursos.AbsRecurso;
+import com.example.appmedirconsumorecursos.Controle.Servlet.Servlet;
+import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
+import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
+import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
+import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
+import com.example.appmedirconsumorecursos.Dominio.GastoAtual;
+import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
+import com.example.appmedirconsumorecursos.Dominio.Residencia;
 import com.example.appmedirconsumorecursos.R;
 import com.example.appmedirconsumorecursos.R.id;
 
@@ -13,6 +21,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class TelaMenu extends Activity implements OnClickListener {
 	private TextView txtNome,
@@ -27,6 +39,15 @@ public class TelaMenu extends Activity implements OnClickListener {
 	private ImageView imgRecurso;
 	private Intent dados;
 	private AbsRecurso absRecurso;
+	//
+	private GastoAtual gastoAtual;
+	private GastoHoje gastoHoje;
+
+	private Servlet servlet;
+	private Session session;
+	private List<EntidadeDominio> listEntDom;
+	private Resultado resultado;
+	private ConfiguracaoSistema configSistema;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +89,29 @@ public class TelaMenu extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		if(view == btnAtualizar) // vai atualizar com novos dados?
 		{
-
+			instanciarClasses(false); // consulta no banco interno
+			gastoHoje.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
+			gastoHoje.popularMap(gastoHoje, "consultar", GastoHoje.class.getName());
+			resultado = servlet.doPost(gastoHoje.getMap());
+			listEntDom = resultado.getEntidades();
+			if(listEntDom != null) // Achou algum registro?
+			{
+				gastoHoje = (GastoHoje) listEntDom.get(0);
+				txtGastoHj.setText(String.valueOf(gastoHoje.getNrWatts()));
+				txtValorGastoHj.setText(String.valueOf(gastoHoje.getVlrGastLuz()));
+			}
+			instanciarClasses(false); // consulta no banco interno
+			gastoAtual.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
+			gastoAtual.popularMap(gastoAtual, "consultar", GastoAtual.class.getName());
+			resultado = servlet.doPost(gastoAtual.getMap());
+			listEntDom = resultado.getEntidades();
+			if(listEntDom != null) // Achou algum registro?
+			{
+				gastoAtual = (GastoAtual) listEntDom.get(0);
+				txtGastoAtual.setText(String.valueOf(gastoAtual.getNrWatts()));
+				txtValorGastoAtual.setText(String.valueOf(gastoAtual.getVlrGastLuz()));
+			}
+			Toast.makeText(TelaMenu.this, "Dados atualizados com sucesso", Toast.LENGTH_LONG).show();
 		}
 		if(view == btnHistorico) // Abre a pagina de estatisticas?
 		{
@@ -88,5 +131,19 @@ public class TelaMenu extends Activity implements OnClickListener {
         intent.putExtra("absClasse", absRecurso);
 		startActivity(intent); // chama a próxima tela
         finish();
+	}
+	private void instanciarClasses(boolean fgSql)
+	{
+		session = Session.getInstance();
+		if(fgSql)
+			session.setContext(this);
+		else
+			session.setContext(null);
+		listEntDom = new LinkedList<EntidadeDominio>();
+		resultado = new Resultado();
+		servlet = new Servlet();
+		gastoAtual = new GastoAtual();
+		gastoHoje = new GastoHoje();
+		configSistema = new ConfiguracaoSistema();
 	}
 }
