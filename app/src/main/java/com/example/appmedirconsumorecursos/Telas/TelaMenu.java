@@ -97,7 +97,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 			listEntDom = resultado.getEntidades();
 			if(listEntDom != null) // Achou algum registro?
 			{
-
+				// erro neste php
 				gastoHoje = (GastoHoje) listEntDom.get(0);
 				if(idRecurso == 1) // agua?
 				{
@@ -119,8 +119,8 @@ public class TelaMenu extends Activity implements OnClickListener {
 				gastoAtual = (GastoAtual) listEntDom.get(0);
 				if(idRecurso == 1) // agua?
 				{
-					txtGastoHj.setText(String.valueOf(gastoHoje.getNrMetroCubicoAgua()));
-					txtValorGastoHj.setText(String.valueOf(gastoHoje.getVlrGastoAgua()));
+					txtGastoAtual.setText(String.valueOf(gastoAtual.getNrMetroCubicoAgua()));
+					txtValorGastoAtual.setText(String.valueOf(gastoAtual.getVlrGastoAgua()));
 				}
 				if(idRecurso == 2)  // luz?
 				{

@@ -43,7 +43,7 @@ public class GastoHojeDAO extends AbstractJdbcDAO {
         JSONObject jo = new JSONObject();
 
         try {
-            String query = "SELECT * FROM tb_gasto_atual WHERE 1 = 1";
+            String query = "SELECT * FROM " + GastoHoje.DF_NOME_TABELA + " WHERE 1 = 1";
             if(gastoHoje.getCdResidencia() != null)
                 query += " AND cd_residencia = " + String.valueOf(gastoHoje.getCdResidencia());
 //
