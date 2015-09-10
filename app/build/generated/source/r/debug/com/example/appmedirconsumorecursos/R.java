@@ -41,6 +41,7 @@ public final class R {
         public static final int gastoHj=0x7f080007;
         public static final int imgRecurso=0x7f080000;
         public static final int mediaFinal=0x7f080012;
+        public static final int menu_logoff=0x7f08001e;
         public static final int mes=0x7f080003;
         public static final int spAno1=0x7f080006;
         public static final int spMes=0x7f080004;
@@ -82,20 +83,21 @@ public final class R {
         public static final int hello_world=0x7f06000c;
         public static final int historico=0x7f06000d;
         public static final int login=0x7f06000e;
-        public static final int luz=0x7f06000f;
-        public static final int mes=0x7f060010;
-        public static final int mesPassado=0x7f060011;
-        public static final int na=0x7f060012;
-        public static final int residencia=0x7f060013;
-        public static final int rs=0x7f060014;
-        public static final int senha=0x7f060015;
-        public static final int title_activity_tela_de_estatisticas=0x7f060016;
-        public static final int title_activity_tela_login=0x7f060017;
-        public static final int title_activity_tela_menu=0x7f060018;
-        public static final int title_activity_tela_principal_agua=0x7f060019;
-        public static final int title_activity_tela_principal_luz=0x7f06001a;
-        public static final int valorAtual=0x7f06001b;
-        public static final int zero=0x7f06001c;
+        public static final int logoff=0x7f06000f;
+        public static final int luz=0x7f060010;
+        public static final int mes=0x7f060011;
+        public static final int mesPassado=0x7f060012;
+        public static final int na=0x7f060013;
+        public static final int residencia=0x7f060014;
+        public static final int rs=0x7f060015;
+        public static final int senha=0x7f060016;
+        public static final int title_activity_tela_de_estatisticas=0x7f060017;
+        public static final int title_activity_tela_login=0x7f060018;
+        public static final int title_activity_tela_menu=0x7f060019;
+        public static final int title_activity_tela_principal_agua=0x7f06001a;
+        public static final int title_activity_tela_principal_luz=0x7f06001b;
+        public static final int valorAtual=0x7f06001c;
+        public static final int zero=0x7f06001d;
     }
     public static final class style {
         /**  API 11 theme customizations can go here. 

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -38,7 +39,24 @@ public class TelaPrincipal extends Activity implements OnClickListener {
 		getMenuInflater().inflate(R.menu.tela_principal, menu);
 		return true;
 	}
-
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case id.menu_logoff:
+				Intent intent = new Intent();
+				intent.setClass(TelaPrincipal.this, TelaLogin.class);
+				intent.putExtra("logoff", "1");
+				startActivity(intent);
+				finish();
+//				Toast.makeText(this, "MENU EDIT", Toast.LENGTH_LONG).show();
+//				return true;
+//			case R.id.menu_delete:
+//				Toast.makeText(this, "MENU DELETE", Toast.LENGTH_LONG).show();
+//				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub

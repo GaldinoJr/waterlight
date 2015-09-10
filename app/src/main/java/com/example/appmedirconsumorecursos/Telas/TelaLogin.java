@@ -30,6 +30,7 @@ public class TelaLogin extends Activity implements View.OnClickListener {
     private EditText edtLogin,
              edtSenha;
     private Button btnLogin;
+    private Intent dados;
 
     private List<EntidadeDominio> listEntDom;
     private Resultado resultado;
@@ -41,6 +42,8 @@ public class TelaLogin extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_login);
+        //
+        String logoff = null;
         // region vincula��o de componentes
         edtLogin = (EditText)findViewById(R.id.edtLogin);
         edtSenha = (EditText)findViewById(R.id.edtSenha);
@@ -48,6 +51,9 @@ public class TelaLogin extends Activity implements View.OnClickListener {
         cbLogarAutomaticamente = (CheckBox)findViewById(R.id.cbLogarAutomaticamente);
         // indica que o botao pode ser clicacdo
         btnLogin.setOnClickListener(this);
+        //
+        dados = getIntent(); // Recebe os dados da tela anterior
+        logoff = dados.getStringExtra("logoff");
         //
         // Verifica se o usuário já foi gravado no banco interno
         instanciarClasses(true); // consulta no banco interno
@@ -65,7 +71,7 @@ public class TelaLogin extends Activity implements View.OnClickListener {
             if(listEntDom != null) // Achou alguma casa cadastrada na config do sitema?
             {
                 configSistema = (ConfiguracaoSistema)listEntDom.get(0);
-                if(configSistema.getFgLogarAutomaticamente() == 1) // Vai logar automaticamente?
+                if(configSistema.getFgLogarAutomaticamente() == 1 && logoff == null) // Vai logar automaticamente?
                 { // sim
                     Toast.makeText(TelaLogin.this, "Bem vindo ao monitoramento da residencia: " + session.getResidencia().getNome(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent();

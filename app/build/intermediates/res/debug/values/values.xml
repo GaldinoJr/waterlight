@@ -22,6 +22,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="historico">Histórico</string>
     <string name="login">Login</string>
+    <string name="logoff">Logoff</string>
     <string name="luz">Luz</string>
     <string name="mes">Mes</string>
     <string name="mesPassado">Mês passado</string>
