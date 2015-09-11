@@ -41,18 +41,21 @@ public class TelaPrincipal extends Activity implements OnClickListener {
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
 		switch (item.getItemId()) {
 			case id.menu_logoff:
-				Intent intent = new Intent();
+				intent = new Intent();
 				intent.setClass(TelaPrincipal.this, TelaLogin.class);
 				intent.putExtra("logoff", "1");
 				startActivity(intent);
 				finish();
 //				Toast.makeText(this, "MENU EDIT", Toast.LENGTH_LONG).show();
 //				return true;
-//			case R.id.menu_delete:
-//				Toast.makeText(this, "MENU DELETE", Toast.LENGTH_LONG).show();
-//				return true;
+			case id.menu_configuracao:
+				intent = new Intent();
+				intent.setClass(TelaPrincipal.this, Tela_configuracao_aplicativo.class);
+				startActivity(intent);
+				finish();
 			default:
 				return super.onOptionsItemSelected(item);
 		}

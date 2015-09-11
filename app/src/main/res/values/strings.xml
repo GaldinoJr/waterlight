@@ -31,4 +31,8 @@
     <string name="senha">Senha</string>
     <string name="residencia">Residencia</string>
     <string name="logoff">Logoff</string>
+    <string name="config">Configurações</string>
+    <string name="title_activity_tela_configuracao_sistema">Tela_configuracao_sistema</string>
+    <string name="tipoAtualizacao">Atualizar os dados de consumo uma vez por:</string>
+    <string name="title_activity_tela_configuracao_aplicativo">Tela_configuracao_aplicativo</string>
 </resources>

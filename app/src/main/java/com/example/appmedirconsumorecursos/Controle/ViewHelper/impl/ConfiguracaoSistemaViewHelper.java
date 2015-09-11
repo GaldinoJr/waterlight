@@ -20,6 +20,7 @@ public class ConfiguracaoSistemaViewHelper implements IViewHelper {
             configSistema = new ConfiguracaoSistema();
             configSistema.setId((String) request.get(configSistema.DF_ID));
             configSistema.setFgLogarAutomaticamente(Integer.parseInt((String) request.get(configSistema.DF_FG_LOGAR_AUTOMATICAMENTE)));
+            configSistema.setIndTipoAtualizacao(Integer.parseInt((String) request.get(configSistema.DF_IND_TIPO_ATUALIZACAO)));
             return configSistema;
         }
         catch (Exception e)

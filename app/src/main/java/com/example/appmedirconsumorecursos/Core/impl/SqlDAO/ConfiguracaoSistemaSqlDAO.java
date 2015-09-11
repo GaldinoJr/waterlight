@@ -18,9 +18,10 @@ import java.util.Map;
 public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
     private static final String Col_cd_residencia = "cd_residencia";
     private static final String Col_fg_logar_automaticamente = "fg_logar_automaticamente";
+    private static final String Col_ind_tipo_atualizacao = "ind_tipo_atualizacao";
 
-    private static final String[] colunas = { Col_fg_logar_automaticamente };
-    private static final String[] colunasBusca = {Col_cd_residencia, Col_fg_logar_automaticamente };
+    private static final String[] colunas = { Col_fg_logar_automaticamente, Col_ind_tipo_atualizacao};
+    private static final String[] colunasBusca = {Col_cd_residencia, Col_fg_logar_automaticamente,Col_ind_tipo_atualizacao};
     private SQL db;
     private Map<String, String> mapGeral;
     private List<EntidadeDominio> listGeral;
@@ -38,7 +39,8 @@ public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
         nm_tabela = "tb_configuracao_sistema";
         sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nm_tabela+ "( " +
                 Col_cd_residencia + " INTEGER PRIMARY KEY, " +
-                Col_fg_logar_automaticamente + " INTEGER );";
+                Col_fg_logar_automaticamente + " INTEGER, " +
+                Col_ind_tipo_atualizacao + " INTEGER);";
     }
 
     @Override
@@ -47,6 +49,7 @@ public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
         configSistema =  (ConfiguracaoSistema)entidade;
         try {
             mapGeral.put(Col_fg_logar_automaticamente, String.valueOf(configSistema.getFgLogarAutomaticamente()));
+            mapGeral.put(Col_ind_tipo_atualizacao, String.valueOf(configSistema.getIndTipoAtualizacao()));
             db.addRegistro(mapGeral);
         }
         catch(Exception e)
@@ -63,6 +66,7 @@ public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
             int i;
             mapGeral = new HashMap<String, String>();
             mapGeral.put(Col_fg_logar_automaticamente, String.valueOf(configSistema.getFgLogarAutomaticamente()));
+            mapGeral.put(Col_ind_tipo_atualizacao, String.valueOf(configSistema.getIndTipoAtualizacao()));
             i = db.alterarRegistro(mapGeral,Col_cd_residencia, configSistema.getId());
 
         }
@@ -98,6 +102,7 @@ public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
                 // ******************* TEM QUE SER A MESMA SEQUENCIA DA LISTA(colunasBusca)***********************
                 g.setId(listMapGeral.get(i).get("cd_residencia"));
                 g.setFgLogarAutomaticamente(Integer.parseInt(listMapGeral.get(i).get("fg_logar_automaticamente")));
+                g.setIndTipoAtualizacao(Integer.parseInt(listMapGeral.get(i).get(Col_ind_tipo_atualizacao)));
                 listGeral.add(g);
             }
             if(listGeral.size() > 0)

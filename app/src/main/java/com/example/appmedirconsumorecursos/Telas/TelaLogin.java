@@ -63,7 +63,7 @@ public class TelaLogin extends Activity implements View.OnClickListener {
         if(listEntDom != null) // Achou alguma casa cadastrada com o login e senha digitado?
         {
             session.setResidencia((Residencia) listEntDom.get(0));
-            instanciarClasses(true);
+            instanciarClasses(true); // consulta no banco interno
             configSistema.setId(session.getResidencia().getId());
             configSistema.popularMap(configSistema,"consultar", ConfiguracaoSistema.class.getName());
             resultado = servlet.doPost(configSistema.getMap());
