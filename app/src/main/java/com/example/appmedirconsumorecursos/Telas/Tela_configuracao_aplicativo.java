@@ -1,6 +1,7 @@
 package com.example.appmedirconsumorecursos.Telas;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.example.appmedirconsumorecursos.Controle.Servlet.Servlet;
 import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
+import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
 import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.Residencia;
@@ -27,22 +29,31 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
                         rbDia,
                         rbMes;
     private Button btnSalvarConfigApp;
-
-    private Servlet servlet;
+    //
     private Session session;
-    private List<EntidadeDominio> listEntDom;
-    private Resultado resultado;
     private ConfiguracaoSistema configSistema;
+    private List<EntidadeDominio> listEntDom;
+    //
+    private int indTipoAtualizacao;
+    private Context contextTelaParaVoltar;
+    private Intent dados;
+    private AbsRecurso absRecurso;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_configuracao_aplicativo);
+        //
+        session = Session.getInstance();
         //
         rbHora = (RadioButton)findViewById(R.id.rbHora);
         rbDia = (RadioButton)findViewById(R.id.rbDia);
         rbMes = (RadioButton)findViewById(R.id.rbMes);
         btnSalvarConfigApp = (Button)findViewById(R.id.btnSalvarConfiguracao);
         btnSalvarConfigApp.setOnClickListener(this);
+        contextTelaParaVoltar = session.getContext();
+        dados = getIntent(); // Recebe os dados da tela anterior
+
         //
         /*
         final RadioGroup radioGroupTipoAtualizacao = (RadioGroup)findViewById(R.id.rgTipoAtualizacao);
@@ -57,6 +68,21 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
                     Toast.makeText(Tela_configuracao_aplicativo.this, "Mêsid: "+id, Toast.LENGTH_LONG).show();
             } });
         */
+        configSistema = session.getConfiguracaoSistema();
+        indTipoAtualizacao = configSistema.getIndTipoAtualizacao();
+        switch(indTipoAtualizacao) {
+            case 1:
+                rbHora.setChecked(true);
+                break;
+            case 2:
+                rbDia.setChecked(true);
+                break;
+            case 3:
+                rbMes.setChecked(true);
+                break;
+            default:
+                break;
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,7 +112,7 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
         {
             final RadioGroup radioGroupTipoAtualizacao = (RadioGroup)findViewById(R.id.rgTipoAtualizacao);
             int idRadioButton = radioGroupTipoAtualizacao.getCheckedRadioButtonId();
-            int indTipoAtualizacao = 0;
+            indTipoAtualizacao = 0;
             if(idRadioButton == R.id.rbHora)
                 indTipoAtualizacao = 1;
             else if(idRadioButton==R.id.rbDia)
@@ -94,20 +120,12 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
             else if(idRadioButton==R.id.rbMes)
                 indTipoAtualizacao = 3;
 
-            instanciarClasses(true); // consulta no banco interno
-            configSistema = new ConfiguracaoSistema();
-            configSistema.setId(session.getResidencia().getId());
-            configSistema.popularMap(configSistema, "consultar", ConfiguracaoSistema.class.getName());
-            resultado = servlet.doPost(configSistema.getMap());
-            listEntDom = resultado.getEntidades();
-            if(listEntDom != null) // Achou alguma casa cadastrada na config do sitema?
+            session = Session.getInstance();
+            configSistema = session.getConfiguracaoSistema();
+            if(configSistema != null) // Achou alguma casa cadastrada na config do sitema?
             {
-                configSistema = (ConfiguracaoSistema) listEntDom.get(0);
-
-                instanciarClasses(true); // operação no banco
                 configSistema.setIndTipoAtualizacao(indTipoAtualizacao);
-                configSistema.popularMap(configSistema, "alterar", ConfiguracaoSistema.class.getName());
-                resultado = servlet.doPost(configSistema.getMap());
+                listEntDom = configSistema.operar(this,true,Servlet.DF_ALTERAR);
                 Toast.makeText(Tela_configuracao_aplicativo.this, "Configurações gravadas com sucesso", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
                 intent.setClass(Tela_configuracao_aplicativo.this, TelaPrincipal.class);
@@ -116,15 +134,17 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
             }
         }
     }
-    private void instanciarClasses(boolean fgSql)
-    {
-        session = Session.getInstance();
-        if(fgSql)
-            session.setContext(this);
-        else
-            session.setContext(null);
-        listEntDom = new LinkedList<EntidadeDominio>();
-        resultado = new Resultado();
-        servlet = new Servlet();
+    public void onBackPressed() // precionou o voltar do telefone?
+    { // Sim, volta para a p?gina anterior
+        Intent intent = new Intent();
+        // Volta para a tela que fez a solicitação
+        intent.setClass(Tela_configuracao_aplicativo.this, contextTelaParaVoltar.getClass());
+        if(contextTelaParaVoltar.getClass() == TelaMenu.class)
+        {
+            absRecurso = (AbsRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
+            intent.putExtra("absClasse", absRecurso);
+        }
+        startActivity(intent); // chama a pr?xima tela
+        finish();
     }
 }

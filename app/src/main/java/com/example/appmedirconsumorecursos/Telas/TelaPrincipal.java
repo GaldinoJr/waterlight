@@ -1,7 +1,11 @@
 package com.example.appmedirconsumorecursos.Telas;
 
+import com.example.appmedirconsumorecursos.Controle.Servlet.Servlet;
+import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
 import com.example.appmedirconsumorecursos.Dominio.Agua;
+import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
+import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.Luz;
 import com.example.appmedirconsumorecursos.R;
 import com.example.appmedirconsumorecursos.R.id;
@@ -15,11 +19,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import java.util.List;
+
 public class TelaPrincipal extends Activity implements OnClickListener {
 	private Button btnAgua, 
 				   btnLuz;
+	//
+	private Session session;
+	private ConfiguracaoSistema configSistema;
+	private List<EntidadeDominio> listEntDom;
+	//
 	private AbsRecurso absRecurso;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,20 +52,27 @@ public class TelaPrincipal extends Activity implements OnClickListener {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent;
+		session = Session.getInstance();
 		switch (item.getItemId()) {
 			case id.menu_logoff:
+				configSistema = session.getConfiguracaoSistema();
+				configSistema.setFgLogarAutomaticamente(0);
+				listEntDom = configSistema.operar(this, true, Servlet.DF_ALTERAR);
+				//
 				intent = new Intent();
 				intent.setClass(TelaPrincipal.this, TelaLogin.class);
 				intent.putExtra("logoff", "1");
 				startActivity(intent);
 				finish();
 //				Toast.makeText(this, "MENU EDIT", Toast.LENGTH_LONG).show();
-//				return true;
+				return true;
 			case id.menu_configuracao:
+				session.setContext(this);
 				intent = new Intent();
 				intent.setClass(TelaPrincipal.this, Tela_configuracao_aplicativo.class);
 				startActivity(intent);
 				finish();
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}

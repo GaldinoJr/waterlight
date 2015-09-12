@@ -1,6 +1,14 @@
 package com.example.appmedirconsumorecursos.Dominio;
 
+import android.content.Context;
+
+import com.example.appmedirconsumorecursos.Controle.Servlet.Servlet;
+import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
+import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
+
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,15 +45,31 @@ public class ConfiguracaoSistema extends EntidadeDominio{
         return fg_logar_automaticamente;
     }
 
-    public void popularMap(EntidadeDominio entidadeDominio,String acao, String nomeClasse)
+    private void popularMap(String acao)
     {
-        ConfiguracaoSistema configSistema = (ConfiguracaoSistema)entidadeDominio;
         map = new HashMap<String, String>();
-        map.put(DF_ID, configSistema.getId());
-        map.put(DF_FG_LOGAR_AUTOMATICAMENTE,String.valueOf(configSistema.getFgLogarAutomaticamente()));
-        map.put(DF_IND_TIPO_ATUALIZACAO,String.valueOf(configSistema.getIndTipoAtualizacao()));
+        map.put(DF_ID,id);
+        map.put(DF_FG_LOGAR_AUTOMATICAMENTE,String.valueOf(fg_logar_automaticamente));
+        map.put(DF_IND_TIPO_ATUALIZACAO,String.valueOf(indTipoAtualizacao));
         map.put("operacao", acao);          // indica a operação que está sendo realizada
-        map.put("classe", nomeClasse);
+        map.put("classe",  ConfiguracaoSistema.class.getName());
+    }
+
+    public List<EntidadeDominio> operar(Context context, boolean fgSql, String operacao)
+    {
+        Session session = Session.getInstance();
+        if (fgSql)
+            session.setContext(context);
+        else
+            session.setContext(null);
+        //
+        Servlet servlet = new Servlet();
+        List<EntidadeDominio> list = new LinkedList<EntidadeDominio>();
+        popularMap(operacao);
+       // popularMap(configuracaoSistema, Servlet.DF_CONSULTAR, ConfiguracaoSistema.class.getName());
+        Resultado resultado = servlet.doPost(map);
+        list = resultado.getEntidades();
+        return list;
     }
 
 }

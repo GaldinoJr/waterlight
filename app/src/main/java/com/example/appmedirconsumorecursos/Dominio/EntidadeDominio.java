@@ -28,7 +28,7 @@ public class EntidadeDominio implements IEntidade{
         return map;
     }
 
-    public void popularMap(EntidadeDominio entidadeDominio, String acao, String nomeClasse) {
+    protected void popularMap(EntidadeDominio entidadeDominio, String acao, String nomeClasse) {
 
     }
 }

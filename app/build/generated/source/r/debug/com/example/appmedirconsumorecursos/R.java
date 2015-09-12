@@ -43,8 +43,9 @@ public final class R {
         public static final int gastoHj=0x7f08000d;
         public static final int imgRecurso=0x7f080006;
         public static final int mediaFinal=0x7f080018;
-        public static final int menu_configuracao=0x7f080024;
-        public static final int menu_logoff=0x7f080025;
+        public static final int menu_configuracao=0x7f080025;
+        public static final int menu_configuracao_tela_menu=0x7f080024;
+        public static final int menu_logoff=0x7f080026;
         public static final int mes=0x7f080009;
         public static final int rbDia=0x7f080003;
         public static final int rbHora=0x7f080002;

@@ -29,6 +29,11 @@ import java.util.Map;
  */
 public class Servlet {
     private static final long serialVersionUID = 1L;
+    public static final String DF_SALVAR = "salvar";
+    public static final String DF_CONSULTAR = "consultar";
+    public static final String DF_ALTERAR = "alterar";
+    public static final String DF_EXCLUIR = "excluir";
+
 
     private static Map<String, ICommand> commands;
     private static Map<String, IViewHelper> vhs;
@@ -37,10 +42,10 @@ public class Servlet {
         commands = new HashMap<String, ICommand>();
         // CADASTRA OS COMANDOS
 
-        commands.put("salvar",  new SalvarCommand());
-        commands.put("excluir", new ExcluirCommand());
-        commands.put("consultar", new ConsultarCommand());
-        commands.put("alterar", new AlterarCommand());
+        commands.put(DF_SALVAR,  new SalvarCommand());
+        commands.put(DF_EXCLUIR, new ExcluirCommand());
+        commands.put(DF_CONSULTAR, new ConsultarCommand());
+        commands.put(DF_ALTERAR, new AlterarCommand());
 
         vhs = new HashMap<String, IViewHelper>();
         //CADASTRA AS CLASSES ************

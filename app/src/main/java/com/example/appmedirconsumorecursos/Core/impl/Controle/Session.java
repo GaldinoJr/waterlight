@@ -2,6 +2,7 @@ package com.example.appmedirconsumorecursos.Core.impl.Controle;
 
 import android.content.Context;
 
+import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
 import com.example.appmedirconsumorecursos.Dominio.Residencia;
 
 /**
@@ -11,8 +12,9 @@ import com.example.appmedirconsumorecursos.Dominio.Residencia;
 public class Session {
     // padrão design pattern: singleton.
     private static Session session;
-    private static Context context;
+    private static Context context; //Para dizer na FACHADA se é uma requisição interna ou externa
     private Residencia residencia;
+    private ConfiguracaoSistema configuracaoSistema;
 
     // Construtor privado (suprime o construtor público padrão).
     private Session() {}
@@ -34,6 +36,10 @@ public class Session {
         return residencia;
     }
 
+    public ConfiguracaoSistema getConfiguracaoSistema() {
+        return configuracaoSistema;
+    }
+
     // sets
 
     public void setResidencia(Residencia residencia) {
@@ -42,5 +48,9 @@ public class Session {
 
     public void setContext(Context context) {
         this.context = context;
+    }
+
+    public void setConfiguracaoSistema(ConfiguracaoSistema configuracaoSistema) {
+        this.configuracaoSistema = configuracaoSistema;
     }
 }

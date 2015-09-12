@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -49,6 +50,23 @@ public class TelaMenu extends Activity implements OnClickListener {
 	private ConfiguracaoSistema configSistema;
 	//
 	private Integer idRecurso;
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
+		session = Session.getInstance();
+		switch (item.getItemId()) {
+			case id.menu_configuracao_tela_menu:
+				session.setContext(this);
+				intent = new Intent();
+				intent.setClass(TelaMenu.this, Tela_configuracao_aplicativo.class);
+				intent.putExtra("absClasse", absRecurso);
+				startActivity(intent);
+				finish();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -141,12 +159,12 @@ public class TelaMenu extends Activity implements OnClickListener {
 	}
 
 	public void onBackPressed() // precionou o voltar do telefone?
-	{ // Sim, volta para a página anterior 
+	{ // Sim, volta para a pï¿½gina anterior 
 		Intent intent = new Intent();
-        // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
+        // Para chamar a prï¿½xima tela tem que dizer qual e a tela atual, e dpois a prï¿½xima tela( a que vai ser chamada)
         intent.setClass(TelaMenu.this, TelaPrincipal.class);
         intent.putExtra("absClasse", absRecurso);
-		startActivity(intent); // chama a próxima tela
+		startActivity(intent); // chama a prï¿½xima tela
         finish();
 	}
 	private void instanciarClasses(boolean fgSql)

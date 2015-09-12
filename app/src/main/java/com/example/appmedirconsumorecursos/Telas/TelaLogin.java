@@ -63,14 +63,14 @@ public class TelaLogin extends Activity implements View.OnClickListener {
         if(listEntDom != null) // Achou alguma casa cadastrada com o login e senha digitado?
         {
             session.setResidencia((Residencia) listEntDom.get(0));
-            instanciarClasses(true); // consulta no banco interno
+
+            configSistema = new ConfiguracaoSistema();
             configSistema.setId(session.getResidencia().getId());
-            configSistema.popularMap(configSistema,"consultar", ConfiguracaoSistema.class.getName());
-            resultado = servlet.doPost(configSistema.getMap());
-            listEntDom = resultado.getEntidades();
+            listEntDom = configSistema.operar(this, true, Servlet.DF_CONSULTAR);
             if(listEntDom != null) // Achou alguma casa cadastrada na config do sitema?
             {
                 configSistema = (ConfiguracaoSistema)listEntDom.get(0);
+                session.setConfiguracaoSistema(configSistema);
                 if(configSistema.getFgLogarAutomaticamente() == 1 && logoff == null) // Vai logar automaticamente?
                 { // sim
                     Toast.makeText(TelaLogin.this, "Bem vindo ao monitoramento da residencia: " + session.getResidencia().getNome(), Toast.LENGTH_LONG).show();
@@ -152,31 +152,28 @@ public class TelaLogin extends Activity implements View.OnClickListener {
             }
             // Verificar se vai logar automaticamente
             // Consulta
-            instanciarClasses(true); // operação no banco
-            configSistema.setId(session.getResidencia().getId()); // grava o ID na config
-            configSistema.popularMap(configSistema, "consultar", ConfiguracaoSistema.class.getName());
-            resultado = servlet.doPost(configSistema.getMap());
-            listEntDom = resultado.getEntidades();
+            configSistema = new ConfiguracaoSistema();
+            configSistema.setId(session.getResidencia().getId());
+            listEntDom = configSistema.operar(this, true, Servlet.DF_CONSULTAR);
             // altera
             int chkLogar = cbLogarAutomaticamente.isChecked() ? 1 : 0;
             if (listEntDom != null) // Achou registro?
             {
+                configSistema = (ConfiguracaoSistema)listEntDom.get(0);
+                session.setConfiguracaoSistema(configSistema);
                 if (configSistema.getFgLogarAutomaticamente() != chkLogar) // é diferente do cadastrado no banco?
                 {// então atualiza
-                    instanciarClasses(true); // operação no banco
                     configSistema.setId(session.getResidencia().getId()); // grava o ID na config
                     configSistema.setFgLogarAutomaticamente(chkLogar);
-                    configSistema.popularMap(configSistema, "alterar", ConfiguracaoSistema.class.getName());
-                    resultado = servlet.doPost(configSistema.getMap());
+                    listEntDom = configSistema.operar(this,true,Servlet.DF_ALTERAR);
                 }
             }
             // inclui
             else {
-                instanciarClasses(true); // operação no banco
+                configSistema = new ConfiguracaoSistema();
                 configSistema.setId(session.getResidencia().getId()); // grava o ID na config
                 configSistema.setFgLogarAutomaticamente(chkLogar);
-                configSistema.popularMap(configSistema, "salvar", ConfiguracaoSistema.class.getName());
-                resultado = servlet.doPost(configSistema.getMap());
+                listEntDom = configSistema.operar(this, true, Servlet.DF_SALVAR);
             }
             if (resultado.getMsg() != null) {
                 Toast.makeText(TelaLogin.this, "Erro ao cadastrar as configurações do aplicativo, favor contatar o suporte.", Toast.LENGTH_LONG).show();
@@ -190,6 +187,7 @@ public class TelaLogin extends Activity implements View.OnClickListener {
             finish();
         }
     }
+
     private void instanciarClasses(boolean fgSql)
     {
         session = Session.getInstance();
@@ -201,6 +199,5 @@ public class TelaLogin extends Activity implements View.OnClickListener {
         resultado = new Resultado();
         residencia = new Residencia();
         servlet = new Servlet();
-        configSistema = new ConfiguracaoSistema();
     }
 }
