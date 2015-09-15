@@ -7,6 +7,7 @@ import com.example.appmedirconsumorecursos.Core.IStrategy;
 import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.AguaDAO;
 import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.GastoAtualDAO;
 import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.GastoHojeDAO;
+import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.GastoMesDAO;
 import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.LuzDAO;
 import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.ResidenciaServerDAO;
 import com.example.appmedirconsumorecursos.Core.impl.SqlDAO.ConfiguracaoSistemaSqlDAO;
@@ -16,6 +17,7 @@ import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
 import com.example.appmedirconsumorecursos.Dominio.GastoAtual;
 import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
+import com.example.appmedirconsumorecursos.Dominio.GastoMes;
 import com.example.appmedirconsumorecursos.Dominio.Luz;
 import com.example.appmedirconsumorecursos.Dominio.Residencia;
 
@@ -47,12 +49,14 @@ public class Fachada  implements IFachada {
             ResidenciaServerDAO residenciaServerDAO = new ResidenciaServerDAO();
             GastoHojeDAO gastoHojeDAO = new GastoHojeDAO();
             GastoAtualDAO gastoAtualDAO = new GastoAtualDAO();
+            GastoMesDAO gastoMesDAO = new GastoMesDAO();
             /***************ADD AS CLASSES DAO CORRESPONDENTES AS CLASSES CONCRETAS ******/
             daos.put(Luz.class.getName(), luzDAO);
             daos.put(Agua.class.getName(), aguaDAO);
             daos.put(Residencia.class.getName(), residenciaServerDAO);
             daos.put(GastoHoje.class.getName(),gastoHojeDAO);
             daos.put(GastoAtual.class.getName(), gastoAtualDAO);
+            daos.put(GastoMes.class.getName(), gastoMesDAO);
         }
         else// Banco interno
         {
