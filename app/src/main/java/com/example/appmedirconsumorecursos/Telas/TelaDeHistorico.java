@@ -13,9 +13,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.appmedirconsumorecursos.Controle.Servlet.Servlet;
+import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
+import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
+import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
+import com.example.appmedirconsumorecursos.Dominio.GastoMes;
 import com.example.appmedirconsumorecursos.R;
 import com.example.appmedirconsumorecursos.R.id;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class TelaDeHistorico extends Activity {
 
@@ -33,13 +42,20 @@ public class TelaDeHistorico extends Activity {
 	private ArrayAdapter<String> aaMes;
 	ArrayAdapter<Integer> aaAno;
 	private String[] vetSmes = {"",
-			"Janeiro" , "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", 
+			"Janeiro" , "Fevereiro", "Marï¿½o", "Abril", "Maio", "Junho", "Julho", 
 			"Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 	private Integer[] vetNano;
 	private ImageView imgRecurso;
 	private Intent dados;
 	private AbsRecurso absRecurso;
-	
+	private Integer idRecurso;
+	// sempre usar com requisiï¿½ï¿½es
+	private Session session;
+	private List<EntidadeDominio> listEntDom;
+
+	//
+	private GastoMes gastoMes;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		int i, j = 2015;
@@ -63,6 +79,7 @@ public class TelaDeHistorico extends Activity {
 		absRecurso = (AbsRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
 		txtNomeRecurso.setText(absRecurso.getNome()); // Recebe o nome do recurso e manda pra tela
 		imgRecurso.setImageResource(absRecurso.getIdIcone()); // Recebe o id da imagem e manda pra tela
+		idRecurso = Integer.parseInt(absRecurso.getIdRecurso());
 		//
 		vetNano = new Integer[985];
 		for(i= 0; i < 985; i++, j++) // Devagar??? usar banco
@@ -74,7 +91,9 @@ public class TelaDeHistorico extends Activity {
 		spMes.setAdapter(aaMes);
 		spAno.setAdapter(aaAno);
 		//
-		// Quando selecionar um item da lista de MESES do SPINNER 
+		// Quando selecionar um item da lista de MESES do SPINNER
+		session = Session.getInstance();
+		session.setContext(this);
 		spMes.setOnItemSelectedListener(new  OnItemSelectedListener() 
 		{ 
             public  void  onItemSelected(AdapterView<?> parent, View view, int  position, long  id) 
@@ -82,10 +101,40 @@ public class TelaDeHistorico extends Activity {
             	// Verificar se selecionou algo
             	//if(position == 1)  // Selecionou o primeiro item da lista?(janeiro)
             	//{
-            	if(teste !=0)
-            		Toast.makeText(TelaDeHistorico.this, "posição: " + position + " \nnome: " + spMes.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-            	else
-            		teste++;
+            	if(teste !=0) {
+					Toast.makeText(TelaDeHistorico.this, "posiï¿½ï¿½o: " + position + " \nnome: " + spMes.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+					gastoMes = new GastoMes();
+					try{
+						gastoMes.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
+						String data = "01/"+position+"/2015";
+						gastoMes.setSdt_inclusao(data);
+						listEntDom = gastoMes.operar(session.getContext(),false, Servlet.DF_CONSULTAR);
+						if(listEntDom != null)
+						{
+							gastoMes = (GastoMes)listEntDom.get(0);
+							if(idRecurso == 1) // agua?
+							{
+								txtGastoHj.setText(String.valueOf(gastoMes.getNrMetroCubicoAgua()));
+								txtRsGastoHj.setText(String.valueOf(gastoMes.getVlrGastoAgua()));
+							}
+							if(idRecurso == 2 ) // luz?
+							{
+								txtGastoHj.setText(String.valueOf(gastoMes.getNrWatts()));
+								txtRsGastoHj.setText(String.valueOf(gastoMes.getVlrGastLuz()));
+							}
+						}
+						else
+							Toast.makeText(TelaDeHistorico.this, "Mï¿½s de " + spMes.getSelectedItem().toString() + " nï¿½o contem registros.", Toast.LENGTH_SHORT).show();
+					}
+					catch (Exception e)
+					{
+						Toast.makeText(TelaDeHistorico.this, "ERROR: #1", Toast.LENGTH_SHORT).show();
+					}
+				}
+            	else {
+					teste++;
+
+				}
             		// spGrupo.getSelectedItem().toString(); ********************pegar o conteudo em texto do spinner
             		//spNomes.setAdapter((SpinnerAdapter) aExPeito);
             		//spNomes.setAdapter(aExPeito); // Devolve a lista de exercicios de peito
@@ -105,7 +154,7 @@ public class TelaDeHistorico extends Activity {
             	// Verificar se selecionou algo
             	if(teste2 !=0)
             		// carregar o primeiro com o ano corrente(2015)
-            		Toast.makeText(TelaDeHistorico.this, "posição: " + position + " \nnome: " + spAno.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+            		Toast.makeText(TelaDeHistorico.this, "posiï¿½ï¿½o: " + position + " \nnome: " + spAno.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
             	else 
             		teste2++;
         		// spGrupo.getSelectedItem().toString(); ********************pegar o conteudo em texto do spinner
@@ -129,12 +178,13 @@ public class TelaDeHistorico extends Activity {
 	}
 
 	public void onBackPressed() // precionou o voltar do telefone?
-	{ // Sim, volta para a página anterior 
+	{ // Sim, volta para a pï¿½gina anterior 
 		Intent intent = new Intent();
-        // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
-        intent.setClass(TelaDeHistorico.this, TelaMenu.class);
-        intent.putExtra("absClasse", absRecurso);
-		startActivity(intent); // chama a próxima tela
-        finish();
+		// Para chamar a prï¿½xima tela tem que dizer qual e a tela atual, e dpois a prï¿½xima tela( a que vai ser chamada)
+		intent.setClass(TelaDeHistorico.this, TelaMenu.class);
+		intent.putExtra("absClasse", absRecurso);
+		startActivity(intent); // chama a prï¿½xima tela
+		finish();
 	}
+
 }

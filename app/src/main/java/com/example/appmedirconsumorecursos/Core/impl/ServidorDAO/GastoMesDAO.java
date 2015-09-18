@@ -44,10 +44,9 @@ public class GastoMesDAO extends AbstractJdbcDAO {
             if(gastoMes.getCdResidencia() != null)
                 query += " AND cd_residencia = " + String.valueOf(gastoMes.getCdResidencia());
 //
-//            if(!TextUtils.isEmpty(residencia.getNome()))
-//                query += " AND ds_nome = '" + residencia.getNome() +"'";
+            if(gastoMes.getSdt_inclusao() != null)
+               query += " AND dt_inclusao = STR_TO_DATE( '" + gastoMes.getSdt_inclusao()+"' ,'%d/%m/%Y')";
 
-            query += " LIMIT 1;";
             //
             jo.put("query", query);
             String json = jo.toString();
@@ -67,6 +66,7 @@ public class GastoMesDAO extends AbstractJdbcDAO {
                 g.setNrWatts(jsonObject.getDouble(g.DF_nrWatts));
                 g.setNrMetroCubicoAgua(jsonObject.getDouble(g.DF_nrMetroCubicoAgua));
                 g.setDtInclusao(fomatarData(jsonObject.getString(g.DF_dt_inclusao)));
+                g.setSdt_inclusao(jsonObject.getString(g.DF_dt_inclusao));
                 g.setCdResidencia(jsonObject.getInt(g.DF_cdResidencia));
                 listResidencias.add(g);
             }

@@ -36,8 +36,14 @@ public class GastoMes extends EntidadeDominio {
 
     private Integer cdResidencia;
 
+    private String sdt_inclusao;
+
     // SETS
 
+
+    public void setSdt_inclusao(String sdt_inclusao) {
+        this.sdt_inclusao = sdt_inclusao;
+    }
 
     public void setDtInclusao(Date dtInclusao) {
         this.dtInclusao = dtInclusao;
@@ -65,6 +71,10 @@ public class GastoMes extends EntidadeDominio {
 
     // GETS
 
+
+    public String getSdt_inclusao() {
+        return sdt_inclusao;
+    }
 
     public Date getDtInclusao() {
         return dtInclusao;
@@ -97,7 +107,7 @@ public class GastoMes extends EntidadeDominio {
         map.put(DF_vlrGastLuz,String.valueOf(vlrGastLuz));
         map.put(DF_nrWatts, String.valueOf(nrWatts));
         map.put(DF_nrMetroCubicoAgua, String.valueOf(nrMetroCubicoAgua));
-        map.put(DF_dt_inclusao, String.valueOf(dtInclusao));
+        map.put(DF_dt_inclusao,sdt_inclusao);
         map.put(DF_cdResidencia, String.valueOf(cdResidencia));
         map.put("operacao", acao);          // indica a operação que está sendo realizada
         map.put("classe", GastoMes.class.getName());

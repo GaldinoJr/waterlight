@@ -24,7 +24,8 @@ public class GastoMesViewHelper implements IViewHelper {
             gastoMes.setVlrGastLuz(Double.parseDouble((String) request.get(gastoMes.DF_vlrGastLuz)));
             gastoMes.setNrWatts(Double.parseDouble((String) request.get(gastoMes.DF_nrWatts)));
             gastoMes.setNrMetroCubicoAgua(Double.parseDouble((String) request.get(gastoMes.DF_nrMetroCubicoAgua)));
-            gastoMes.setDtInclusao(fomatarData((String) request.get(gastoMes.DF_dt_inclusao)));
+            gastoMes.setSdt_inclusao((String) request.get(gastoMes.DF_dt_inclusao));
+            //gastoMes.setDtInclusao((Date) request.get(gastoMes.DF_dt_inclusao));
             gastoMes.setCdResidencia(Integer.parseInt((String) request.get(gastoMes.DF_cdResidencia)));
             return gastoMes;
         }
@@ -37,18 +38,18 @@ public class GastoMesViewHelper implements IViewHelper {
     public EntidadeDominio setView(EntidadeDominio entidade, Map response) {
         return null;
     }
-    private Date fomatarData(String data)
-    {
-        SimpleDateFormat df;
-        df = new SimpleDateFormat("dd/MM/yyyy");
-        Date dc;
-        try
-        {
-            dc = df.parse(data);
-        }
-        catch (Exception e) {
-            dc = null;
-        }
-        return dc;
-    }
+//    private Date fomatarData(String data)
+//    {
+//        SimpleDateFormat df;
+//        df = new SimpleDateFormat("dd/MM/yyyy");
+//        Date dc;
+//        try
+//        {
+//            dc = df.parse(data);
+//        }
+//        catch (Exception e) {
+//            dc = null;
+//        }
+//        return dc;
+//    }
 }
