@@ -36,7 +36,6 @@ public class ConfiguracaoSistema extends EntidadeDominio{
     }
 
     // gets
-
     public int getIndTipoAtualizacao() {
         return indTipoAtualizacao;
     }
@@ -45,31 +44,23 @@ public class ConfiguracaoSistema extends EntidadeDominio{
         return fg_logar_automaticamente;
     }
 
-    private void popularMap(String acao)
+    // Gets e sets do mapa
+    // sets
+    public void setMapIndTipoAtualizacao(int indTipoAtualizacao) {
+        map.put(DF_IND_TIPO_ATUALIZACAO,String.valueOf(indTipoAtualizacao));
+    }
+
+    public void setMapFgLogarAutomaticamente(int fg_logar_automaticamente) {
+        map.put(DF_FG_LOGAR_AUTOMATICAMENTE,String.valueOf(fg_logar_automaticamente));
+    }
+
+    public void getMapInstance()
     {
         map = new HashMap<String, String>();
-        map.put(DF_ID,id);
-        map.put(DF_FG_LOGAR_AUTOMATICAMENTE,String.valueOf(fg_logar_automaticamente));
-        map.put(DF_IND_TIPO_ATUALIZACAO,String.valueOf(indTipoAtualizacao));
-        map.put("operacao", acao);          // indica a operação que está sendo realizada
+//        map.put(DF_ID,"");
+//        map.put(DF_FG_LOGAR_AUTOMATICAMENTE,"");
+//        map.put(DF_IND_TIPO_ATUALIZACAO,"");
+//        map.put("operacao", "");          // indica a operação que está sendo realizada
         map.put("classe",  ConfiguracaoSistema.class.getName());
     }
-
-    public List<EntidadeDominio> operar(Context context, boolean fgSql, String operacao)
-    {
-        Session session = Session.getInstance();
-        if (fgSql)
-            session.setContext(context);
-        else
-            session.setContext(null);
-        //
-        Servlet servlet = new Servlet();
-        List<EntidadeDominio> list = new LinkedList<EntidadeDominio>();
-        popularMap(operacao);
-       // popularMap(configuracaoSistema, Servlet.DF_CONSULTAR, ConfiguracaoSistema.class.getName());
-        Resultado resultado = servlet.doPost(map);
-        list = resultado.getEntidades();
-        return list;
-    }
-
 }

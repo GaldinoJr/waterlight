@@ -1,5 +1,14 @@
 package com.example.appmedirconsumorecursos.Dominio;
 
+import android.content.Context;
+
+import com.example.appmedirconsumorecursos.Controle.Servlet.Servlet;
+import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
+import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,8 +36,25 @@ public class EntidadeDominio implements IEntidade{
     public Map<String, String> getMap() {
         return map;
     }
+    // Gets e Sets do mapa
+    // sets
+    public void setMapId(String id) {
+        map.put(DF_ID,id);
+    }
 
-    protected void popularMap(EntidadeDominio entidadeDominio, String acao, String nomeClasse) {
-
+    public List<EntidadeDominio> operar(Context context, boolean fgSql, String operacao)
+    {
+        map.put("operacao", operacao);          // indica a operação que está sendo realizada
+        Session session = Session.getInstance();
+        if (fgSql)
+            session.setContext(context);
+        else
+            session.setContext(null);
+        //
+        Servlet servlet = new Servlet();
+        List<EntidadeDominio> list = new LinkedList<EntidadeDominio>();
+        Resultado resultado = servlet.doPost(map);
+        list = resultado.getEntidades();
+        return list;
     }
 }

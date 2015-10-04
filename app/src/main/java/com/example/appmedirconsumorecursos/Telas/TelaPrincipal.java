@@ -56,7 +56,8 @@ public class TelaPrincipal extends Activity implements OnClickListener {
 		switch (item.getItemId()) {
 			case id.menu_logoff:
 				configSistema = session.getConfiguracaoSistema();
-				configSistema.setFgLogarAutomaticamente(0);
+				configSistema.getMapInstance();
+				configSistema.setMapFgLogarAutomaticamente(0);
 				listEntDom = configSistema.operar(this, true, Servlet.DF_ALTERAR);
 				//
 				intent = new Intent();

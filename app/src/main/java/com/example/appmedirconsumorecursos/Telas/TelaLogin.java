@@ -65,7 +65,8 @@ public class TelaLogin extends Activity implements View.OnClickListener {
             session.setResidencia((Residencia) listEntDom.get(0));
 
             configSistema = new ConfiguracaoSistema();
-            configSistema.setId(session.getResidencia().getId());
+            configSistema.getMapInstance();
+            configSistema.setMapId(session.getResidencia().getId());
             listEntDom = configSistema.operar(this, true, Servlet.DF_CONSULTAR);
             if(listEntDom != null) // Achou alguma casa cadastrada na config do sitema?
             {
@@ -153,7 +154,8 @@ public class TelaLogin extends Activity implements View.OnClickListener {
             // Verificar se vai logar automaticamente
             // Consulta
             configSistema = new ConfiguracaoSistema();
-            configSistema.setId(session.getResidencia().getId());
+            configSistema.getMapInstance();
+            configSistema.setMapId(session.getResidencia().getId());
             listEntDom = configSistema.operar(this, true, Servlet.DF_CONSULTAR);
             // altera
             int chkLogar = cbLogarAutomaticamente.isChecked() ? 1 : 0;
@@ -163,16 +165,18 @@ public class TelaLogin extends Activity implements View.OnClickListener {
                 session.setConfiguracaoSistema(configSistema);
                 if (configSistema.getFgLogarAutomaticamente() != chkLogar) // é diferente do cadastrado no banco?
                 {// então atualiza
-                    configSistema.setId(session.getResidencia().getId()); // grava o ID na config
-                    configSistema.setFgLogarAutomaticamente(chkLogar);
+                    configSistema.getMapInstance();
+                    configSistema.setMapId(session.getResidencia().getId()); // grava o ID na config
+                    configSistema.setMapFgLogarAutomaticamente(chkLogar);
                     listEntDom = configSistema.operar(this,true,Servlet.DF_ALTERAR);
                 }
             }
             // inclui
             else {
                 configSistema = new ConfiguracaoSistema();
-                configSistema.setId(session.getResidencia().getId()); // grava o ID na config
-                configSistema.setFgLogarAutomaticamente(chkLogar);
+                configSistema.getMapInstance();
+                configSistema.setMapId(session.getResidencia().getId()); // grava o ID na config
+                configSistema.setMapFgLogarAutomaticamente(chkLogar);
                 listEntDom = configSistema.operar(this, true, Servlet.DF_SALVAR);
             }
             if (resultado.getMsg() != null) {

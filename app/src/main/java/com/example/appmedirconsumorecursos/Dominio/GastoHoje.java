@@ -81,7 +81,7 @@ public class GastoHoje extends EntidadeDominio {
         return cdResidencia;
     }
 
-    @Override
+
     public void popularMap(EntidadeDominio entidadeDominio, String acao, String nomeClasse) {
         GastoHoje gastoHoje = (GastoHoje)entidadeDominio;
         map = new HashMap<String, String>();

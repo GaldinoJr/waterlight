@@ -65,7 +65,7 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
                 else if(id==R.id.rbDia)
                     Toast.makeText(Tela_configuracao_aplicativo.this, "Diaid: "+id, Toast.LENGTH_LONG).show();
                 else if(id==R.id.rbMes)
-                    Toast.makeText(Tela_configuracao_aplicativo.this, "Mêsid: "+id, Toast.LENGTH_LONG).show();
+                    Toast.makeText(Tela_configuracao_aplicativo.this, "Mï¿½sid: "+id, Toast.LENGTH_LONG).show();
             } });
         */
         configSistema = session.getConfiguracaoSistema();
@@ -124,9 +124,10 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
             configSistema = session.getConfiguracaoSistema();
             if(configSistema != null) // Achou alguma casa cadastrada na config do sitema?
             {
-                configSistema.setIndTipoAtualizacao(indTipoAtualizacao);
+                configSistema.getMapInstance();
+                configSistema.setMapIndTipoAtualizacao(indTipoAtualizacao);
                 listEntDom = configSistema.operar(this,true,Servlet.DF_ALTERAR);
-                Toast.makeText(Tela_configuracao_aplicativo.this, "Configurações gravadas com sucesso", Toast.LENGTH_LONG).show();
+                Toast.makeText(Tela_configuracao_aplicativo.this, "ConfiguraÃ§Ãµes gravadas com sucesso", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
                 intent.setClass(Tela_configuracao_aplicativo.this, TelaPrincipal.class);
                 startActivity(intent);
@@ -137,7 +138,7 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
     public void onBackPressed() // precionou o voltar do telefone?
     { // Sim, volta para a p?gina anterior
         Intent intent = new Intent();
-        // Volta para a tela que fez a solicitação
+        // Volta para a tela que fez a solicitaï¿½ï¿½o
         intent.setClass(Tela_configuracao_aplicativo.this, contextTelaParaVoltar.getClass());
         if(contextTelaParaVoltar.getClass() == TelaMenu.class)
         {
