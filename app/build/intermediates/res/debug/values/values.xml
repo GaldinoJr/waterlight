@@ -35,6 +35,7 @@
     <string name="title_activity_tela_configuracao_aplicativo">Tela_configuracao_aplicativo</string>
     <string name="title_activity_tela_configuracao_sistema">Tela_configuracao_sistema</string>
     <string name="title_activity_tela_de_estatisticas">TelaDeEstatisticas</string>
+    <string name="title_activity_tela_grafico_anual">TelaGraficoAnual</string>
     <string name="title_activity_tela_login">TelaLogin</string>
     <string name="title_activity_tela_menu">TelaMenu</string>
     <string name="title_activity_tela_principal_agua">TelaPrincipalAgua</string>

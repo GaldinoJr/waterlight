@@ -48,6 +48,11 @@
             android:name="com.example.appmedirconsumorecursos.Telas.Tela_configuracao_aplicativo"
             android:label="@string/title_activity_tela_configuracao_aplicativo" >
         </activity>
+        <activity
+            android:name="com.example.appmedirconsumorecursos.Telas.TelaGraficoAnual"
+            android:label="@string/title_activity_tela_grafico_anual"
+            android:screenOrientation="landscape" >
+        </activity>
     </application>
 
 </manifest>

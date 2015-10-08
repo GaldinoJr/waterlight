@@ -150,9 +150,18 @@
         android:id="@+id/btnHistorico"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnAtualizarDados"
-        android:layout_alignBottom="@+id/btnAtualizarDados"
+        android:text="@string/historico"
+        android:layout_alignTop="@+id/btnAtualizarDados"
         android:layout_toRightOf="@+id/btnAtualizarDados"
-        android:text="@string/historico" />
+        android:layout_toEndOf="@+id/btnAtualizarDados" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gráfico"
+        android:id="@+id/btnGrafico"
+        android:layout_alignTop="@+id/btnHistorico"
+        android:layout_toRightOf="@+id/txtR$MediaFinal"
+        android:layout_toEndOf="@+id/txtR$MediaFinal" />
 
 </RelativeLayout><!-- From: file:/C:/Users/Galdino/StudioProjects/AppMedirConsumoRecursos/app/src/main/res/layout/activity_tela_menu.xml -->
