@@ -23,6 +23,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -147,6 +150,24 @@ public class TelaMenu extends Activity implements OnClickListener {
 				{
 					txtGastoAtual.setText(String.valueOf(gastoAtual.getNrWatts()));
 					txtValorGastoAtual.setText(String.valueOf(gastoAtual.getVlrGastLuz()));
+					GregorianCalendar calendar = new GregorianCalendar();
+					//
+					calendar.setTime(gastoAtual.getDtUltimaMedicao()); //aqui você usa sua variável que chamei de "minhaData"
+					int diaCorrente = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+					//int mes = calendar.get(GregorianCalendar.MONTH);
+					int qtdDiasMes = calendar.getActualMaximum(calendar.DAY_OF_MONTH);
+					int diasFaltantes = qtdDiasMes - diaCorrente;
+					// **********************PEGAR A HORA E ACERTAR***************************
+					double mediaHoraWatts = (gastoAtual.getNrWatts() / diaCorrente) / 24;
+					double mediaFinalMesWatts = (diasFaltantes * mediaHoraWatts) * 24;
+					mediaFinalMesWatts += gastoAtual.getNrWatts();
+					double vlrTarifa = 0.15; //********************vai vim do banco
+					double mediaFianalMesValor = ((mediaHoraWatts * vlrTarifa)*24) * diasFaltantes;
+					mediaFianalMesValor += gastoAtual.getVlrGastLuz();
+					NumberFormat formatarNumero = new DecimalFormat(".##");
+					txtMediaFinal.setText(String.valueOf(formatarNumero.format(mediaFinalMesWatts)));
+					txtValorMediaFinal.setText(String.valueOf(formatarNumero.format(mediaFianalMesValor)));
+
 				}
 			}
 			Toast.makeText(TelaMenu.this, "Dados atualizados com sucesso", Toast.LENGTH_LONG).show();
@@ -162,7 +183,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 		if(view == btnGrafico)
 		{
 			Intent intent = new Intent();
-			intent.setClass(TelaMenu.this, TelaGraficoAnual.class);
+			intent.setClass(TelaMenu.this, TelaGraficoAnual	.class);
 			intent.putExtra("absClasse", absRecurso);
 			startActivity(intent);
 			finish();

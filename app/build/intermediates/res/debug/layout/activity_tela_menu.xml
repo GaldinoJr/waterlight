@@ -82,7 +82,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/mediaFinal"
         android:layout_alignLeft="@+id/txtGastoHj"
-        android:text="@string/zero" />
+        android:text="@string/zero"
+        android:numeric="decimal"
+        android:maxLength="7" />
 
     <TextView
         android:id="@+id/R$GastoAtual"
@@ -136,7 +138,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/R$MediaFinal"
         android:layout_alignLeft="@+id/txtR$GastoHj"
-        android:text="@string/zero" />
+        android:text="@string/zero"
+        android:numeric="decimal"
+        android:maxLength="7" />
     <Button
         android:id="@+id/btnAtualizarDados"
         android:layout_width="wrap_content"

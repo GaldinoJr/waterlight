@@ -2,6 +2,13 @@
 <items version="2" >
 
     <item
+        jar="C:\Users\Galdino\StudioProjects\AppMedirConsumoRecursos\app\src\main\java\com\example\appmedirconsumorecursos\lib\achartengine-1.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="74c6105162878836cfda3262db1a07616e1ee906">
+        <dex dex="C:\Users\Galdino\StudioProjects\AppMedirConsumoRecursos\app\build\intermediates\pre-dexed\debug\achartengine-1.2.0-2144b864e9ea021157501eb1a50f8a4eaaa5073c.jar" />
+    </item>
+    <item
         jar="C:\Users\Galdino\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
         jumboMode="false"
         revision="22.0.1"
