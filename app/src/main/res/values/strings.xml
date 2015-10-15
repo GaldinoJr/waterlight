@@ -36,4 +36,7 @@
     <string name="tipoAtualizacao">Atualizar os dados de consumo uma vez por:</string>
     <string name="title_activity_tela_configuracao_aplicativo">Tela_configuracao_aplicativo</string>
     <string name="title_activity_tela_grafico_anual">TelaGraficoAnual</string>
+    <string name="vlrTarAgua">Valor da tarifa de Água</string>
+    <string name="vlrTarLuz">Valor da tarifa de Luz</string>
+    <string name="voltagemResidencia">Voltagem da residencia</string>
 </resources>

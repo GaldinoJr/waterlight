@@ -60,4 +60,79 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vlrTarAgua"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/rgTipoAtualizacao"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="29dp" />
+
+    <EditText
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtVlrTarifaAgua"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3"
+        android:inputType="number|numberSigned" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vlrTarLuz"
+        android:id="@+id/textView4"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtVlrTarifaLuz"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignLeft="@+id/edtVlrTarifaAgua"
+        android:layout_alignStart="@+id/edtVlrTarifaAgua"
+        android:editable="false"
+        android:inputType="number|numberSigned" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/voltagemResidencia"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/edtVlrTarifaLuz"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="28dp" />
+
+    <RadioGroup android:id="@+id/rgTipoVoltagem"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView5">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="110"
+            android:id="@+id/rb110"
+            android:checked="false"
+            android:layout_below="@+id/textview"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="220"
+            android:id="@+id/rb220"
+            android:checked="false"
+            android:layout_alignTop="@+id/rbHora"
+            android:layout_toRightOf="@+id/rbHora"
+            android:layout_toEndOf="@+id/rbHora" />
+    </RadioGroup>
+
+
 </RelativeLayout>

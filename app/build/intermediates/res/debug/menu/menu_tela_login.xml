@@ -4,4 +4,4 @@
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" android:showAsAction="never" />
 </menu>
-<!-- From: file:/C:/Users/Galdino/StudioProjects/AppMedirConsumoRecursos/app/src/main/res/menu/menu_tela_login.xml -->
+<!-- From: file:/C:/Users/Galdino/Documents/tcc_git_hub/waterlight/app/src/main/res/menu/menu_tela_login.xml -->

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/C:/Users/Galdino/StudioProjects/AppMedirConsumoRecursos/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/C:/Users/Galdino/Documents/tcc_git_hub/waterlight/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="tamanho20dp">20dp</dimen>
-    <!-- From: file:/C:/Users/Galdino/StudioProjects/AppMedirConsumoRecursos/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/Galdino/Documents/tcc_git_hub/waterlight/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="Gastohj">Gasto de hoje</string>
     <string name="MediaValorFinal">Média final</string>
@@ -41,8 +41,11 @@
     <string name="title_activity_tela_principal_agua">TelaPrincipalAgua</string>
     <string name="title_activity_tela_principal_luz">TelaPrincipalLuz</string>
     <string name="valorAtual">Valor atual</string>
+    <string name="vlrTarAgua">Valor da tarifa de Água</string>
+    <string name="vlrTarLuz">Valor da tarifa de Luz</string>
+    <string name="voltagemResidencia">Voltagem da residencia</string>
     <string name="zero">0.00</string>
-    <!-- From: file:/C:/Users/Galdino/StudioProjects/AppMedirConsumoRecursos/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/Galdino/Documents/tcc_git_hub/waterlight/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--

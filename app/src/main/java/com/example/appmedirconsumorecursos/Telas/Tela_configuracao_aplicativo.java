@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -27,14 +29,19 @@ import java.util.List;
 public class Tela_configuracao_aplicativo extends Activity implements View.OnClickListener {
     private RadioButton rbHora,
                         rbDia,
-                        rbMes;
+                        rbMes,
+                        rb110,
+                        rb220;
     private Button btnSalvarConfigApp;
+    private EditText edtVlrTarifaAgua,
+                     edtVlrTarifaLuz;
     //
     private Session session;
     private ConfiguracaoSistema configSistema;
     private List<EntidadeDominio> listEntDom;
     //
     private int indTipoAtualizacao;
+    private int indTipoVoltagem;
     private Context contextTelaParaVoltar;
     private Intent dados;
     private AbsRecurso absRecurso;
@@ -46,28 +53,18 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
         //
         session = Session.getInstance();
         //
+        edtVlrTarifaAgua = (EditText)findViewById(R.id.edtVlrTarifaAgua);
+        edtVlrTarifaLuz = (EditText)findViewById(R.id.edtVlrTarifaLuz);
         rbHora = (RadioButton)findViewById(R.id.rbHora);
         rbDia = (RadioButton)findViewById(R.id.rbDia);
         rbMes = (RadioButton)findViewById(R.id.rbMes);
+        rb110 = (RadioButton)findViewById(R.id.rb110);
+        rb220 = (RadioButton)findViewById(R.id.rb220);
         btnSalvarConfigApp = (Button)findViewById(R.id.btnSalvarConfiguracao);
         btnSalvarConfigApp.setOnClickListener(this);
         contextTelaParaVoltar = session.getContext();
         dados = getIntent(); // Recebe os dados da tela anterior
 
-        //
-        /*
-        final RadioGroup radioGroupTipoAtualizacao = (RadioGroup)findViewById(R.id.rgTipoAtualizacao);
-        radioGroupTipoAtualizacao.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override     public void onCheckedChanged(RadioGroup group, int id)
-            {     // TODO Auto-generated method stub
-                if(id == R.id.rbHora)
-                    Toast.makeText(Tela_configuracao_aplicativo.this, "Hora id: "+id, Toast.LENGTH_LONG).show();
-                else if(id==R.id.rbDia)
-                    Toast.makeText(Tela_configuracao_aplicativo.this, "Diaid: "+id, Toast.LENGTH_LONG).show();
-                else if(id==R.id.rbMes)
-                    Toast.makeText(Tela_configuracao_aplicativo.this, "M�sid: "+id, Toast.LENGTH_LONG).show();
-            } });
-        */
         configSistema = session.getConfiguracaoSistema();
         indTipoAtualizacao = configSistema.getIndTipoAtualizacao();
         switch(indTipoAtualizacao) {
@@ -83,6 +80,20 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
             default:
                 break;
         }
+
+        indTipoVoltagem = configSistema.getIndTipoVoltagem();
+        switch(indTipoVoltagem)
+        {
+            case 1:
+                rb110.setChecked(true);
+                break;
+            case 2:
+                rb220.setChecked(true);
+                break;
+        }
+
+        edtVlrTarifaAgua.setText(String.valueOf(configSistema.getVlrTarifaAgua()));
+        edtVlrTarifaLuz.setText(String.valueOf(configSistema.getVlrTarifaLuz()));
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,13 +131,37 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
             else if(idRadioButton==R.id.rbMes)
                 indTipoAtualizacao = 3;
 
+            final RadioGroup rgTipoVoltagem = (RadioGroup)findViewById(R.id.rgTipoVoltagem);
+            idRadioButton = rgTipoVoltagem.getCheckedRadioButtonId();
+            indTipoVoltagem = 0;
+            if(idRadioButton == R.id.rb110)
+                indTipoVoltagem = 1;
+            else if(idRadioButton == R.id.rb220)
+                indTipoVoltagem = 2;
+
+
+            double vlrTarifaAgua, vlrTarifaLuz;
+            vlrTarifaAgua = validarDouble(edtVlrTarifaAgua.getText().toString());
+            vlrTarifaLuz = validarDouble(edtVlrTarifaLuz.getText().toString());
+
             session = Session.getInstance();
             configSistema = session.getConfiguracaoSistema();
             if(configSistema != null) // Achou alguma casa cadastrada na config do sitema?
             {
+                // Add ao mapa
                 configSistema.getMapInstance();
+                configSistema.setMapId(configSistema.getId());
                 configSistema.setMapIndTipoAtualizacao(indTipoAtualizacao);
-                listEntDom = configSistema.operar(this,true,Servlet.DF_ALTERAR);
+                configSistema.setMapIndTipoVoltagem(indTipoVoltagem);
+                configSistema.setMapVlrTarifaAgua(vlrTarifaAgua);
+                configSistema.setMapVlrTarifaLuz(vlrTarifaLuz);
+                configSistema.operar(this, true, Servlet.DF_ALTERAR);
+                // add a classe
+                configSistema.setIndTipoAtualizacao(indTipoAtualizacao);
+                configSistema.setIndTipoVoltagem(indTipoVoltagem);
+                configSistema.setVlrTarifaAgua(vlrTarifaAgua);
+                configSistema.setVlrTarifaLuz(vlrTarifaLuz);
+                session.setConfiguracaoSistema(configSistema);
                 Toast.makeText(Tela_configuracao_aplicativo.this, "Configurações gravadas com sucesso", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
                 intent.setClass(Tela_configuracao_aplicativo.this, TelaPrincipal.class);
@@ -147,5 +182,17 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
         }
         startActivity(intent); // chama a pr?xima tela
         finish();
+    }
+    private double validarDouble(String sValor)
+    {
+        double dValor= 0;
+        if(sValor != null ) {
+            try {
+                dValor = Double.parseDouble(sValor);
+            } catch (Exception e) {
+                dValor = 0;
+            }
+        }
+        return dValor;
     }
 }

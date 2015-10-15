@@ -23,6 +23,13 @@ public class ConfiguracaoSistemaViewHelper implements IViewHelper {
                 configSistema.setFgLogarAutomaticamente(Integer.parseInt((String) request.get(configSistema.DF_FG_LOGAR_AUTOMATICAMENTE)));
             if(request.get(configSistema.DF_IND_TIPO_ATUALIZACAO) != null)
                 configSistema.setIndTipoAtualizacao(Integer.parseInt((String) request.get(configSistema.DF_IND_TIPO_ATUALIZACAO)));
+
+            if(request.get(configSistema.DF_IND_TIPO_VOLTAGEM) != null)
+                configSistema.setIndTipoVoltagem(Integer.parseInt((String) request.get(configSistema.DF_IND_TIPO_VOLTAGEM)));
+            if(request.get(configSistema.DF_VLR_TARIFA_AGUA) != null)
+                configSistema.setVlrTarifaAgua(Double.parseDouble((String) request.get(configSistema.DF_VLR_TARIFA_AGUA)));
+            if(request.get(configSistema.DF_VLR_TARIFA_LUZ) != null)
+                configSistema.setVlrTarifaLuz(Double.parseDouble((String) request.get(configSistema.DF_VLR_TARIFA_LUZ)));
             return configSistema;
         }
         catch (Exception e)

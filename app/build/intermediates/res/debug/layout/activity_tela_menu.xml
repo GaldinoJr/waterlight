@@ -168,4 +168,4 @@
         android:layout_toRightOf="@+id/txtR$MediaFinal"
         android:layout_toEndOf="@+id/txtR$MediaFinal" />
 
-</RelativeLayout><!-- From: file:/C:/Users/Galdino/StudioProjects/AppMedirConsumoRecursos/app/src/main/res/layout/activity_tela_menu.xml -->
+</RelativeLayout><!-- From: file:/C:/Users/Galdino/Documents/tcc_git_hub/waterlight/app/src/main/res/layout/activity_tela_menu.xml -->
