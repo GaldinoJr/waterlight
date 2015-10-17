@@ -11,6 +11,8 @@ import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.GastoMesDAO;
 import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.LuzDAO;
 import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.ResidenciaServerDAO;
 import com.example.appmedirconsumorecursos.Core.impl.SqlDAO.ConfiguracaoSistemaSqlDAO;
+import com.example.appmedirconsumorecursos.Core.impl.SqlDAO.GastoAtualSqlDAO;
+import com.example.appmedirconsumorecursos.Core.impl.SqlDAO.GastoHojeSqlDAO;
 import com.example.appmedirconsumorecursos.Core.impl.SqlDAO.ResidenciaSqlDAO;
 import com.example.appmedirconsumorecursos.Dominio.Agua;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
@@ -63,9 +65,13 @@ public class Fachada  implements IFachada {
             /***************ADD AS CLASSES DAO CORRESPONDENTES AS CLASSES CONCRETAS ******/
             ResidenciaSqlDAO residenciaSqlDAO = new ResidenciaSqlDAO(session.getContext());
             ConfiguracaoSistemaSqlDAO configSistemaSqlDAO = new ConfiguracaoSistemaSqlDAO(session.getContext());
+            GastoAtualSqlDAO gastoAtualSqlDAO = new GastoAtualSqlDAO(session.getContext());
+            GastoHojeSqlDAO gastoHojeSqlDAO = new GastoHojeSqlDAO(session.getContext());
             // ADD AS CLASSES DAO CORRESPONDENTES AS CLASSES CONCRETAS ******
             daos.put(Residencia.class.getName(), residenciaSqlDAO);
             daos.put(ConfiguracaoSistema.class.getName(), configSistemaSqlDAO);
+            daos.put(GastoAtual.class.getName(),gastoAtualSqlDAO);
+            daos.put(GastoHoje.class.getName(), gastoHojeSqlDAO);
         }
 
 
@@ -76,13 +82,13 @@ public class Fachada  implements IFachada {
 //        ValidarDadosInclProduto rValidarDadosInclProduto = new ValidarDadosInclProduto();
         //
 
-        // ADD as classes que serão testadas
+        // ADD as classes que serï¿½o testadas
 //        List<IStrategy> rnsSalvarProduto = new ArrayList<IStrategy>();
 //        List<IStrategy> rnsSalvarVenda = new ArrayList<IStrategy>();
 //        List<IStrategy> rnsSalvarProdTrocado = new ArrayList<IStrategy>();
 //        List<IStrategy> rnsSalvarTroca = new ArrayList<IStrategy>();
 //
-        // ****** NÃO ADD LISTA DE REGRAS PARA CLASSE ProdVendido
+        // ****** Nï¿½O ADD LISTA DE REGRAS PARA CLASSE ProdVendido
 
         // Adiciona as regras do negocio que seram testadas
         //rnsSalvarProdTrocado.add(rValidarVendaPromocao);
@@ -143,7 +149,7 @@ public class Fachada  implements IFachada {
             catch (Exception e)
             {
                 e.printStackTrace();
-                resultado.setMsg("Não foi possível realizar o registro!");
+                resultado.setMsg("Nï¿½o foi possï¿½vel realizar o registro!");
             }
         }
         else
@@ -174,7 +180,7 @@ public class Fachada  implements IFachada {
             catch (Exception e)
             {
                 e.printStackTrace();
-                resultado.setMsg("Não foi possível realizar o registro!");
+                resultado.setMsg("Nï¿½o foi possï¿½vel realizar o registro!");
 
             }
         }
@@ -208,7 +214,7 @@ public class Fachada  implements IFachada {
             catch (Exception e)
             {
                 e.printStackTrace();
-                resultado.setMsg("Não foi possível realizar o registro!");
+                resultado.setMsg("Nï¿½o foi possï¿½vel realizar o registro!");
 
             }
         }else
@@ -239,7 +245,7 @@ public class Fachada  implements IFachada {
             catch (Exception e)
             {
                 e.printStackTrace();
-                resultado.setMsg("Não foi possível realizar a consulta!");
+                resultado.setMsg("Nï¿½o foi possï¿½vel realizar a consulta!");
             }
         }
         else

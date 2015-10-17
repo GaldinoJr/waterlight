@@ -29,7 +29,6 @@ public class GastoAtual  extends EntidadeDominio {
 
     // SETS
 
-
     public void setDtInicioMedicao(Date dtInicioMedicao) {
         this.dtInicioMedicao = dtInicioMedicao;
     }
@@ -88,19 +87,50 @@ public class GastoAtual  extends EntidadeDominio {
         return cdResidencia;
     }
 
+// SETS DO MAPA
 
-    public void popularMap(EntidadeDominio entidadeDominio, String acao, String nomeClasse) {
-        GastoAtual gastoAtual = (GastoAtual)entidadeDominio;
+    public void setMapDtInicioMedicao(String dtInicioMedicao) {
+        map.put(DF_dtInicioMedicao,String.valueOf(dtInicioMedicao));
+    }
+
+    public void setMapDtUltimaMedicao(String dtUltimaMedicao) {
+        map.put(DF_dtUltimaMedicao,String.valueOf(dtUltimaMedicao));
+    }
+
+    public void setMapVlrGastoAgua(String vlrGastoAgua) {
+        map.put(DF_vlrGastoAgua,String.valueOf(vlrGastoAgua));
+    }
+
+    public void setMapVlrGastLuz(String vlrGastLuz) {
+        map.put(DF_vlrGastLuz,String.valueOf(vlrGastLuz));
+    }
+
+    public void setMapNrWatts(String nrWatts) {
+        map.put(DF_nrWatts,String.valueOf(nrWatts));
+    }
+
+    public void setMapNrMetroCubicoAgua(String nrMetroCubicoAgua) {
+        map.put(DF_nrMetroCubicoAgua,String.valueOf(nrMetroCubicoAgua));
+    }
+
+    public void setMapCdResidencia(String cdResidencia) {
+        map.put(DF_cdResidencia,String.valueOf(cdResidencia));
+    }
+
+    public void popularMap() {
+        map.put(DF_ID, id);
+        map.put(DF_dtInicioMedicao, String.valueOf(dtInicioMedicao));
+        map.put(DF_dtUltimaMedicao, String.valueOf(dtUltimaMedicao));
+        map.put(DF_vlrGastoAgua, String.valueOf(vlrGastoAgua));
+        map.put(DF_vlrGastLuz,String.valueOf(vlrGastLuz));
+        map.put(DF_nrWatts, String.valueOf(nrWatts));
+        map.put(DF_nrMetroCubicoAgua, String.valueOf(nrMetroCubicoAgua));
+        map.put(DF_cdResidencia, String.valueOf(cdResidencia));
+    }
+
+    public void getMapInstance()
+    {
         map = new HashMap<String, String>();
-        map.put(gastoAtual.DF_ID, gastoAtual.getId());
-        map.put(gastoAtual.DF_dtInicioMedicao, String.valueOf(gastoAtual.getDtInicioMedicao()));
-        map.put(gastoAtual.DF_dtUltimaMedicao, String.valueOf(gastoAtual.getDtUltimaMedicao()));
-        map.put(gastoAtual.DF_vlrGastoAgua, String.valueOf(gastoAtual.getVlrGastoAgua()));
-        map.put(gastoAtual.DF_vlrGastLuz,String.valueOf(gastoAtual.getVlrGastLuz()));
-        map.put(gastoAtual.DF_nrWatts, String.valueOf(gastoAtual.getNrWatts()));
-        map.put(gastoAtual.DF_nrMetroCubicoAgua, String.valueOf(gastoAtual.getNrMetroCubicoAgua()));
-        map.put(gastoAtual.DF_cdResidencia, String.valueOf(gastoAtual.getCdResidencia()));
-        map.put("operacao", acao);          // indica a operação que está sendo realizada
-        map.put("classe", nomeClasse);
+        map.put("classe", GastoAtual.class.getName());
     }
 }

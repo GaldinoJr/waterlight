@@ -22,11 +22,16 @@ public class GastoAtualViewHelper implements IViewHelper {
             gastoAtual.setId((String) request.get(gastoAtual.DF_ID));
             gastoAtual.setDtInicioMedicao(fomatarData((String) request.get(gastoAtual.DF_dtInicioMedicao)));
             gastoAtual.setDtUltimaMedicao(fomatarData((String) request.get(gastoAtual.DF_dtUltimaMedicao)));
-            gastoAtual.setVlrGastoAgua(Double.parseDouble((String) request.get(gastoAtual.DF_vlrGastoAgua)));
-            gastoAtual.setVlrGastLuz(Double.parseDouble((String) request.get(gastoAtual.DF_vlrGastLuz)));
-            gastoAtual.setNrWatts(Double.parseDouble((String) request.get(gastoAtual.DF_nrWatts)));
-            gastoAtual.setNrMetroCubicoAgua(Double.parseDouble((String) request.get(gastoAtual.DF_nrMetroCubicoAgua)));
-            gastoAtual.setCdResidencia(Integer.parseInt((String) request.get(gastoAtual.DF_cdResidencia)));
+            if(request.get(gastoAtual.DF_vlrGastoAgua)!= null)
+                gastoAtual.setVlrGastoAgua(Double.parseDouble((String) request.get(gastoAtual.DF_vlrGastoAgua)));
+            if(request.get(gastoAtual.DF_vlrGastLuz)!= null)
+                gastoAtual.setVlrGastLuz(Double.parseDouble((String) request.get(gastoAtual.DF_vlrGastLuz)));
+            if(request.get(gastoAtual.DF_nrWatts)!= null)
+                gastoAtual.setNrWatts(Double.parseDouble((String) request.get(gastoAtual.DF_nrWatts)));
+            if(request.get(gastoAtual.DF_nrMetroCubicoAgua)!= null)
+                gastoAtual.setNrMetroCubicoAgua(Double.parseDouble((String) request.get(gastoAtual.DF_nrMetroCubicoAgua)));
+            if(request.get(gastoAtual.DF_cdResidencia)!= null)
+                gastoAtual.setCdResidencia(Integer.parseInt((String) request.get(gastoAtual.DF_cdResidencia)));
             return gastoAtual;
         }
         catch (Exception e)

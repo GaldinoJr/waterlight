@@ -100,6 +100,29 @@ public class TelaMenu extends Activity implements OnClickListener {
 		txtNome.setText(absRecurso.getNome()); // Recebe o nome do recurso e manda pra tela
 		imgRecurso.setImageResource(absRecurso.getIdIcone()); // Recebe o id da imagem e manda pra tela
 		idRecurso = Integer.parseInt(absRecurso.getIdRecurso());
+		// Consulta a ultima medição registrada para apresentá-la
+		session = Session.getInstance();
+		gastoAtual = new GastoAtual();
+		listEntDom = new LinkedList<EntidadeDominio>();
+		gastoAtual.getMapInstance();
+		gastoAtual.setMapCdResidencia(session.getResidencia().getId());
+		listEntDom = gastoAtual.operar(this,true,Servlet.DF_CONSULTAR);
+		if(listEntDom != null) //Achou alguma coisa?
+		{
+			gastoAtual = (GastoAtual) listEntDom.get(0);
+			if(idRecurso == 1) // agua?
+			{
+				txtGastoAtual.setText(String.valueOf(gastoAtual.getNrMetroCubicoAgua()));
+				txtValorGastoAtual.setText(String.valueOf(gastoAtual.getVlrGastoAgua()));
+			}
+			if(idRecurso == 2)  // luz?
+			{
+				txtGastoAtual.setText(String.valueOf(gastoAtual.getNrWatts()));
+				txtValorGastoAtual.setText(String.valueOf(gastoAtual.getVlrGastLuz()));
+			}
+
+		}
+
 	}
 
 	@Override
@@ -121,7 +144,6 @@ public class TelaMenu extends Activity implements OnClickListener {
 			listEntDom = resultado.getEntidades();
 			if(listEntDom != null) // Achou algum registro?
 			{
-				// erro neste php
 				gastoHoje = (GastoHoje) listEntDom.get(0);
 				if(idRecurso == 1) // agua?
 				{
@@ -134,13 +156,20 @@ public class TelaMenu extends Activity implements OnClickListener {
 				}
 			}
 			instanciarClasses(false); // consulta no banco interno
-			gastoAtual.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
-			gastoAtual.popularMap(gastoAtual, "consultar", GastoAtual.class.getName());
-			resultado = servlet.doPost(gastoAtual.getMap());
-			listEntDom = resultado.getEntidades();
+			//gastoAtual.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
+			//gastoAtual.popularMap(gastoAtual, "consultar", GastoAtual.class.getName());
+			//resultado = servlet.doPost(gastoAtual.getMap());
+			gastoAtual.getMapInstance();
+			gastoAtual.setMapCdResidencia(session.getResidencia().getId());
+			listEntDom = gastoAtual.operar(this,false,Servlet.DF_CONSULTAR);
 			if(listEntDom != null) // Achou algum registro?
-			{
+			{ // Sim
+				// Então atualiza o banco interno
 				gastoAtual = (GastoAtual) listEntDom.get(0);
+				gastoAtual.getMapInstance();
+				gastoAtual.popularMap();
+				gastoAtual.operar(this, true, Servlet.DF_SALVAR);
+				//
 				if(idRecurso == 1) // agua?
 				{
 					txtGastoAtual.setText(String.valueOf(gastoAtual.getNrMetroCubicoAgua()));
@@ -150,9 +179,9 @@ public class TelaMenu extends Activity implements OnClickListener {
 				{
 					txtGastoAtual.setText(String.valueOf(gastoAtual.getNrWatts()));
 					txtValorGastoAtual.setText(String.valueOf(gastoAtual.getVlrGastLuz()));
+					// calcular média final
 					GregorianCalendar calendar = new GregorianCalendar();
-					//
-					calendar.setTime(gastoAtual.getDtUltimaMedicao()); //aqui você usa sua variável que chamei de "minhaData"
+					calendar.setTime(gastoAtual.getDtUltimaMedicao());
 					int diaCorrente = calendar.get(GregorianCalendar.DAY_OF_MONTH);
 					//int mes = calendar.get(GregorianCalendar.MONTH);
 					int qtdDiasMes = calendar.getActualMaximum(calendar.DAY_OF_MONTH);
