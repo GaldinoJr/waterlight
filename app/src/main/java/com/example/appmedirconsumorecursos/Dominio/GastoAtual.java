@@ -1,8 +1,11 @@
 package com.example.appmedirconsumorecursos.Dominio;
 
+import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 /**
@@ -119,8 +122,9 @@ public class GastoAtual  extends EntidadeDominio {
 
     public void popularMap() {
         map.put(DF_ID, id);
-        map.put(DF_dtInicioMedicao, String.valueOf(dtInicioMedicao));
-        map.put(DF_dtUltimaMedicao, String.valueOf(dtUltimaMedicao));
+
+        map.put(DF_dtInicioMedicao, formatarData(dtInicioMedicao));
+        map.put(DF_dtUltimaMedicao,formatarData(dtUltimaMedicao));
         map.put(DF_vlrGastoAgua, String.valueOf(vlrGastoAgua));
         map.put(DF_vlrGastLuz,String.valueOf(vlrGastLuz));
         map.put(DF_nrWatts, String.valueOf(nrWatts));
@@ -132,5 +136,29 @@ public class GastoAtual  extends EntidadeDominio {
     {
         map = new HashMap<String, String>();
         map.put("classe", GastoAtual.class.getName());
+    }
+    private String formatarData(Date data)
+    {
+        SimpleDateFormat df;
+        df = new SimpleDateFormat("dd/MM/yyyy");
+
+
+        String sDate;
+        Date newDate;
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(data);
+        int dia = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+        int mes = calendar.get(GregorianCalendar.MONTH);
+        int ano = calendar.get(GregorianCalendar.YEAR);
+        sDate = String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + String.valueOf(ano);
+//            try {
+//                newDate = df.parse(sDate);
+//
+//            } catch (Exception e) {
+//                newDate = null;
+//            }
+//            return newDate.toString();
+        return sDate;
+
     }
 }

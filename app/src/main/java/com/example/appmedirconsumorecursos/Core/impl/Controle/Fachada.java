@@ -149,7 +149,7 @@ public class Fachada  implements IFachada {
             catch (Exception e)
             {
                 e.printStackTrace();
-                resultado.setMsg("N�o foi poss�vel realizar o registro!");
+                resultado.setMsg("Não foi possível realizar o registro!");
             }
         }
         else

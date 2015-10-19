@@ -42,7 +42,7 @@ public class TelaDeHistorico extends Activity {
 	private ArrayAdapter<String> aaMes;
 	ArrayAdapter<Integer> aaAno;
 	private String[] vetSmes = {"",
-			"Janeiro" , "Fevereiro", "Mar�o", "Abril", "Maio", "Junho", "Julho", 
+			"Janeiro" , "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho",
 			"Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 	private Integer[] vetNano;
 	private ImageView imgRecurso;
@@ -102,7 +102,7 @@ public class TelaDeHistorico extends Activity {
             	//if(position == 1)  // Selecionou o primeiro item da lista?(janeiro)
             	//{
             	if(teste !=0) {
-					Toast.makeText(TelaDeHistorico.this, "posi��o: " + position + " \nnome: " + spMes.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+					Toast.makeText(TelaDeHistorico.this, "posição: " + position + " \nnome: " + spMes.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 					gastoMes = new GastoMes();
 					try{
 						gastoMes.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
@@ -124,7 +124,7 @@ public class TelaDeHistorico extends Activity {
 							}
 						}
 						else
-							Toast.makeText(TelaDeHistorico.this, "M�s de " + spMes.getSelectedItem().toString() + " n�o contem registros.", Toast.LENGTH_SHORT).show();
+							Toast.makeText(TelaDeHistorico.this, "Mês de " + spMes.getSelectedItem().toString() + " não contem registros.", Toast.LENGTH_SHORT).show();
 					}
 					catch (Exception e)
 					{
@@ -154,7 +154,7 @@ public class TelaDeHistorico extends Activity {
             	// Verificar se selecionou algo
             	if(teste2 !=0)
             		// carregar o primeiro com o ano corrente(2015)
-            		Toast.makeText(TelaDeHistorico.this, "posi��o: " + position + " \nnome: " + spAno.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+            		Toast.makeText(TelaDeHistorico.this, "posição: " + position + " \nnome: " + spAno.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
             	else 
             		teste2++;
         		// spGrupo.getSelectedItem().toString(); ********************pegar o conteudo em texto do spinner

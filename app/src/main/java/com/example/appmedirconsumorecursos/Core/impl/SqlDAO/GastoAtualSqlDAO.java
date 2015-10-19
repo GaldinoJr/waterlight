@@ -9,6 +9,7 @@ import com.example.appmedirconsumorecursos.Dominio.GastoAtual;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -146,6 +147,16 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
     }
     private Date formatarData(String data)
     {
+//        String sDate;
+//        Date newDate;
+//        GregorianCalendar calendar = new GregorianCalendar();
+//        calendar.setTime(data);
+//        int dia = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+//        int mes = calendar.get(GregorianCalendar.MONTH);
+//        int ano = calendar.get(GregorianCalendar.YEAR);
+//        sDate = String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + String.valueOf(ano);
+        // NÃO FUNCIONA, VERIFICAR COMO CONVERTER
+        //Tue Sep 01 00:00:00 BRT 2015
         SimpleDateFormat df;
         df = new SimpleDateFormat("yyyy-MM-dd");
         Date dc;

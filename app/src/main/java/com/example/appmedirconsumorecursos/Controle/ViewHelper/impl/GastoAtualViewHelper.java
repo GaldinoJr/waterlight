@@ -1,12 +1,15 @@
 package com.example.appmedirconsumorecursos.Controle.ViewHelper.impl;
 
 import com.example.appmedirconsumorecursos.Controle.ViewHelper2.IViewHelper;
+import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.GastoAtual;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -45,12 +48,32 @@ public class GastoAtualViewHelper implements IViewHelper {
     }
     private Date fomatarData(String data)
     {
+
+//                data =  new SimpleDateFormat("dd/MM/yyyy")
+//                    .format(new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy", Locale.US).parse(data));
+        //df = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
+
+        //data = new SimpleDateFormat("dd/MM/yyyy").format(new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy").parse(data));
+        Session session = Session.getInstance();
         SimpleDateFormat df;
-        df = new SimpleDateFormat("dd/MM/yyyy");
         Date dc;
         try
         {
-            dc = df.parse(data);
+//            if(session.getContext() != null)// banco interno?
+//            {
+//                DateFormat formatter;
+//                //formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
+//                //dc = (Date) formatter.parse(data);
+//               // data = "Tue Sep 01 00:00:00 BRT 2015";
+//                String a = new SimpleDateFormat("dd/MM/yyyy").format(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(data));
+//                df = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.US);
+//                dc = df.parse(data);
+//
+//            }
+//            else {
+                df = new SimpleDateFormat("dd/MM/yyyy");
+                dc = df.parse(data);
+            //}
         }
         catch (Exception e) {
             dc = null;
