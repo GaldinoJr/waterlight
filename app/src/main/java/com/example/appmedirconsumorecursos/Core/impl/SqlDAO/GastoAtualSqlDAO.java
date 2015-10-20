@@ -149,7 +149,7 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
     private Date formatarData(String data)
     {
         SimpleDateFormat df;
-        df = new SimpleDateFormat("yyyy-MM-dd");
+        df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String a = null;
         Date dc;
         try
@@ -166,16 +166,18 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
         Date date;
         String dia,
                 mes,
-                ano;
+                ano,
+                hora;
         dia = sDate.substring(8, 10);
         mes = sDate.substring(4, 7);
         ano = sDate.substring(24, 28);
+        hora = sDate.substring(10, 19);
         try {
             mes = new SimpleDateFormat("MM").format(new SimpleDateFormat("MMM", Locale.ENGLISH).parse(mes));
         } catch (Exception e2) {
             mes = null;
         }
-        sDate = ano+"-"+mes+"-"+dia;
+        sDate = ano+"-"+mes+"-"+dia + " " + hora;
         date = formatarData(sDate);
         return date;
     }

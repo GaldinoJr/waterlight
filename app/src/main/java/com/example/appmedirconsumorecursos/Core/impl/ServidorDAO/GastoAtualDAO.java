@@ -86,7 +86,7 @@ public class GastoAtualDAO  extends AbstractJdbcDAO  {
     private Date fomatarData(String data)
     {
         SimpleDateFormat df;
-        df = new SimpleDateFormat("yyyy-MM-dd");
+        df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date dc;
         try
         {

@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Created by Galdino on 07/09/2015.
@@ -139,6 +140,7 @@ public class GastoAtual  extends EntidadeDominio {
     }
     private String formatarData(Date data)
     {
+        //String a = new SimpleDateFormat("dd/MM/yyyy").format(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(data));
         SimpleDateFormat df;
         df = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -151,14 +153,29 @@ public class GastoAtual  extends EntidadeDominio {
         int mes = calendar.get(GregorianCalendar.MONTH);
         mes = mes + 1;
         int ano = calendar.get(GregorianCalendar.YEAR);
-        sDate = String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + String.valueOf(ano);
-//            try {
-//                newDate = df.parse(sDate);
-//
-//            } catch (Exception e) {
-//                newDate = null;
-//            }
-//            return newDate.toString();
+
+        int hora = calendar.get(GregorianCalendar.HOUR);
+        // 0 = dia
+        // 1 = noite
+        int amPm = calendar.get(GregorianCalendar.AM_PM);
+
+        if(amPm == 1)
+        {
+            if(hora>0 && hora < 13)
+            {
+                if(hora == 12)
+                    hora = 0;
+                else
+                    hora += 12;
+            }
+        }
+        String sHora = " ";
+        if(hora<=9)
+        {
+            sHora += "0";
+        }
+        sHora += String.valueOf(hora) + ":00:00";
+        sDate = String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + String.valueOf(ano) + sHora;
         return sDate;
 
     }

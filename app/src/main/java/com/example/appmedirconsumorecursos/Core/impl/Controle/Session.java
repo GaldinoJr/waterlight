@@ -10,16 +10,16 @@ import com.example.appmedirconsumorecursos.Dominio.Residencia;
  */
 //http://pt.stackoverflow.com/questions/54588/como-criar-manter-variavel-global-em-java-para-login
 public class Session {
-    // padrão design pattern: singleton.
+    // padrÃ£o design pattern: singleton.
     private static Session session;
-    private static Context context; //Para dizer na FACHADA se é uma requisição interna ou externa
+    private static Context context; //Para dizer na FACHADA se Ã¡ uma requisiÃ§Ã£o interna ou externa
     private Residencia residencia;
     private ConfiguracaoSistema configuracaoSistema;
 
-    // Construtor privado (suprime o construtor público padrão).
+    // Construtor privado (suprime o construtor pÃºblico padrÃ£o).
     private Session() {}
 
-    // Método público estático de acesso único ao objeto!
+    // Mï¿½todo pï¿½blico estï¿½tico de acesso ï¿½nico ao objeto!
     public static Session getInstance() {
         if (session == null) {
             session = new Session();

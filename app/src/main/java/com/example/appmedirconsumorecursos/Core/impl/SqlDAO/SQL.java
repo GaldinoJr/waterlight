@@ -33,7 +33,7 @@ public class SQL extends SQLiteOpenHelper {
         this.sqlCriarTabela = sqlCriarTabela;
         try {
             SQLiteDatabase db = getReadableDatabase();
-            onCreate(db); // sempre colocar IF NOT EXISTS na criação da tabela
+            onCreate(db); // sempre colocar IF NOT EXISTS na criacÃ£o da tabela
         }
         catch (SQLiteException e)
         {
@@ -134,8 +134,8 @@ public class SQL extends SQLiteOpenHelper {
 
         //log
         //Log.d("deleteBook", book.toString());
-        // Log.d("deleteBook", String.valueOf(id)); trazendo só o id do livro da certo, porém o log fica sem a informação completa do livro, tem apenas o id
-        //Log.d("deleteBook", book.toString()); para o log esse caso é melhor pois guarda em log as informações do livro que foi apagado
+        // Log.d("deleteBook", String.valueOf(id)); trazendo sÃ³ o id do livro da certo, porÃ©m o log fica sem a informacÃ£o completa do livro, tem apenas o id
+        //Log.d("deleteBook", book.toString()); para o log esse caso Ã© melhor pois guarda em log as informaÃ§Ãµes do livro que foi apagado
     }
 
     // Fazer update

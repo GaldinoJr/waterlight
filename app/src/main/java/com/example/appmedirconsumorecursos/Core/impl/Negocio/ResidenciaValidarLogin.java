@@ -11,10 +11,10 @@ public class ResidenciaValidarLogin  implements IStrategy {
     private Residencia residencia;
     @Override
     public String processar(EntidadeDominio entidade) {
-        // Ver como vai fazer, pois nesse ponto n„o tem os dados do banco ainda, ou seja, n„o da pra validar a  login
+        // Ver como vai fazer, pois nesse ponto n√£o tem os dados do banco ainda, ou seja, n√£o da pra validar a  login
         // teria que fazer um select no DAO de residencias daqui, mas entraria na regra novamente,
-        // se for fazer mesmo, colocar uma vari·vel na entidade residencia para verificar se a consulta vem da regra,
-        // para n„o passar nela novamente e entrar em looping
+        // se for fazer mesmo, colocar uma vari√°vel na entidade residencia para verificar se a consulta vem da regra,
+        // para n√£o passar nela novamente e entrar em looping
         if(entidade !=null) // tem dados cadastrados na entidade?
         { // sim
             residencia = (Residencia) entidade;
