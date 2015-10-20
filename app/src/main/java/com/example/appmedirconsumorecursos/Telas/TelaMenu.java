@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -102,8 +103,27 @@ public class TelaMenu extends Activity implements OnClickListener {
 		idRecurso = Integer.parseInt(absRecurso.getIdRecurso());
 		// Consulta a ultima medição registrada para apresentá-la
 		session = Session.getInstance();
-		gastoAtual = new GastoAtual();
-		listEntDom = new LinkedList<EntidadeDominio>();
+		// Gasto no dia
+		instanciarClasses(); // consulta no banco interno
+		gastoHoje.getMapInstance();
+		gastoHoje.setMapCdResidencia(session.getResidencia().getId());
+		listEntDom = gastoHoje.operar(this,true,Servlet.DF_CONSULTAR);
+		if(listEntDom != null) //Achou alguma coisa?
+		{
+			gastoHoje = (GastoHoje) listEntDom.get(0);
+			if(idRecurso == 1) // agua?
+			{
+				txtGastoHj.setText(String.valueOf(gastoHoje.getNrMetroCubicoAgua()));
+				txtValorGastoHj.setText(String.valueOf(gastoHoje.getVlrGastoAgua()));
+			}
+			if(idRecurso == 2)  // luz?
+			{
+				txtGastoHj.setText(String.valueOf(gastoHoje.getNrWatts()));
+				txtValorGastoHj.setText(String.valueOf(gastoHoje.getVlrGastLuz()));
+			}
+		}
+		// Gasto atual
+		instanciarClasses(); // consulta no banco interno
 		gastoAtual.getMapInstance();
 		gastoAtual.setMapCdResidencia(session.getResidencia().getId());
 		listEntDom = gastoAtual.operar(this,true,Servlet.DF_CONSULTAR);
@@ -119,10 +139,10 @@ public class TelaMenu extends Activity implements OnClickListener {
 			{
 				txtGastoAtual.setText(String.valueOf(gastoAtual.getNrWatts()));
 				txtValorGastoAtual.setText(String.valueOf(gastoAtual.getVlrGastLuz()));
+
+				calcularGastoLuz(gastoAtual.getDtUltimaMedicao());
 			}
-
 		}
-
 	}
 
 	@Override
@@ -137,14 +157,18 @@ public class TelaMenu extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		if(view == btnAtualizar) // vai atualizar com novos dados?
 		{
-			instanciarClasses(false); // consulta no banco interno
-			gastoHoje.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
-			gastoHoje.popularMap(gastoHoje, "consultar", GastoHoje.class.getName());
-			resultado = servlet.doPost(gastoHoje.getMap());
-			listEntDom = resultado.getEntidades();
+			instanciarClasses(); // consulta no banco interno
+			//gastoHoje.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
+			gastoHoje.getMapInstance();
+			gastoHoje.setMapCdResidencia(session.getResidencia().getId());
+			listEntDom = gastoHoje.operar(this,false,Servlet.DF_CONSULTAR);
 			if(listEntDom != null) // Achou algum registro?
 			{
+				// Então atualiza o banco interno
 				gastoHoje = (GastoHoje) listEntDom.get(0);
+				gastoHoje.getMapInstance();
+				gastoHoje.popularMap();
+				gastoHoje.operar(this, true, Servlet.DF_SALVAR);
 				if(idRecurso == 1) // agua?
 				{
 					txtGastoHj.setText(String.valueOf(gastoHoje.getNrMetroCubicoAgua()));
@@ -155,14 +179,14 @@ public class TelaMenu extends Activity implements OnClickListener {
 					txtValorGastoHj.setText(String.valueOf(gastoHoje.getVlrGastLuz()));
 				}
 			}
-			instanciarClasses(false); // consulta no banco interno
+			instanciarClasses(); // consulta no banco interno
 			//gastoAtual.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
 			//gastoAtual.popularMap(gastoAtual, "consultar", GastoAtual.class.getName());
 			//resultado = servlet.doPost(gastoAtual.getMap());
 			gastoAtual.getMapInstance();
 			gastoAtual.setMapCdResidencia(session.getResidencia().getId());
 			listEntDom = gastoAtual.operar(this,false,Servlet.DF_CONSULTAR);
-			if(listEntDom != null) // Achou algum registro?
+			if(listEntDom != null) // Achou algum registro no servidor?
 			{ // Sim
 				// Então atualiza o banco interno
 				gastoAtual = (GastoAtual) listEntDom.get(0);
@@ -179,24 +203,8 @@ public class TelaMenu extends Activity implements OnClickListener {
 				{
 					txtGastoAtual.setText(String.valueOf(gastoAtual.getNrWatts()));
 					txtValorGastoAtual.setText(String.valueOf(gastoAtual.getVlrGastLuz()));
-					// calcular média final
-					GregorianCalendar calendar = new GregorianCalendar();
-					calendar.setTime(gastoAtual.getDtUltimaMedicao());
-					int diaCorrente = calendar.get(GregorianCalendar.DAY_OF_MONTH);
-					//int mes = calendar.get(GregorianCalendar.MONTH);
-					int qtdDiasMes = calendar.getActualMaximum(calendar.DAY_OF_MONTH);
-					int diasFaltantes = qtdDiasMes - diaCorrente;
-					// **********************PEGAR A HORA E ACERTAR***************************
-					double mediaHoraWatts = (gastoAtual.getNrWatts() / diaCorrente) / 24;
-					double mediaFinalMesWatts = (diasFaltantes * mediaHoraWatts) * 24;
-					mediaFinalMesWatts += gastoAtual.getNrWatts();
-					double vlrTarifa = 0.15; //********************vai vim do banco
-					double mediaFianalMesValor = ((mediaHoraWatts * vlrTarifa)*24) * diasFaltantes;
-					mediaFianalMesValor += gastoAtual.getVlrGastLuz();
-					NumberFormat formatarNumero = new DecimalFormat(".##");
-					txtMediaFinal.setText(String.valueOf(formatarNumero.format(mediaFinalMesWatts)));
-					txtValorMediaFinal.setText(String.valueOf(formatarNumero.format(mediaFianalMesValor)));
 
+					calcularGastoLuz(gastoAtual.getDtUltimaMedicao());
 				}
 			}
 			Toast.makeText(TelaMenu.this, "Dados atualizados com sucesso", Toast.LENGTH_LONG).show();
@@ -228,18 +236,30 @@ public class TelaMenu extends Activity implements OnClickListener {
 		startActivity(intent); // chama a pr�xima tela
         finish();
 	}
-	private void instanciarClasses(boolean fgSql)
+	private void instanciarClasses()
 	{
-		session = Session.getInstance();
-		if(fgSql)
-			session.setContext(this);
-		else
-			session.setContext(null);
 		listEntDom = new LinkedList<EntidadeDominio>();
-		resultado = new Resultado();
-		servlet = new Servlet();
 		gastoAtual = new GastoAtual();
 		gastoHoje = new GastoHoje();
-		configSistema = new ConfiguracaoSistema();
+	}
+	private void calcularGastoLuz(Date date)
+	{
+		// calcular média final
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		int diaCorrente = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+		//int mes = calendar.get(GregorianCalendar.MONTH);
+		int qtdDiasMes = calendar.getActualMaximum(calendar.DAY_OF_MONTH);
+		int diasFaltantes = qtdDiasMes - diaCorrente;
+		// **********************PEGAR A HORA E ACERTAR***************************
+		double mediaHoraWatts = (gastoAtual.getNrWatts() / diaCorrente) / 24;
+		double mediaFinalMesWatts = (diasFaltantes * mediaHoraWatts) * 24;
+		mediaFinalMesWatts += gastoAtual.getNrWatts();
+		double vlrTarifa = 0.15; //********************vai vim do banco
+		double mediaFianalMesValor = ((mediaHoraWatts * vlrTarifa)*24) * diasFaltantes;
+		mediaFianalMesValor += gastoAtual.getVlrGastLuz();
+		NumberFormat formatarNumero = new DecimalFormat(".##");
+		txtMediaFinal.setText(String.valueOf(formatarNumero.format(mediaFinalMesWatts)));
+		txtValorMediaFinal.setText(String.valueOf(formatarNumero.format(mediaFianalMesValor)));
 	}
 }

@@ -149,6 +149,7 @@ public class GastoAtual  extends EntidadeDominio {
         calendar.setTime(data);
         int dia = calendar.get(GregorianCalendar.DAY_OF_MONTH);
         int mes = calendar.get(GregorianCalendar.MONTH);
+        mes = mes + 1;
         int ano = calendar.get(GregorianCalendar.YEAR);
         sDate = String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + String.valueOf(ano);
 //            try {

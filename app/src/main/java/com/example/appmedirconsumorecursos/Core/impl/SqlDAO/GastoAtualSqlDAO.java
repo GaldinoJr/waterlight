@@ -13,6 +13,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -127,8 +128,8 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
                 GastoAtual g = new GastoAtual();
                 // ******************* TEM QUE SER A MESMA SEQUENCIA DA LISTA(colunasBusca)***********************
                 g.setId(listMapGastoAtual.get(i).get(colunasBusca[0]));
-                g.setDtInicioMedicao(formatarData(listMapGastoAtual.get(i).get(colunasBusca[1])));
-                g.setDtUltimaMedicao(formatarData(listMapGastoAtual.get(i).get(colunasBusca[2])));
+                g.setDtInicioMedicao(converterStringParaData(listMapGastoAtual.get(i).get(colunasBusca[1])));
+                g.setDtUltimaMedicao(converterStringParaData(listMapGastoAtual.get(i).get(colunasBusca[2])));
                 g.setVlrGastoAgua(Double.parseDouble(listMapGastoAtual.get(i).get(colunasBusca[3])));
                 g.setVlrGastLuz(Double.parseDouble(listMapGastoAtual.get(i).get(colunasBusca[4])));
                 g.setNrWatts(Double.parseDouble(listMapGastoAtual.get(i).get(colunasBusca[5])));
@@ -147,26 +148,35 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
     }
     private Date formatarData(String data)
     {
-//        String sDate;
-//        Date newDate;
-//        GregorianCalendar calendar = new GregorianCalendar();
-//        calendar.setTime(data);
-//        int dia = calendar.get(GregorianCalendar.DAY_OF_MONTH);
-//        int mes = calendar.get(GregorianCalendar.MONTH);
-//        int ano = calendar.get(GregorianCalendar.YEAR);
-//        sDate = String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + String.valueOf(ano);
-        // NÃO FUNCIONA, VERIFICAR COMO CONVERTER
-        //Tue Sep 01 00:00:00 BRT 2015
         SimpleDateFormat df;
         df = new SimpleDateFormat("yyyy-MM-dd");
+        String a = null;
         Date dc;
         try
         {
+            //String a = new SimpleDateFormat("dd/MM/yyyy").format(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(data));
             dc = (java.util.Date)df.parse(data);
         }
         catch (Exception e) {
             dc = null;
         }
         return dc;
+    }
+    private Date converterStringParaData(String sDate) {
+        Date date;
+        String dia,
+                mes,
+                ano;
+        dia = sDate.substring(8, 10);
+        mes = sDate.substring(4, 7);
+        ano = sDate.substring(24, 28);
+        try {
+            mes = new SimpleDateFormat("MM").format(new SimpleDateFormat("MMM", Locale.ENGLISH).parse(mes));
+        } catch (Exception e2) {
+            mes = null;
+        }
+        sDate = ano+"-"+mes+"-"+dia;
+        date = formatarData(sDate);
+        return date;
     }
 }

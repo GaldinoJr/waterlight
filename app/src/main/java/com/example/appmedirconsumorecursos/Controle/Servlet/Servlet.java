@@ -61,17 +61,17 @@ public class Servlet {
 
     }
     public Resultado doPost(Map request){
-        // Pega qual é a operação desejada(EX: CRUD) e qual a classe que está execultando a operação
+        // Pega qual a a operaÃ§Ã£o desejada(EX: CRUD) e qual a classe que estÃ¡ execultando a operaÃ§Ã£o
         String operacao = (String)request.get("operacao");
         String classe = (String)request.get("classe");
-        // Através do nome da classe, diz qual é o viewHelper da correspondente da mesma
+        // Atravï¿½s do nome da classe, diz qual ï¿½ o viewHelper da correspondente da mesma
         IViewHelper vh = vhs.get(classe); // manda o nome da classe e recebe o new do viewHelper Correspondente
         EntidadeDominio entidade =  vh.getEntidade(request); // pega os dados da entidade correspondete
-        // Verifica qual é a operação que está sendo feita
-        // de acordo com o que está descrito ácima, tem um mapa a chave é o nome da operação
-        // e o conteudo é o new da mesma
+        // Verifica qual ï¿½ a operaÃ§Ã£o que estï¿½ sendo feita
+        // de acordo com o que estï¿½ descrito ï¿½cima, tem um mapa a chave ï¿½ o nome da operaï¿½ï¿½o
+        // e o conteudo ï¿½ o new da mesma
         ICommand command = commands.get(operacao);
-        Resultado resultado = command.execute(entidade); // Execulta a operação e
+        Resultado resultado = command.execute(entidade); // Execulta a operaï¿½ï¿½o e
         return resultado; // retorna o resultado da mesma
     }
 }

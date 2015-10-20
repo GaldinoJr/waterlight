@@ -1,6 +1,8 @@
 package com.example.appmedirconsumorecursos.Dominio;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 /**
@@ -81,18 +83,64 @@ public class GastoHoje extends EntidadeDominio {
         return cdResidencia;
     }
 
+    // SETS DO MAPA
 
-    public void popularMap(EntidadeDominio entidadeDominio, String acao, String nomeClasse) {
-        GastoHoje gastoHoje = (GastoHoje)entidadeDominio;
+    public void setMapDtInicioMedicao(String dtUltimoRegistroMedicao) {
+        map.put(DF_dt_ultimo_registro_dia,String.valueOf(dtUltimoRegistroMedicao));
+    }
+
+    public void setMapVlrGastoAgua(String vlrGastoAgua) {
+        map.put(DF_vlrGastoAgua,String.valueOf(vlrGastoAgua));
+    }
+
+    public void setMapVlrGastLuz(String vlrGastLuz) {
+        map.put(DF_vlrGastLuz,String.valueOf(vlrGastLuz));
+    }
+
+    public void setMapNrWatts(String nrWatts) {
+        map.put(DF_nrWatts,String.valueOf(nrWatts));
+    }
+
+    public void setMapNrMetroCubicoAgua(String nrMetroCubicoAgua) {
+        map.put(DF_nrMetroCubicoAgua,String.valueOf(nrMetroCubicoAgua));
+    }
+
+    public void setMapCdResidencia(String cdResidencia) {
+        map.put(DF_cdResidencia,String.valueOf(cdResidencia));
+    }
+
+
+    public void popularMap() {
+        map.put(DF_ID,id);
+        map.put(DF_dt_ultimo_registro_dia, String.valueOf(dtUltimaRegistroDia));
+        map.put(DF_vlrGastoAgua, String.valueOf(vlrGastoAgua));
+        map.put(DF_vlrGastLuz,String.valueOf(vlrGastLuz));
+        map.put(DF_nrWatts, String.valueOf(nrWatts));
+        map.put(DF_nrMetroCubicoAgua, String.valueOf(nrMetroCubicoAgua));
+        map.put(DF_cdResidencia, String.valueOf(cdResidencia));
+    }
+    public void getMapInstance()
+    {
         map = new HashMap<String, String>();
-        map.put(gastoHoje.DF_ID, gastoHoje.getId());
-        map.put(gastoHoje.DF_dt_ultimo_registro_dia, String.valueOf(gastoHoje.getDtUltimaRegistroDia()));
-        map.put(gastoHoje.DF_vlrGastoAgua, String.valueOf(gastoHoje.getVlrGastoAgua()));
-        map.put(gastoHoje.DF_vlrGastLuz,String.valueOf(gastoHoje.getVlrGastLuz()));
-        map.put(gastoHoje.DF_nrWatts, String.valueOf(gastoHoje.getNrWatts()));
-        map.put(gastoHoje.DF_nrMetroCubicoAgua, String.valueOf(gastoHoje.getNrMetroCubicoAgua()));
-        map.put(gastoHoje.DF_cdResidencia, String.valueOf(gastoHoje.getCdResidencia()));
-        map.put("operacao", acao);          // indica a operação que está sendo realizada
-        map.put("classe", nomeClasse);
+        map.put("classe", GastoHoje.class.getName());
+    }
+    private String formatarData(Date data)
+    {
+        SimpleDateFormat df;
+        df = new SimpleDateFormat("dd/MM/yyyy");
+
+
+        String sDate;
+        Date newDate;
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(data);
+        int dia = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+        int mes = calendar.get(GregorianCalendar.MONTH);
+        mes = mes + 1;
+        int ano = calendar.get(GregorianCalendar.YEAR);
+        sDate = String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + String.valueOf(ano);
+
+        return sDate;
+
     }
 }
