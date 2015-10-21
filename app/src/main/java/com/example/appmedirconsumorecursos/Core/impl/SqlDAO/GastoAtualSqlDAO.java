@@ -119,7 +119,7 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
             query += " FROM " + nm_tabela + " WHERE 1 = 1";
             if (!TextUtils.isEmpty(gastoAtual.getId()))
                 query += " AND cd_gasto_atual = '" + gastoAtual.getId() + "'";
-            query += " Order by " + Col_cd_gasto_atual + " Asc;";
+            query += " ORDER BY " + Col_cd_gasto_atual + " DESC;";
             listGastoAtual = new ArrayList<EntidadeDominio>();
             List<Map<String, String>> listMapGastoAtual = new LinkedList<Map<String, String>>();
             listMapGastoAtual = db.pesquisarComSelect(query, colunasBusca);

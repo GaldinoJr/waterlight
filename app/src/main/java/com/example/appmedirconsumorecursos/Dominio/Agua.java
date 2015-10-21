@@ -10,7 +10,7 @@ public class Agua extends AbsRecurso {
 
 	protected void setNome()
 	{
-		nome = "¡gua";
+		nome = "√Ågua";
 	}
 	
 	protected void setIdImage()

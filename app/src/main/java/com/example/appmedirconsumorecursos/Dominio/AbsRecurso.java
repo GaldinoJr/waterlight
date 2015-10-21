@@ -9,7 +9,7 @@ import java.io.Serializable;
 // Serializable para poder passar o objeto entre as telas
 public abstract class AbsRecurso extends EntidadeDominio implements Serializable
 {
-	// Padr„o design pattern: abstract Factory
+	// Padr√£o design pattern: abstract Factory
 	protected String nome;
 	protected int idIcone;
 	protected String id;
@@ -34,7 +34,7 @@ public abstract class AbsRecurso extends EntidadeDominio implements Serializable
 		return id;
 	}
 	/*
-	 * respons·vel por popular os campos do objeto desseralizado.
+	 * respons√≠vel por popular os campos do objeto desseralizado.
 	private void readObject(ObjectInputStream in) 
 	          throws IOException, ClassNotFoundException {
 	    in.defaultReadObject();

@@ -47,7 +47,7 @@ public class GastoHojeViewHelper implements IViewHelper {
         Date dc;
         try
         {
-            df = new SimpleDateFormat("dd/MM/yyyy");
+            df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             dc = df.parse(data);
         }
         catch (Exception e) {

@@ -142,7 +142,7 @@ public class Residencia extends EntidadeDominio{
         map.put(residencia.DF_SENHA,residencia.getSenha());
         map.put(residencia.DF_NUMERO,String.valueOf(residencia.getNumero()));
         map.put(residencia.DF_FG_EXCLUIDO,String.valueOf(residencia.getFgExcluido()));
-        map.put("operacao", acao);          // indica a operaÁ„o que est· sendo realizada
+        map.put("operacao", acao);          // indica a opera√ß√£o que est√° sendo realizada
         map.put("classe", nomeClasse);
     }
 }

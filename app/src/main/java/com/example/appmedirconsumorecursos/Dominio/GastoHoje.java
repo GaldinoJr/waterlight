@@ -112,7 +112,7 @@ public class GastoHoje extends EntidadeDominio {
 
     public void popularMap() {
         map.put(DF_ID,id);
-        map.put(DF_dt_ultimo_registro_dia, String.valueOf(dtUltimaRegistroDia));
+        map.put(DF_dt_ultimo_registro_dia, formatarData(dtUltimaRegistroDia));
         map.put(DF_vlrGastoAgua, String.valueOf(vlrGastoAgua));
         map.put(DF_vlrGastLuz,String.valueOf(vlrGastLuz));
         map.put(DF_nrWatts, String.valueOf(nrWatts));
@@ -126,10 +126,6 @@ public class GastoHoje extends EntidadeDominio {
     }
     private String formatarData(Date data)
     {
-        SimpleDateFormat df;
-        df = new SimpleDateFormat("dd/MM/yyyy");
-
-
         String sDate;
         Date newDate;
         GregorianCalendar calendar = new GregorianCalendar();
@@ -138,8 +134,34 @@ public class GastoHoje extends EntidadeDominio {
         int mes = calendar.get(GregorianCalendar.MONTH);
         mes = mes + 1;
         int ano = calendar.get(GregorianCalendar.YEAR);
-        sDate = String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + String.valueOf(ano);
 
+        int hora = calendar.get(GregorianCalendar.HOUR);
+        // 0 = dia
+        // 1 = noite
+        int amPm = calendar.get(GregorianCalendar.AM_PM);
+
+        if(amPm == 1)
+        {
+            if(hora>0 && hora < 13)
+            {
+                if(hora == 12)
+                    hora = 0;
+                else
+                    hora += 12;
+            }
+        }
+        String sHora = " ";
+        if(hora<=9)
+        {
+            sHora += "0";
+        }
+        String sMin=":";
+        int min = calendar.get(GregorianCalendar.MINUTE);
+        if(min <10)
+            sMin += "0";
+        sMin += String.valueOf(min);
+        sHora += String.valueOf(hora) + sMin + ":00";
+        sDate = String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + String.valueOf(ano) + sHora;
         return sDate;
 
     }

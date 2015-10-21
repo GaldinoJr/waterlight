@@ -109,7 +109,7 @@ public class GastoMes extends EntidadeDominio {
         map.put(DF_nrMetroCubicoAgua, String.valueOf(nrMetroCubicoAgua));
         map.put(DF_dt_inclusao,sdt_inclusao);
         map.put(DF_cdResidencia, String.valueOf(cdResidencia));
-        map.put("operacao", acao);          // indica a operaÁ„o que est· sendo realizada
+        map.put("operacao", acao);          // indica a opera√ß√£o que est√° sendo realizada
         map.put("classe", GastoMes.class.getName());
     }
 

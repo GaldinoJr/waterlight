@@ -141,12 +141,7 @@ public class GastoAtual  extends EntidadeDominio {
     private String formatarData(Date data)
     {
         //String a = new SimpleDateFormat("dd/MM/yyyy").format(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(data));
-        SimpleDateFormat df;
-        df = new SimpleDateFormat("dd/MM/yyyy");
-
-
         String sDate;
-        Date newDate;
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(data);
         int dia = calendar.get(GregorianCalendar.DAY_OF_MONTH);
@@ -163,18 +158,24 @@ public class GastoAtual  extends EntidadeDominio {
         {
             if(hora>0 && hora < 13)
             {
-                if(hora == 12)
+                if(hora > 11)
                     hora = 0;
                 else
                     hora += 12;
             }
         }
+
         String sHora = " ";
         if(hora<=9)
         {
             sHora += "0";
         }
-        sHora += String.valueOf(hora) + ":00:00";
+        String sMin=":";
+        int min = calendar.get(GregorianCalendar.MINUTE);
+        if(min <10)
+            sMin += "0";
+        sMin += String.valueOf(min);
+        sHora += String.valueOf(hora) + sMin + ":00";
         sDate = String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + String.valueOf(ano) + sHora;
         return sDate;
 

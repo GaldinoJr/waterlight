@@ -44,7 +44,7 @@ public class EntidadeDominio implements IEntidade{
 
     public List<EntidadeDominio> operar(Context context, boolean fgSql, String operacao)
     {
-        map.put("operacao", operacao);          // indica a operaÁ„o que est· sendo realizada
+        map.put("operacao", operacao);          // indica a opera√ß√£o que est√° sendo realizada
         Session session = Session.getInstance();
         if (fgSql)
             session.setContext(context);

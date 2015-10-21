@@ -154,21 +154,37 @@ public class TelaMenu extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View view) {
-		// TODO Auto-generated method stub
 		if(view == btnAtualizar) // vai atualizar com novos dados?
 		{
+			List<EntidadeDominio> listAux;
 			instanciarClasses(); // consulta no banco interno
 			//gastoHoje.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
 			gastoHoje.getMapInstance();
 			gastoHoje.setMapCdResidencia(session.getResidencia().getId());
 			listEntDom = gastoHoje.operar(this,false,Servlet.DF_CONSULTAR);
-			if(listEntDom != null) // Achou algum registro?
+			if(listEntDom != null) // Achou algum registro no servidor?
 			{
-				// Então atualiza o banco interno
 				gastoHoje = (GastoHoje) listEntDom.get(0);
 				gastoHoje.getMapInstance();
 				gastoHoje.popularMap();
-				gastoHoje.operar(this, true, Servlet.DF_SALVAR);
+				// Verifica se é um novo registro
+				listAux = new LinkedList<EntidadeDominio>();
+				GastoHoje gastoHojeAux = new GastoHoje();
+				gastoHojeAux.getMapInstance();
+				gastoHojeAux.setMapCdResidencia(session.getResidencia().getId());
+				listAux = gastoHojeAux.operar(this,true, Servlet.DF_CONSULTAR);
+				if(listAux != null) // Achou algum registro no banco interno?
+				{
+					gastoHojeAux = (GastoHoje) listAux.get(0);
+					gastoHojeAux.getMapInstance();
+					gastoHojeAux.popularMap();
+					if (gastoHoje.getDtUltimaRegistroDia().compareTo(gastoHojeAux.getDtUltimaRegistroDia()) != 0) {
+						// Então atualiza o banco interno
+						gastoHoje.operar(this, true, Servlet.DF_SALVAR);
+					}
+				}
+				else
+					gastoHoje.operar(this, true, Servlet.DF_SALVAR);
 				if(idRecurso == 1) // agua?
 				{
 					txtGastoHj.setText(String.valueOf(gastoHoje.getNrMetroCubicoAgua()));
@@ -192,8 +208,24 @@ public class TelaMenu extends Activity implements OnClickListener {
 				gastoAtual = (GastoAtual) listEntDom.get(0);
 				gastoAtual.getMapInstance();
 				gastoAtual.popularMap();
-				gastoAtual.operar(this, true, Servlet.DF_SALVAR);
-				//
+//				// Verifica se é um novo registro
+				listAux = new LinkedList<EntidadeDominio>();;
+				GastoAtual gastoAtualAux = new GastoAtual();
+				gastoAtualAux.getMapInstance();
+				gastoAtualAux.setMapCdResidencia(session.getResidencia().getId());
+				listAux = gastoAtualAux.operar(this,true, Servlet.DF_CONSULTAR);
+				if(listAux != null) // Achou algum registro no servidor?
+				{
+					gastoAtualAux = (GastoAtual) listAux.get(0);
+					gastoAtualAux.getMapInstance();
+					gastoAtualAux.popularMap();
+					if (gastoAtual.getDtUltimaMedicao().compareTo(gastoAtualAux.getDtUltimaMedicao()) != 0) {
+						// Então atualiza o banco interno
+						gastoAtual.operar(this, true, Servlet.DF_SALVAR);
+					}
+				}
+				else
+					gastoAtual.operar(this, true, Servlet.DF_SALVAR);
 				if(idRecurso == 1) // agua?
 				{
 					txtGastoAtual.setText(String.valueOf(gastoAtual.getNrMetroCubicoAgua()));
@@ -220,7 +252,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 		if(view == btnGrafico)
 		{
 			Intent intent = new Intent();
-			intent.setClass(TelaMenu.this, TelaGraficoAnual	.class);
+			intent.setClass(TelaMenu.this, TelaGraficoAnual.class);
 			intent.putExtra("absClasse", absRecurso);
 			startActivity(intent);
 			finish();
@@ -230,7 +262,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 	public void onBackPressed() // precionou o voltar do telefone?
 	{ // Sim, volta para a p�gina anterior 
 		Intent intent = new Intent();
-        // Para chamar a pr�xima tela tem que dizer qual e a tela atual, e dpois a pr�xima tela( a que vai ser chamada)
+        // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
         intent.setClass(TelaMenu.this, TelaPrincipal.class);
         intent.putExtra("absClasse", absRecurso);
 		startActivity(intent); // chama a pr�xima tela

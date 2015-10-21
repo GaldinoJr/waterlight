@@ -50,7 +50,7 @@ public class GastoHojeDAO extends AbstractJdbcDAO {
 //            if(!TextUtils.isEmpty(residencia.getNome()))
 //                query += " AND ds_nome = '" + residencia.getNome() +"'";
 
-            query += " LIMIT 1;";
+            query += " ORDER BY cd_gasto_hoje DESC LIMIT 1;";;
             //
             jo.put("query", query);
             String json = jo.toString();
@@ -86,11 +86,11 @@ public class GastoHojeDAO extends AbstractJdbcDAO {
     private Date fomatarData(String data)
     {
         SimpleDateFormat df;
-        df = new SimpleDateFormat("dd/MM/yyyy");
+        df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date dc;
         try
         {
-            dc = df.parse(data);
+            dc = (java.util.Date)df.parse(data);
         }
         catch (Exception e) {
             dc = null;
