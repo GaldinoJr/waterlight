@@ -7,7 +7,7 @@ import com.example.appmedirconsumorecursos.Core.IDAO;
  */
 public abstract class AbstractSqlDAO implements IDAO{
         protected String DATABASE_NAME;
-        protected String nm_tabela; // sempre colocar IF NOT EXISTS na criacao da tabela
+        protected String nomeTabela; // sempre colocar IF NOT EXISTS na criacao da tabela
         protected String sqlCriarTabela;
         protected String[] colunas; // colunas da tabela fora o id
         protected String[] colunasBusca;

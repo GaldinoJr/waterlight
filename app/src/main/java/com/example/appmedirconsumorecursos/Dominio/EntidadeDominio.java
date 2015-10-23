@@ -2,11 +2,10 @@ package com.example.appmedirconsumorecursos.Dominio;
 
 import android.content.Context;
 
-import com.example.appmedirconsumorecursos.Controle.Servlet.Servlet;
+import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
 import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -51,9 +50,9 @@ public class EntidadeDominio implements IEntidade{
         else
             session.setContext(null);
         //
-        Servlet servlet = new Servlet();
+        Controler controler = new Controler();
         List<EntidadeDominio> list = new LinkedList<EntidadeDominio>();
-        Resultado resultado = servlet.doPost(map);
+        Resultado resultado = controler.doPost(map);
         list = resultado.getEntidades();
         return list;
     }

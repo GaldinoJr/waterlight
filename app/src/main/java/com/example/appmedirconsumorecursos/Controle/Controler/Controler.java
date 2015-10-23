@@ -1,4 +1,4 @@
-package com.example.appmedirconsumorecursos.Controle.Servlet;
+package com.example.appmedirconsumorecursos.Controle.Controler;
 
 import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.AguaViewHelper;
 import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.ConfiguracaoSistemaViewHelper;
@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * Created by Galdino on 19/08/2015.
  */
-public class Servlet {
+public class Controler {
     private static final long serialVersionUID = 1L;
     public static final String DF_SALVAR = "salvar";
     public static final String DF_CONSULTAR = "consultar";
@@ -39,7 +39,7 @@ public class Servlet {
 
     private static Map<String, ICommand> commands;
     private static Map<String, IViewHelper> vhs;
-    public Servlet()
+    public Controler()
     {
         commands = new HashMap<String, ICommand>();
         // CADASTRA OS COMANDOS

@@ -1,15 +1,6 @@
 package com.example.appmedirconsumorecursos.Dominio;
 
-import android.content.Context;
-
-import com.example.appmedirconsumorecursos.Controle.Servlet.Servlet;
-import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
-import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
-
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Galdino on 02/09/2015.

@@ -19,7 +19,6 @@ public class Session {
     // Construtor privado (suprime o construtor público padrão).
     private Session() {}
 
-    // M�todo p�blico est�tico de acesso �nico ao objeto!
     public static Session getInstance() {
         if (session == null) {
             session = new Session();

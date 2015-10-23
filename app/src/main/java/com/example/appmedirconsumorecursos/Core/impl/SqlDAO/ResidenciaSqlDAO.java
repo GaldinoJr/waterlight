@@ -43,15 +43,15 @@ public class ResidenciaSqlDAO extends AbstractSqlDAO {
 
     public ResidenciaSqlDAO(Context context){
         iniciar();
-        db  = new SQL(context, DATABASE_NAME, nm_tabela,colunas, sqlCriarTabela );
+        db  = new SQL(context, DATABASE_NAME, nomeTabela,colunas, sqlCriarTabela );
     }
 
 
     @Override
     protected void iniciar() {
         DATABASE_NAME = "watherLightDB";
-        nm_tabela = "tb_residencia";
-        sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nm_tabela+ "( " +
+        nomeTabela = "tb_residencia";
+        sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nomeTabela+ "( " +
                 Col_cd_residencia + " INTEGER PRIMARY KEY, " +
                 Col_ds_nome + " TEXT, " +
                 Col_ds_endereco + " TEXT, " +
@@ -112,7 +112,7 @@ public class ResidenciaSqlDAO extends AbstractSqlDAO {
             {
                 query += ", " + colunasBusca[i];
             }
-            query += " FROM " + nm_tabela + " WHERE 1 = 1";
+            query += " FROM " + nomeTabela + " WHERE 1 = 1";
             if (!TextUtils.isEmpty(residencia.getSenha()))
                 query += " AND ds_senha = '" + residencia.getSenha() + "'";
 

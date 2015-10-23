@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,16 +13,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.appmedirconsumorecursos.Controle.Servlet.Servlet;
-import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
+import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
 import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
-import com.example.appmedirconsumorecursos.Dominio.Residencia;
 import com.example.appmedirconsumorecursos.R;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class Tela_configuracao_aplicativo extends Activity implements View.OnClickListener {
@@ -155,7 +151,7 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
                 configSistema.setMapIndTipoVoltagem(indTipoVoltagem);
                 configSistema.setMapVlrTarifaAgua(vlrTarifaAgua);
                 configSistema.setMapVlrTarifaLuz(vlrTarifaLuz);
-                configSistema.operar(this, true, Servlet.DF_ALTERAR);
+                configSistema.operar(this, true, Controler.DF_ALTERAR);
                 // add a classe
                 configSistema.setIndTipoAtualizacao(indTipoAtualizacao);
                 configSistema.setIndTipoVoltagem(indTipoVoltagem);

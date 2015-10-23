@@ -12,7 +12,7 @@ import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.LuzDAO;
 import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.ResidenciaServerDAO;
 import com.example.appmedirconsumorecursos.Core.impl.SqlDAO.ConfiguracaoSistemaSqlDAO;
 import com.example.appmedirconsumorecursos.Core.impl.SqlDAO.GastoAtualSqlDAO;
-import com.example.appmedirconsumorecursos.Core.impl.SqlDAO.GastoHojeSqlDAO;
+import com.example.appmedirconsumorecursos.Core.impl.SqlDAO.GastoHojeSqlDAO2;
 import com.example.appmedirconsumorecursos.Core.impl.SqlDAO.ResidenciaSqlDAO;
 import com.example.appmedirconsumorecursos.Dominio.Agua;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
@@ -66,7 +66,7 @@ public class Fachada  implements IFachada {
             ResidenciaSqlDAO residenciaSqlDAO = new ResidenciaSqlDAO(session.getContext());
             ConfiguracaoSistemaSqlDAO configSistemaSqlDAO = new ConfiguracaoSistemaSqlDAO(session.getContext());
             GastoAtualSqlDAO gastoAtualSqlDAO = new GastoAtualSqlDAO(session.getContext());
-            GastoHojeSqlDAO gastoHojeSqlDAO = new GastoHojeSqlDAO(session.getContext());
+            GastoHojeSqlDAO2 gastoHojeSqlDAO = new GastoHojeSqlDAO2(session.getContext());
             // ADD AS CLASSES DAO CORRESPONDENTES AS CLASSES CONCRETAS ******
             daos.put(Residencia.class.getName(), residenciaSqlDAO);
             daos.put(ConfiguracaoSistema.class.getName(), configSistemaSqlDAO);

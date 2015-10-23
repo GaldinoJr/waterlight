@@ -1,7 +1,7 @@
 package com.example.appmedirconsumorecursos.Telas;
 
+import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
 import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
-import com.example.appmedirconsumorecursos.Controle.Servlet.Servlet;
 import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
@@ -39,8 +39,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 			txtValorGastoAtual,
 			txtValorMediaFinal;
 	private Button btnAtualizar,
-			btnHistorico,
-			btnGrafico;
+			btnHistorico;
 	private ImageView imgRecurso;
 	private Intent dados;
 	private AbsRecurso absRecurso;
@@ -48,7 +47,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 	private GastoAtual gastoAtual;
 	private GastoHoje gastoHoje;
 
-	private Servlet servlet;
+	private Controler controler;
 	private Session session;
 	private List<EntidadeDominio> listEntDom;
 	private Resultado resultado;
@@ -90,11 +89,11 @@ public class TelaMenu extends Activity implements OnClickListener {
 		//
 		btnAtualizar = (Button)findViewById(id.btnAtualizarDados);
 		btnHistorico = (Button)findViewById(id.btnHistorico);
-		btnGrafico = (Button)findViewById(id.btnGrafico);
+
 		// indica que os botoes podem ser clicados
 		btnAtualizar.setOnClickListener(this);
 		btnHistorico.setOnClickListener(this);
-		btnGrafico.setOnClickListener(this);
+
 		//
 		dados = getIntent(); // Recebe os dados da tela anterior
 		absRecurso = (AbsRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
@@ -107,7 +106,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 		instanciarClasses(); // consulta no banco interno
 		gastoHoje.getMapInstance();
 		gastoHoje.setMapCdResidencia(session.getResidencia().getId());
-		listEntDom = gastoHoje.operar(this,true,Servlet.DF_CONSULTAR);
+		listEntDom = gastoHoje.operar(this,true, Controler.DF_CONSULTAR);
 		if(listEntDom != null) //Achou alguma coisa?
 		{
 			gastoHoje = (GastoHoje) listEntDom.get(0);
@@ -126,7 +125,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 		instanciarClasses(); // consulta no banco interno
 		gastoAtual.getMapInstance();
 		gastoAtual.setMapCdResidencia(session.getResidencia().getId());
-		listEntDom = gastoAtual.operar(this,true,Servlet.DF_CONSULTAR);
+		listEntDom = gastoAtual.operar(this,true, Controler.DF_CONSULTAR);
 		if(listEntDom != null) //Achou alguma coisa?
 		{
 			gastoAtual = (GastoAtual) listEntDom.get(0);
@@ -161,7 +160,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 			//gastoHoje.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
 			gastoHoje.getMapInstance();
 			gastoHoje.setMapCdResidencia(session.getResidencia().getId());
-			listEntDom = gastoHoje.operar(this,false,Servlet.DF_CONSULTAR);
+			listEntDom = gastoHoje.operar(this,false, Controler.DF_CONSULTAR);
 			if(listEntDom != null) // Achou algum registro no servidor?
 			{
 				gastoHoje = (GastoHoje) listEntDom.get(0);
@@ -172,7 +171,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 				GastoHoje gastoHojeAux = new GastoHoje();
 				gastoHojeAux.getMapInstance();
 				gastoHojeAux.setMapCdResidencia(session.getResidencia().getId());
-				listAux = gastoHojeAux.operar(this,true, Servlet.DF_CONSULTAR);
+				listAux = gastoHojeAux.operar(this,true, Controler.DF_CONSULTAR);
 				if(listAux != null) // Achou algum registro no banco interno?
 				{
 					gastoHojeAux = (GastoHoje) listAux.get(0);
@@ -180,11 +179,11 @@ public class TelaMenu extends Activity implements OnClickListener {
 					gastoHojeAux.popularMap();
 					if (gastoHoje.getDtUltimaRegistroDia().compareTo(gastoHojeAux.getDtUltimaRegistroDia()) != 0) {
 						// Então atualiza o banco interno
-						gastoHoje.operar(this, true, Servlet.DF_SALVAR);
+						gastoHoje.operar(this, true, Controler.DF_SALVAR);
 					}
 				}
 				else
-					gastoHoje.operar(this, true, Servlet.DF_SALVAR);
+					gastoHoje.operar(this, true, Controler.DF_SALVAR);
 				if(idRecurso == 1) // agua?
 				{
 					txtGastoHj.setText(String.valueOf(gastoHoje.getNrMetroCubicoAgua()));
@@ -198,10 +197,10 @@ public class TelaMenu extends Activity implements OnClickListener {
 			instanciarClasses(); // consulta no banco interno
 			//gastoAtual.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
 			//gastoAtual.popularMap(gastoAtual, "consultar", GastoAtual.class.getName());
-			//resultado = servlet.doPost(gastoAtual.getMap());
+			//resultado = controler.doPost(gastoAtual.getMap());
 			gastoAtual.getMapInstance();
 			gastoAtual.setMapCdResidencia(session.getResidencia().getId());
-			listEntDom = gastoAtual.operar(this,false,Servlet.DF_CONSULTAR);
+			listEntDom = gastoAtual.operar(this,false, Controler.DF_CONSULTAR);
 			if(listEntDom != null) // Achou algum registro no servidor?
 			{ // Sim
 				// Então atualiza o banco interno
@@ -213,7 +212,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 				GastoAtual gastoAtualAux = new GastoAtual();
 				gastoAtualAux.getMapInstance();
 				gastoAtualAux.setMapCdResidencia(session.getResidencia().getId());
-				listAux = gastoAtualAux.operar(this,true, Servlet.DF_CONSULTAR);
+				listAux = gastoAtualAux.operar(this,true, Controler.DF_CONSULTAR);
 				if(listAux != null) // Achou algum registro no servidor?
 				{
 					gastoAtualAux = (GastoAtual) listAux.get(0);
@@ -221,11 +220,11 @@ public class TelaMenu extends Activity implements OnClickListener {
 					gastoAtualAux.popularMap();
 					if (gastoAtual.getDtUltimaMedicao().compareTo(gastoAtualAux.getDtUltimaMedicao()) != 0) {
 						// Então atualiza o banco interno
-						gastoAtual.operar(this, true, Servlet.DF_SALVAR);
+						gastoAtual.operar(this, true, Controler.DF_SALVAR);
 					}
 				}
 				else
-					gastoAtual.operar(this, true, Servlet.DF_SALVAR);
+					gastoAtual.operar(this, true, Controler.DF_SALVAR);
 				if(idRecurso == 1) // agua?
 				{
 					txtGastoAtual.setText(String.valueOf(gastoAtual.getNrMetroCubicoAgua()));
@@ -245,14 +244,6 @@ public class TelaMenu extends Activity implements OnClickListener {
 		{
 			Intent intent = new Intent();
 			intent.setClass(TelaMenu.this, TelaDeHistorico.class);
-			intent.putExtra("absClasse", absRecurso);
-			startActivity(intent);
-			finish();
-		}
-		if(view == btnGrafico)
-		{
-			Intent intent = new Intent();
-			intent.setClass(TelaMenu.this, TelaGraficoAnual.class);
 			intent.putExtra("absClasse", absRecurso);
 			startActivity(intent);
 			finish();

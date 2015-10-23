@@ -40,14 +40,14 @@ public class GastoHojeSqlDAO2 extends AbstractSqlDAO {
     public GastoHojeSqlDAO2(Context context)
     {
         iniciar();
-        db  = new SQL(context, DATABASE_NAME, nm_tabela,colunas, sqlCriarTabela );
+        db  = new SQL(context, DATABASE_NAME, nomeTabela,colunas, sqlCriarTabela );
     }
 
     @Override
     protected void iniciar() {
         DATABASE_NAME = "watherLightDB";
-        nm_tabela = NM_TABELA;
-        sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nm_tabela+ "( " +
+        nomeTabela = NM_TABELA;
+        sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nomeTabela+ "( " +
                 Col_cd_gasto_hoje + " INTEGER PRIMARY KEY, " +
                 Col_dt_ultimo_registro_dia + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
                 Col_vlr_gasto_agua + " REAL, " +
@@ -110,7 +110,7 @@ public class GastoHojeSqlDAO2 extends AbstractSqlDAO {
             {
                 query += ", " + colunasBusca[i];
             }
-            query += " FROM " + nm_tabela + " WHERE 1 = 1";
+            query += " FROM " + nomeTabela + " WHERE 1 = 1";
             if (!TextUtils.isEmpty(gastohoje.getId()))
                 query += " AND "+ Col_cd_gasto_hoje  +" = '" + gastohoje.getId() + "'";
             query += " ORDER BY "+Col_cd_gasto_hoje+ " DESC";

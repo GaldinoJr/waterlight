@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Galdino on 24/08/2015.
  */
-public class ResidenciaServerDAO extends AbstractJdbcDAO
+public class ResidenciaServerDAO extends AbstractServerDAO
 {
     private List<EntidadeDominio> listResidencias;
     private Residencia residencia;

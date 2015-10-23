@@ -1,6 +1,6 @@
 package com.example.appmedirconsumorecursos.Telas;
 
-import com.example.appmedirconsumorecursos.Controle.Servlet.Servlet;
+import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
 import com.example.appmedirconsumorecursos.Dominio.Agua;
@@ -58,7 +58,7 @@ public class TelaPrincipal extends Activity implements OnClickListener {
 				configSistema = session.getConfiguracaoSistema();
 				configSistema.getMapInstance();
 				configSistema.setMapFgLogarAutomaticamente(0);
-				listEntDom = configSistema.operar(this, true, Servlet.DF_ALTERAR);
+				listEntDom = configSistema.operar(this, true, Controler.DF_ALTERAR);
 				//
 				intent = new Intent();
 				intent.setClass(TelaPrincipal.this, TelaLogin.class);

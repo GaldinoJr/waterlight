@@ -12,7 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.appmedirconsumorecursos.Controle.Servlet.Servlet;
+import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
 import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
@@ -20,10 +20,8 @@ import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.Residencia;
 import com.example.appmedirconsumorecursos.R;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class TelaLogin extends Activity implements View.OnClickListener {
     private CheckBox cbLogarAutomaticamente;
@@ -35,7 +33,7 @@ public class TelaLogin extends Activity implements View.OnClickListener {
     private List<EntidadeDominio> listEntDom;
     private Resultado resultado;
     private Residencia residencia;
-    private Servlet servlet;
+    private Controler controler;
     private Session session;
     private ConfiguracaoSistema configSistema;
     @Override
@@ -58,7 +56,7 @@ public class TelaLogin extends Activity implements View.OnClickListener {
         // Verifica se o usuário já foi gravado no banco interno
         instanciarClasses(true); // consulta no banco interno
         residencia.popularMap(residencia,"consultar", Residencia.class.getName());
-        resultado = servlet.doPost(residencia.getMap());
+        resultado = controler.doPost(residencia.getMap());
         listEntDom = resultado.getEntidades();
         if(listEntDom != null) // Achou alguma casa cadastrada com o login e senha digitado?
         {
@@ -67,7 +65,7 @@ public class TelaLogin extends Activity implements View.OnClickListener {
             configSistema = new ConfiguracaoSistema();
             configSistema.getMapInstance();
             configSistema.setMapId(session.getResidencia().getId());
-            listEntDom = configSistema.operar(this, true, Servlet.DF_CONSULTAR);
+            listEntDom = configSistema.operar(this, true, Controler.DF_CONSULTAR);
             if(listEntDom != null) // Achou alguma casa cadastrada na config do sitema?
             {
                 configSistema = (ConfiguracaoSistema)listEntDom.get(0);
@@ -124,14 +122,14 @@ public class TelaLogin extends Activity implements View.OnClickListener {
                 // ******************************** validar um TIMEOUT *******************************
                 // ******************************** colar um GIF de carregando e esconder o botão logar impossibilitando
                 // que o usuário clique novamente, pois se o usuario clicar novamente ele abre duas telas**************************
-                resultado = servlet.doPost(residencia.getMap());
+                resultado = controler.doPost(residencia.getMap());
                 listEntDom = resultado.getEntidades();
                 if (listEntDom != null) // Achou alguma casa cadastrada com o login e senha digitado?
                 {// então grava no banco interno a residencia
                     session.setResidencia((Residencia) listEntDom.get(0));
                     instanciarClasses(true); // operação no banco
                     residencia.popularMap(session.getResidencia(), "salvar", Residencia.class.getName());
-                    resultado = servlet.doPost(residencia.getMap());
+                    resultado = controler.doPost(residencia.getMap());
                     if (resultado.getMsg() != null) {
                         Toast.makeText(TelaLogin.this, "Erro ao cadastrar login no banco interno do celular, favor contatar o suporte.", Toast.LENGTH_LONG).show();
                     }
@@ -156,7 +154,7 @@ public class TelaLogin extends Activity implements View.OnClickListener {
             configSistema = new ConfiguracaoSistema();
             configSistema.getMapInstance();
             configSistema.setMapId(session.getResidencia().getId());
-            listEntDom = configSistema.operar(this, true, Servlet.DF_CONSULTAR);
+            listEntDom = configSistema.operar(this, true, Controler.DF_CONSULTAR);
             // altera
             int chkLogar = cbLogarAutomaticamente.isChecked() ? 1 : 0;
             if (listEntDom != null) // Achou registro?
@@ -168,7 +166,7 @@ public class TelaLogin extends Activity implements View.OnClickListener {
                     configSistema.getMapInstance();
                     configSistema.setMapId(session.getResidencia().getId()); // grava o ID na config
                     configSistema.setMapFgLogarAutomaticamente(chkLogar);
-                    listEntDom = configSistema.operar(this,true,Servlet.DF_ALTERAR);
+                    listEntDom = configSistema.operar(this,true, Controler.DF_ALTERAR);
                 }
             }
             // inclui
@@ -177,7 +175,7 @@ public class TelaLogin extends Activity implements View.OnClickListener {
                 configSistema.getMapInstance();
                 configSistema.setMapId(session.getResidencia().getId()); // grava o ID na config
                 configSistema.setMapFgLogarAutomaticamente(chkLogar);
-                listEntDom = configSistema.operar(this, true, Servlet.DF_SALVAR);
+                listEntDom = configSistema.operar(this, true, Controler.DF_SALVAR);
             }
             if (resultado.getMsg() != null) {
                 Toast.makeText(TelaLogin.this, "Erro ao cadastrar as configurações do aplicativo, favor contatar o suporte.", Toast.LENGTH_LONG).show();
@@ -202,6 +200,6 @@ public class TelaLogin extends Activity implements View.OnClickListener {
         listEntDom = new LinkedList<EntidadeDominio>();
         resultado = new Resultado();
         residencia = new Residencia();
-        servlet = new Servlet();
+        controler = new Controler();
     }
 }

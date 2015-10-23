@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Galdino on 19/08/2015.
  */
-public class AguaDAO extends AbstractJdbcDAO
+public class AguaDAO extends AbstractServerDAO
 {
 
     public AguaDAO()

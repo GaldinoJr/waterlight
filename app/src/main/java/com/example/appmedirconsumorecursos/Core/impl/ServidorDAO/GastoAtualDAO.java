@@ -1,7 +1,5 @@
 package com.example.appmedirconsumorecursos.Core.impl.ServidorDAO;
 
-import android.text.TextUtils;
-
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.GastoAtual;
 
@@ -17,7 +15,7 @@ import java.util.List;
 /**
  * Created by Galdino on 07/09/2015.
  */
-public class GastoAtualDAO  extends AbstractJdbcDAO  {
+public class GastoAtualDAO  extends AbstractServerDAO {
     private List<EntidadeDominio> listResidencias;
     private GastoAtual gastoAtual;
 

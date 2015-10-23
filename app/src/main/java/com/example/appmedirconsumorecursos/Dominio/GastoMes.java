@@ -2,7 +2,7 @@ package com.example.appmedirconsumorecursos.Dominio;
 
 import android.content.Context;
 
-import com.example.appmedirconsumorecursos.Controle.Servlet.Servlet;
+import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
 import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 
@@ -121,11 +121,11 @@ public class GastoMes extends EntidadeDominio {
         else
             session.setContext(null);
         //
-        Servlet servlet = new Servlet();
+        Controler controler = new Controler();
         List<EntidadeDominio> list = new LinkedList<EntidadeDominio>();
         popularMap(operacao);
-        // popularMap(configuracaoSistema, Servlet.DF_CONSULTAR, ConfiguracaoSistema.class.getName());
-        Resultado resultado = servlet.doPost(map);
+        // popularMap(configuracaoSistema, Controler.DF_CONSULTAR, ConfiguracaoSistema.class.getName());
+        Resultado resultado = controler.doPost(map);
         list = resultado.getEntidades();
         return list;
     }

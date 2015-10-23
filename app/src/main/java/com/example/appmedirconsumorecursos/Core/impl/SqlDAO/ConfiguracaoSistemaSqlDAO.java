@@ -33,14 +33,14 @@ public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
     public ConfiguracaoSistemaSqlDAO(Context context)
     {
         iniciar();
-        db  = new SQL(context, DATABASE_NAME, nm_tabela,colunas, sqlCriarTabela );
+        db  = new SQL(context, DATABASE_NAME, nomeTabela,colunas, sqlCriarTabela );
     }
 
     @Override
     protected void iniciar() {
         DATABASE_NAME = "watherLightDB";
-        nm_tabela = "tb_configuracao_sistema";
-        sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nm_tabela+ "( " +
+        nomeTabela = "tb_configuracao_sistema";
+        sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nomeTabela+ "( " +
                 Col_cd_residencia + " INTEGER PRIMARY KEY, " +
                 Col_fg_logar_automaticamente + " INTEGER, " +
                 Col_ind_tipo_voltagem + " INTEGER, " +
@@ -101,7 +101,7 @@ public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
             {
                 query += ", " + colunasBusca[i];
             }
-            query += " FROM " + nm_tabela + " WHERE 1 = 1";
+            query += " FROM " + nomeTabela + " WHERE 1 = 1";
             if (!TextUtils.isEmpty(configSistema.getId()))
                 query += " AND cd_residencia = '" + configSistema.getId() + "'";
 

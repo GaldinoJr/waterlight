@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Galdino on 19/08/2015.
  */
-public class LuzDAO extends AbstractJdbcDAO
+public class LuzDAO extends AbstractServerDAO
 {
 
     public LuzDAO()

@@ -8,13 +8,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.appmedirconsumorecursos.Controle.Servlet.Servlet;
-import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
+import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
@@ -22,11 +22,9 @@ import com.example.appmedirconsumorecursos.Dominio.GastoMes;
 import com.example.appmedirconsumorecursos.R;
 import com.example.appmedirconsumorecursos.R.id;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
-public class TelaDeHistorico extends Activity {
+public class TelaDeHistorico extends Activity implements View.OnClickListener {
 
 	private Spinner spMes,
 					spAno;
@@ -37,6 +35,7 @@ public class TelaDeHistorico extends Activity {
 					 txtRsGastoAtual,
 					 txtMediaFinal,
 					 txtRsMediaFinal;
+	private Button btnGrafico;
 	private int teste = 0,
 			teste2 = 0; // testar se foi selecionado algo no sppiner
 	private ArrayAdapter<String> aaMes;
@@ -49,7 +48,7 @@ public class TelaDeHistorico extends Activity {
 	private Intent dados;
 	private AbsRecurso absRecurso;
 	private Integer idRecurso;
-	// sempre usar com requisi��es
+	// sempre usar com requisições
 	private Session session;
 	private List<EntidadeDominio> listEntDom;
 
@@ -69,7 +68,8 @@ public class TelaDeHistorico extends Activity {
 		txtRsGastoAtual = (TextView)findViewById(id.txtR$GastoAtual);
 		txtMediaFinal = (TextView)findViewById(id.txtMediaFina);
 		txtRsMediaFinal = (TextView)findViewById(id.txtR$MediaFinal);
-		
+		btnGrafico = (Button)findViewById(id.btnGrafico);
+		btnGrafico.setOnClickListener(this);
 		spMes = (Spinner)findViewById(id.spMes);
 		spAno = (Spinner)findViewById(id.spAno1);
 		
@@ -108,7 +108,7 @@ public class TelaDeHistorico extends Activity {
 						gastoMes.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
 						String data = "01/"+position+"/2015";
 						gastoMes.setSdt_inclusao(data);
-						listEntDom = gastoMes.operar(session.getContext(),false, Servlet.DF_CONSULTAR);
+						listEntDom = gastoMes.operar(session.getContext(),false, Controler.DF_CONSULTAR);
 						if(listEntDom != null)
 						{
 							gastoMes = (GastoMes)listEntDom.get(0);
@@ -187,4 +187,15 @@ public class TelaDeHistorico extends Activity {
 		finish();
 	}
 
+	@Override
+	public void onClick(View view) {
+		if(view == btnGrafico)
+		{
+			Intent intent = new Intent();
+			intent.setClass(TelaDeHistorico.this, TelaGraficoAnual.class);
+			intent.putExtra("absClasse", absRecurso);
+			startActivity(intent);
+			finish();
+		}
+	}
 }

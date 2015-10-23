@@ -1,10 +1,7 @@
 package com.example.appmedirconsumorecursos.Core.impl.ServidorDAO;
 
-import android.text.TextUtils;
-
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
-import com.example.appmedirconsumorecursos.Dominio.Residencia;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,7 +15,7 @@ import java.util.List;
 /**
  * Created by Galdino on 07/09/2015.
  */
-public class GastoHojeDAO extends AbstractJdbcDAO {
+public class GastoHojeDAO extends AbstractServerDAO {
     private List<EntidadeDominio> listResidencias;
     private GastoHoje gastoHoje;
 

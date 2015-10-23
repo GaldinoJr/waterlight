@@ -21,13 +21,13 @@ public class SQL extends SQLiteOpenHelper {
     private String sqlCriarTabela;
     private String[] colunas;
     //
-    private String nm_tabela;
+    private String nomeTabela;
     // Database Version
     private static final int DATABASE_VERSION = 2;
-    public SQL(Context context, String nomeBase, String nm_tabela, String[] colunas, String sqlCriarTabela) {
+    public SQL(Context context, String nomeBase, String nomeTabela, String[] colunas, String sqlCriarTabela) {
         super(context, nomeBase, null, DATABASE_VERSION);
         //onUpgrade();
-        this.nm_tabela = nm_tabela;
+        this.nomeTabela = nomeTabela;
         this.colunas = new String[colunas.length];
         this.colunas = colunas;
         this.sqlCriarTabela = sqlCriarTabela;
@@ -75,7 +75,7 @@ public class SQL extends SQLiteOpenHelper {
 
 
         // 3. insert
-        db.insert(nm_tabela, // table
+        db.insert(nomeTabela, // table
                 null, //nullColumnHack
                 values); // key/value -> keys = column names/ values = column values
 
@@ -91,7 +91,7 @@ public class SQL extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         // 2. build query
         Cursor cursor =
-                db.query(nm_tabela, // a. table
+                db.query(nomeTabela, // a. table
                         colunasBusca, // b. column names
                         colunaID + " = ?", // c. selections
                         new String[]{sId}, // d. selections args
@@ -125,7 +125,7 @@ public class SQL extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         // 2. delete
-        db.delete(nm_tabela, //table name
+        db.delete(nomeTabela, //table name
                 colunaID +" = ?",  // selections
                 new String[] {sId }); //selections args
 
@@ -153,7 +153,7 @@ public class SQL extends SQLiteOpenHelper {
 
 
         // 3. updating row
-        int retorno = db.update(nm_tabela, //table
+        int retorno = db.update(nomeTabela, //table
                 values, // column/value
                 ColunaID+" = ?", // selections
                 new String[] { sId }); //selection args
@@ -171,7 +171,7 @@ public class SQL extends SQLiteOpenHelper {
             colunas += colunasBusca[i] + ",";
         colunas += colunasBusca[(colunasBusca.length)-1];
         // 1. build the query
-        String query = "SELECT " + colunas +" FROM "+ nm_tabela;
+        String query = "SELECT " + colunas +" FROM "+ nomeTabela;
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getReadableDatabase();
@@ -216,14 +216,15 @@ public class SQL extends SQLiteOpenHelper {
         return LMregistro;
     }
 
-    public void deletarComClausula(String where, String[] args)
+    // mudar para deletar registro
+    public void deletarComClausula(String clausula, String[] args)
     {
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
 
         // 2. delete
-        db.delete(nm_tabela, //table name
-                where,  // selections
+        db.delete(nomeTabela, //table name
+                clausula,  // selections
                 args); //selections args
 
         // 3. close

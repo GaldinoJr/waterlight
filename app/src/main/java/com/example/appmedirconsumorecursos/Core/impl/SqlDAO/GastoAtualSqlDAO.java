@@ -42,14 +42,14 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
     public GastoAtualSqlDAO(Context context)
     {
         iniciar();
-        db  = new SQL(context, DATABASE_NAME, nm_tabela,colunas, sqlCriarTabela );
+        db  = new SQL(context, DATABASE_NAME, nomeTabela,colunas, sqlCriarTabela );
     }
     @Override
     protected void iniciar() {
         http://tips.androidhive.info/2013/10/android-insert-datetime-value-in-sqlite-database/
         DATABASE_NAME = "watherLightDB";
-        nm_tabela = NM_TABELA;
-        sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nm_tabela+ "( " +
+        nomeTabela = NM_TABELA;
+        sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nomeTabela+ "( " +
                 Col_cd_gasto_atual + " INTEGER PRIMARY KEY, " +
                 Col_dt_inicio_medicao + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
                 Col_dt_ultima_medicao + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
@@ -116,7 +116,7 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
             {
                 query += ", " + colunasBusca[i];
             }
-            query += " FROM " + nm_tabela + " WHERE 1 = 1";
+            query += " FROM " + nomeTabela + " WHERE 1 = 1";
             if (!TextUtils.isEmpty(gastoAtual.getId()))
                 query += " AND cd_gasto_atual = '" + gastoAtual.getId() + "'";
             query += " ORDER BY " + Col_cd_gasto_atual + " DESC;";

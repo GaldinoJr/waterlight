@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Galdino on 14/09/2015.
  */
-public class GastoMesDAO extends AbstractJdbcDAO {
+public class GastoMesDAO extends AbstractServerDAO {
     private List<EntidadeDominio> listResidencias;
     private GastoMes gastoMes;
 
