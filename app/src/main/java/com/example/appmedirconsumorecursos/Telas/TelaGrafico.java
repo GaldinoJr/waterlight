@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
@@ -20,7 +19,7 @@ import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
-public class TelaGraficoAnual extends Activity {
+public class TelaGrafico extends Activity {
 
     private Intent dados;
     private AbsRecurso absRecurso;
@@ -115,12 +114,12 @@ public class TelaGraficoAnual extends Activity {
 
     }
     public void onBackPressed() // precionou o voltar do telefone?
-    { // Sim, volta para a p?gina anterior
+    { // Sim, volta para a página anterior
         Intent intent = new Intent();
-        // Para chamar a pr?xima tela tem que dizer qual e a tela atual, e dpois a pr?xima tela( a que vai ser chamada)
-        intent.setClass(TelaGraficoAnual.this, TelaDeHistorico.class);
+        // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
+        intent.setClass(TelaGrafico.this, TelaDeHistorico.class);
         intent.putExtra("absClasse", absRecurso);
-        startActivity(intent); // chama a pr?xima tela
+        startActivity(intent); // chama a próxima tela
         finish();
     }
 

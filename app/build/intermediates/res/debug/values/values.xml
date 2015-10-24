@@ -20,6 +20,7 @@
     <string name="estatistica">Estatistica completa</string>
     <string name="gasto">Gasto</string>
     <string name="gastoAtual">Gasto atual</string>
+    <string name="gerarGrafico">Gerar gráfico</string>
     <string name="hello_world">Hello world!</string>
     <string name="historico">Histórico</string>
     <string name="login">Login</string>

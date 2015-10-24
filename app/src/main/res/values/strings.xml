@@ -39,4 +39,5 @@
     <string name="vlrTarAgua">Valor da tarifa de Água</string>
     <string name="vlrTarLuz">Valor da tarifa de Luz</string>
     <string name="voltagemResidencia">Voltagem da residencia</string>
+    <string name="gerarGrafico">Gerar gráfico</string>
 </resources>
