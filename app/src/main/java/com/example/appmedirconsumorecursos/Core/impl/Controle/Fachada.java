@@ -7,18 +7,21 @@ import com.example.appmedirconsumorecursos.Core.IStrategy;
 import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.AguaDAO;
 import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.GastoAtualDAO;
 import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.GastoHojeDAO;
+import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.GastoHoraDAO;
 import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.GastoMesDAO;
 import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.LuzDAO;
 import com.example.appmedirconsumorecursos.Core.impl.ServidorDAO.ResidenciaServerDAO;
 import com.example.appmedirconsumorecursos.Core.impl.SqlDAO.ConfiguracaoSistemaSqlDAO;
 import com.example.appmedirconsumorecursos.Core.impl.SqlDAO.GastoAtualSqlDAO;
 import com.example.appmedirconsumorecursos.Core.impl.SqlDAO.GastoHojeSqlDAO2;
+import com.example.appmedirconsumorecursos.Core.impl.SqlDAO.GastoHoraSqlDAO;
 import com.example.appmedirconsumorecursos.Core.impl.SqlDAO.ResidenciaSqlDAO;
 import com.example.appmedirconsumorecursos.Dominio.Agua;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
 import com.example.appmedirconsumorecursos.Dominio.GastoAtual;
 import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
+import com.example.appmedirconsumorecursos.Dominio.GastoHora;
 import com.example.appmedirconsumorecursos.Dominio.GastoMes;
 import com.example.appmedirconsumorecursos.Dominio.Luz;
 import com.example.appmedirconsumorecursos.Dominio.Residencia;
@@ -52,6 +55,7 @@ public class Fachada  implements IFachada {
             GastoHojeDAO gastoHojeDAO = new GastoHojeDAO();
             GastoAtualDAO gastoAtualDAO = new GastoAtualDAO();
             GastoMesDAO gastoMesDAO = new GastoMesDAO();
+            GastoHoraDAO gastoHoraDAO = new GastoHoraDAO();
             /***************ADD AS CLASSES DAO CORRESPONDENTES AS CLASSES CONCRETAS ******/
             daos.put(Luz.class.getName(), luzDAO);
             daos.put(Agua.class.getName(), aguaDAO);
@@ -59,6 +63,7 @@ public class Fachada  implements IFachada {
             daos.put(GastoHoje.class.getName(),gastoHojeDAO);
             daos.put(GastoAtual.class.getName(), gastoAtualDAO);
             daos.put(GastoMes.class.getName(), gastoMesDAO);
+            daos.put(GastoHora.class.getName(), gastoHoraDAO);
         }
         else// Banco interno
         {
@@ -67,11 +72,13 @@ public class Fachada  implements IFachada {
             ConfiguracaoSistemaSqlDAO configSistemaSqlDAO = new ConfiguracaoSistemaSqlDAO(session.getContext());
             GastoAtualSqlDAO gastoAtualSqlDAO = new GastoAtualSqlDAO(session.getContext());
             GastoHojeSqlDAO2 gastoHojeSqlDAO = new GastoHojeSqlDAO2(session.getContext());
+            GastoHoraSqlDAO gastoHoraSqlDAO = new GastoHoraSqlDAO(session.getContext());
             // ADD AS CLASSES DAO CORRESPONDENTES AS CLASSES CONCRETAS ******
             daos.put(Residencia.class.getName(), residenciaSqlDAO);
             daos.put(ConfiguracaoSistema.class.getName(), configSistemaSqlDAO);
             daos.put(GastoAtual.class.getName(),gastoAtualSqlDAO);
             daos.put(GastoHoje.class.getName(), gastoHojeSqlDAO);
+            daos.put(GastoHora.class.getName(), gastoHoraSqlDAO);
         }
 
 

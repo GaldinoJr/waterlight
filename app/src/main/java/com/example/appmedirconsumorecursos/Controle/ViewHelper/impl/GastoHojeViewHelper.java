@@ -20,7 +20,8 @@ public class GastoHojeViewHelper implements IViewHelper {
         try {
             gastoHoje = new GastoHoje();
             gastoHoje.setId((String) request.get(gastoHoje.DF_ID));
-            gastoHoje.setDtUltimaRegistroDia(fomatarData((String) request.get(gastoHoje.DF_dt_ultimo_registro_dia)));
+            gastoHoje.setsDtUltimoRegistroDia((String) request.get(gastoHoje.DF_dt_ultimo_registro_dia));
+            gastoHoje.setDtUltimaRegistroDia(formatarData((String) request.get(gastoHoje.DF_dt_ultimo_registro_dia)));
             if(request.get(gastoHoje.DF_vlrGastoAgua)!= null)
                 gastoHoje.setVlrGastoAgua(Double.parseDouble((String) request.get(gastoHoje.DF_vlrGastoAgua)));
             if(request.get(gastoHoje.DF_vlrGastoAgua)!= null)
@@ -30,6 +31,8 @@ public class GastoHojeViewHelper implements IViewHelper {
             if(request.get(gastoHoje.DF_vlrGastoAgua)!= null)
                 gastoHoje.setNrMetroCubicoAgua(Double.parseDouble((String) request.get(gastoHoje.DF_nrMetroCubicoAgua)));
             gastoHoje.setCdResidencia(Integer.parseInt((String) request.get(gastoHoje.DF_cdResidencia)));
+            gastoHoje.setsDtInicialBusca((String) request.get(gastoHoje.DF_dt_inicial_busca));
+            gastoHoje.setsDtFinalBusca((String) request.get(gastoHoje.DF_dt_final_busca));
             return gastoHoje;
         }
         catch (Exception e)
@@ -41,7 +44,7 @@ public class GastoHojeViewHelper implements IViewHelper {
     public EntidadeDominio setView(EntidadeDominio entidade, Map response) {
         return null;
     }
-    private Date fomatarData(String data)
+    private Date formatarData(String data)
     {
         SimpleDateFormat df;
         Date dc;

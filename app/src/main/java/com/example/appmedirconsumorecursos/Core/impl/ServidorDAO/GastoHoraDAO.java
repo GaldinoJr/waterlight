@@ -1,7 +1,7 @@
 package com.example.appmedirconsumorecursos.Core.impl.ServidorDAO;
 
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
-import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
+import com.example.appmedirconsumorecursos.Dominio.GastoHora;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,14 +13,14 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Galdino on 07/09/2015.
+ * Created by Galdino on 24/10/2015.
  */
-public class GastoHojeDAO extends AbstractServerDAO {
+public class GastoHoraDAO  extends AbstractServerDAO {
     private List<EntidadeDominio> listResidencias;
-    private GastoHoje gastoHoje;
+    private GastoHora gastoHora;
 
-    public GastoHojeDAO() {
-        super( GastoHoje.DF_NOME_TABELA, GastoHoje.DF_CD_TABELA, GastoHoje.DF_NOME_PHP);
+    public GastoHoraDAO() {
+        super( GastoHora.DF_NOME_TABELA, GastoHora.DF_CD_TABELA, GastoHora.DF_NOME_PHP);
     }
 
     @Override
@@ -36,15 +36,15 @@ public class GastoHojeDAO extends AbstractServerDAO {
     @Override
     public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
         String retornoJason = "";
-        gastoHoje = (GastoHoje) entidade;
+        gastoHora = (GastoHora) entidade;
         JSONObject jo = new JSONObject();
 
         try {
-            String query = "SELECT * FROM " + GastoHoje.DF_NOME_TABELA + " WHERE 1 = 1";
-            if(gastoHoje.getCdResidencia() != null)
-                query += " AND cd_residencia = " + String.valueOf(gastoHoje.getCdResidencia());
-          if(gastoHoje.getsDtUltimoRegistroDia() != null)
-            query += " AND dt_ultimo_registro_dia = STR_TO_DATE( '" + gastoHoje.getsDtUltimoRegistroDia()+"' ,'%Y-%m-%d %H:%i:%s')";
+            String query = "SELECT * FROM " + GastoHora.DF_NOME_TABELA + " WHERE 1 = 1";
+            if(gastoHora.getCdResidencia() != null)
+                query += " AND cd_residencia = " + String.valueOf(gastoHora.getCdResidencia());
+            if(gastoHora.getsDtInclusao() != null)
+                query += " AND dt_ultimo_registro_dia = STR_TO_DATE( '" + gastoHora.getsDtInclusao()+"' ,'%d/%m/%Y %H:%i:%s')";
 //            if(!TextUtils.isEmpty(residencia.getNome()))
 //                query += " AND ds_nome = '" + residencia.getNome() +"'";
 
@@ -61,9 +61,9 @@ public class GastoHojeDAO extends AbstractServerDAO {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 jsonObject = new JSONObject(jsonArray.getString(i));
-                GastoHoje g = new GastoHoje();
+                GastoHora g = new GastoHora();
                 g.setId(jsonObject.getString(g.DF_CD_TABELA));
-                g.setDtUltimaRegistroDia(fomatarData(jsonObject.getString(g.DF_dt_ultimo_registro_dia)));
+                g.setDtInclusao(fomatarData(jsonObject.getString(g.DF_AUX_DATA)));
                 g.setVlrGastoAgua(jsonObject.getDouble(g.DF_vlrGastoAgua));
                 g.setVlrGastLuz(jsonObject.getDouble(g.DF_vlrGastLuz));
                 g.setNrWatts(jsonObject.getDouble(g.DF_nrWatts));

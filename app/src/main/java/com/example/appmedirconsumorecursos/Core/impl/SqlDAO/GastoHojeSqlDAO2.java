@@ -62,7 +62,7 @@ public class GastoHojeSqlDAO2 extends AbstractSqlDAO {
         mapGastoHoje = new HashMap<String, String>();
         gastohoje =  (GastoHoje)entidade;
         try {
-            mapGastoHoje.put(Col_dt_ultimo_registro_dia, String.valueOf(gastohoje.getDtUltimaRegistroDia()));
+            mapGastoHoje.put(Col_dt_ultimo_registro_dia, gastohoje.getsDtUltimoRegistroDia());
             mapGastoHoje.put(Col_vlr_gasto_agua, String.valueOf(gastohoje.getVlrGastoAgua()));
             mapGastoHoje.put(Col_vlr_gasto_luz, String.valueOf(gastohoje.getVlrGastLuz()));
             mapGastoHoje.put(Col_nr_watts, String.valueOf(gastohoje.getNrWatts()));
@@ -113,7 +113,19 @@ public class GastoHojeSqlDAO2 extends AbstractSqlDAO {
             query += " FROM " + nomeTabela + " WHERE 1 = 1";
             if (!TextUtils.isEmpty(gastohoje.getId()))
                 query += " AND "+ Col_cd_gasto_hoje  +" = '" + gastohoje.getId() + "'";
-            query += " ORDER BY "+Col_cd_gasto_hoje+ " DESC";
+            if (gastohoje.getDtUltimaRegistroDia() != null)
+                query += " AND " + Col_dt_ultimo_registro_dia + " = '" + gastohoje.getDtUltimaRegistroDia() + "'";
+
+            if (gastohoje.getsDtInicialBusca() != null && gastohoje.getsDtFinalBusca() != null)
+            {
+                query += " AND DATE(" + Col_dt_ultimo_registro_dia + ") BETWEEN '" + gastohoje.getsDtInicialBusca() +
+                        "' AND '" + gastohoje.getsDtFinalBusca() +
+                "' AND TIME(" + Col_dt_ultimo_registro_dia + ") BETWEEN '00:00:00' AND '00:59:59'";
+            }
+            else
+                query += " ORDER BY "+Col_cd_gasto_hoje+ " DESC";
+
+
             listGastoHoje = new ArrayList<EntidadeDominio>();
             List<Map<String, String>> listMapGastoHoje = new LinkedList<Map<String, String>>();
             listMapGastoHoje = db.pesquisarComSelect(query, colunasBusca);
@@ -122,7 +134,7 @@ public class GastoHojeSqlDAO2 extends AbstractSqlDAO {
                 GastoHoje g = new GastoHoje();
                 // ******************* TEM QUE SER A MESMA SEQUENCIA DA LISTA(colunasBusca)***********************
                 g.setId(listMapGastoHoje.get(i).get(colunasBusca[0]));
-                g.setDtUltimaRegistroDia(converterStringParaData(listMapGastoHoje.get(i).get(colunasBusca[1])));
+                g.setDtUltimaRegistroDia(formatarData(listMapGastoHoje.get(i).get(colunasBusca[1])));
                 g.setVlrGastoAgua(Double.parseDouble(listMapGastoHoje.get(i).get(colunasBusca[2])));
                 g.setVlrGastLuz(Double.parseDouble(listMapGastoHoje.get(i).get(colunasBusca[3])));
                 g.setNrWatts(Double.parseDouble(listMapGastoHoje.get(i).get(colunasBusca[4])));
@@ -142,36 +154,50 @@ public class GastoHojeSqlDAO2 extends AbstractSqlDAO {
     private Date formatarData(String data)
     {
         SimpleDateFormat df;
-        df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String a = null;
         Date dc;
         try
         {
-            //String a = new SimpleDateFormat("dd/MM/yyyy").format(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(data));
-            dc = (java.util.Date)df.parse(data);
+            df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            dc = df.parse(data);
         }
         catch (Exception e) {
             dc = null;
         }
         return dc;
     }
-    private Date converterStringParaData(String sDate) {
-        Date date;
-        String dia,
-                mes,
-                ano,
-                hora;
-        dia = sDate.substring(8, 10);
-        mes = sDate.substring(4, 7);
-        ano = sDate.substring(24, 28);
-        hora = sDate.substring(10, 19);
-        try {
-            mes = new SimpleDateFormat("MM").format(new SimpleDateFormat("MMM", Locale.ENGLISH).parse(mes));
-        } catch (Exception e2) {
-            mes = null;
-        }
-        sDate = ano+"-"+mes+"-"+dia + " " + hora;
-        date = formatarData(sDate);
-        return date;
-    }
+//    private Date formatarData(String data)
+//    {
+//        SimpleDateFormat df;
+//        df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        String a = null;
+//        Date dc;
+//        try
+//        {
+//            //String a = new SimpleDateFormat("dd/MM/yyyy").format(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(data));
+//            dc = (java.util.Date)df.parse(data);
+//        }
+//        catch (Exception e) {
+//            dc = null;
+//        }
+//        return dc;
+//    }
+//    private Date converterStringParaData(String sDate) {
+//        Date date;
+//        String dia,
+//                mes,
+//                ano,
+//                hora;
+//        dia = sDate.substring(8, 10);
+//        mes = sDate.substring(4, 7);
+//        ano = sDate.substring(24, 28);
+//        hora = sDate.substring(10, 19);
+//        try {
+//            mes = new SimpleDateFormat("MM").format(new SimpleDateFormat("MMM", Locale.ENGLISH).parse(mes));
+//        } catch (Exception e2) {
+//            mes = null;
+//        }
+//        sDate = ano+"-"+mes+"-"+dia + " " + hora;
+//        date = formatarData(sDate);
+//        return date;
+//    }
 }

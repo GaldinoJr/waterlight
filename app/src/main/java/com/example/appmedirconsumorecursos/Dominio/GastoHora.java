@@ -1,49 +1,43 @@
 package com.example.appmedirconsumorecursos.Dominio;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 /**
- * Created by Galdino on 07/09/2015.
+ * Created by Galdino on 24/10/2015.
  */
-public class GastoHoje extends EntidadeDominio {
-
-    public final static String DF_dt_ultimo_registro_dia = "dt_ultimo_registro_dia",
+public class GastoHora extends EntidadeDominio {
+    public final static String
             DF_vlrGastoAgua = "vlr_gasto_agua",
             DF_vlrGastLuz = "vlr_gasto_luz",
             DF_nrWatts = "nr_watts",
             DF_nrMetroCubicoAgua = "nr_metro_cubico_agua",
+            DF_dt_inclusao = "dt_inclusao",
             DF_cdResidencia = "cd_residencia",
-            DF_NOME_TABELA = "tb_gasto_hoje",
-            DF_CD_TABELA = "cd_gasto_hoje",
-            DF_NOME_PHP = "cadGastoHoje.php";
+            DF_NOME_TABELA = "tb_gasto_hora",
+            DF_CD_TABELA = "cd_gasto_hora",
+            DF_NOME_PHP = "cadGastoHora.php";
 
-    public final static String  DF_dt_inicial_busca = "dt_inicial_busca",
-                                DF_dt_final_busca = "dt_final_busca";
-    private Date dtUltimaRegistroDia;
+    public final static String DF_AUX_DATA = "AUX_dt_inclusao";
 
+    private Date dtInclusao;
     private double vlrGastoAgua,
             vlrGastLuz,
             nrWatts,
             nrMetroCubicoAgua;
-
     private Integer cdResidencia;
 
-    private String sDtUltimoRegistroDia;
-    private String sDtInicialBusca;
-    private String sDtFinalBusca;
-
+    private String sDtInclusao;
     // SETS
 
 
-    public void setsDtUltimoRegistroDia(String sDtUltimoRegistroDia) {
-        this.sDtUltimoRegistroDia = sDtUltimoRegistroDia;
+    public void setsDtInclusao(String sDtInclusao) {
+        this.sDtInclusao = sDtInclusao;
     }
 
-    public void setDtUltimaRegistroDia(Date dtUltimaRegistroDia) {
-        this.dtUltimaRegistroDia = dtUltimaRegistroDia;
+    public void setDtInclusao(Date dtInclusao) {
+        this.dtInclusao = dtInclusao;
     }
 
     public void setVlrGastoAgua(double vlrGastoAgua) {
@@ -66,32 +60,15 @@ public class GastoHoje extends EntidadeDominio {
         this.cdResidencia = cdResidencia;
     }
 
-    public void setsDtInicialBusca(String sDtInicialBusca) {
-        this.sDtInicialBusca = sDtInicialBusca;
-    }
-
-    public void setsDtFinalBusca(String sDtFinalBusca) {
-        this.sDtFinalBusca = sDtFinalBusca;
-    }
-
-
     // GETS
 
 
-    public String getsDtInicialBusca() {
-        return sDtInicialBusca;
+    public String getsDtInclusao() {
+        return sDtInclusao;
     }
 
-    public String getsDtFinalBusca() {
-        return sDtFinalBusca;
-    }
-
-    public String getsDtUltimoRegistroDia() {
-        return sDtUltimoRegistroDia;
-    }
-
-    public Date getDtUltimaRegistroDia() {
-        return dtUltimaRegistroDia;
+    public Date getDtInclusao() {
+        return dtInclusao;
     }
 
     public double getVlrGastoAgua() {
@@ -114,11 +91,15 @@ public class GastoHoje extends EntidadeDominio {
         return cdResidencia;
     }
 
-    // SETS DO MAPA
+// SETS DO MAPA
 
-    public void setMapsDtUltimoRegistroDia(String sDtUltimoRegistoDia)
+    public void setMapsDtInclusao(String sDtInclusao)
     {
-        map.put(DF_dt_ultimo_registro_dia, sDtUltimoRegistoDia);
+        map.put(DF_AUX_DATA, sDtInclusao);
+    }
+
+    public void setMapDtInclusao(String dtInicioMedicao) {
+        map.put(DF_dt_inclusao,String.valueOf(dtInicioMedicao));
     }
 
     public void setMapVlrGastoAgua(String vlrGastoAgua) {
@@ -141,31 +122,25 @@ public class GastoHoje extends EntidadeDominio {
         map.put(DF_cdResidencia,String.valueOf(cdResidencia));
     }
 
-
-    public void setMapDtInicialBusca(String dtInicialBusca) {
-        map.put(DF_dt_inicial_busca,String.valueOf(dtInicialBusca));
-    }
-
-    public void setMapDtFinalBusca(String dtFinalBusca) {
-        map.put(DF_dt_final_busca,String.valueOf(dtFinalBusca));
-    }
-
     public void popularMap() {
-        map.put(DF_ID,id);
-        map.put(DF_dt_ultimo_registro_dia, formatarData(dtUltimaRegistroDia));
+        map.put(DF_ID, id);
+
+        map.put(DF_dt_inclusao, formatarData(dtInclusao));
         map.put(DF_vlrGastoAgua, String.valueOf(vlrGastoAgua));
         map.put(DF_vlrGastLuz,String.valueOf(vlrGastLuz));
         map.put(DF_nrWatts, String.valueOf(nrWatts));
         map.put(DF_nrMetroCubicoAgua, String.valueOf(nrMetroCubicoAgua));
         map.put(DF_cdResidencia, String.valueOf(cdResidencia));
     }
+
     public void getMapInstance()
     {
         map = new HashMap<String, String>();
-        map.put("classe", GastoHoje.class.getName());
+        map.put("classe", GastoAtual.class.getName());
     }
     private String formatarData(Date data)
     {
+        //String a = new SimpleDateFormat("dd/MM/yyyy").format(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(data));
         String sDate;
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(data);
@@ -183,12 +158,13 @@ public class GastoHoje extends EntidadeDominio {
         {
             if(hora>0 && hora < 13)
             {
-                if(hora == 12)
+                if(hora > 11)
                     hora = 0;
                 else
                     hora += 12;
             }
         }
+
         String sHora = " ";
         if(hora<=9)
         {
@@ -200,7 +176,7 @@ public class GastoHoje extends EntidadeDominio {
             sMin += "0";
         sMin += String.valueOf(min);
         sHora += String.valueOf(hora) + sMin + ":00";
-        sDate = String.valueOf(ano) + "-" + String.valueOf(mes) + "-" + String.valueOf(dia)  + sHora;
+        sDate = String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + String.valueOf(ano) + sHora;
         return sDate;
 
     }

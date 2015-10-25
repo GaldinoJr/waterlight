@@ -18,6 +18,7 @@ import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
+import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
 import com.example.appmedirconsumorecursos.Dominio.GastoMes;
 import com.example.appmedirconsumorecursos.R;
 import com.example.appmedirconsumorecursos.R.id;
@@ -55,9 +56,14 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 	// sempre usar com requisições
 	private Session session;
 	private List<EntidadeDominio> listEntDom;
-
+	//
+	boolean retorno;
+	String data;
+	int dia, mes, ano;
+	String sDia, sMes, sAno;
 	//
 	private GastoMes gastoMes;
+	private GastoHoje gastoHoje;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -117,47 +123,36 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 				//{
 				if (teste != 0) {
 					//Toast.makeText(TelaDeHistorico.this, "posição: " + position + " \nnome: " + spMes.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-					gastoMes = new GastoMes();
 					try {
-						int dia = spDia.getSelectedItemPosition();
-						int ano = spAno.getSelectedItemPosition();
+						dia = spDia.getSelectedItemPosition();
+						ano = spAno.getSelectedItemPosition();
 						ano += 2015;
-						String sAno = String.valueOf(ano);
-						String sDia = "";
+						sAno = String.valueOf(ano);
+						sDia = "";
 						if (dia > 0)
 						{
 							if (dia < 10) {
 								sDia = "0";
 							}
 							sDia += String.valueOf(dia);
-						} else
-							sDia = "01";
-
-						gastoMes.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
-						String data = sDia + "/" + position + "/" + String.valueOf(ano);
-						gastoMes.setSdt_inclusao(data);
-						// Mudar a consulta par a
-						listEntDom = gastoMes.operar(session.getContext(), false, Controler.DF_CONSULTAR);
-						if (listEntDom != null) {
-							gastoMes = (GastoMes) listEntDom.get(0);
-							if (idRecurso == 1) // agua?
-							{
-								txtGastoHj.setText(String.valueOf(gastoMes.getNrMetroCubicoAgua()));
-								txtRsGastoHj.setText(String.valueOf(gastoMes.getVlrGastoAgua()));
-							}
-							if (idRecurso == 2) // luz?
-							{
-								txtGastoHj.setText(String.valueOf(gastoMes.getNrWatts()));
-								txtRsGastoHj.setText(String.valueOf(gastoMes.getVlrGastLuz()));
+							data = sDia + "/" + position + "/" + String.valueOf(ano);
+							data += " 00:00:00";
+							retorno = pesquisarMes(data);
+							if(retorno == false) {
+								Toast.makeText(TelaDeHistorico.this, "Dia " + sDia + " de " + spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
+								limparCampos();
 							}
 						}
 						else
 						{
-							if (dia > 0)
-								Toast.makeText(TelaDeHistorico.this,"Dia " + sDia + " de " + spMes.getSelectedItem().toString() + " de "+ sAno +" não contem registros.", Toast.LENGTH_SHORT).show();
-							else
-								Toast.makeText(TelaDeHistorico.this,  spMes.getSelectedItem().toString()+" de "+ sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
-							limparCampos();
+							sDia = "01";
+							data = sDia + "/" + position + "/" + String.valueOf(ano);
+							retorno = pesquisarMes(data);
+							if (retorno == false)
+							{
+								Toast.makeText(TelaDeHistorico.this, spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
+								limparCampos();
+							}
 						}
 					} catch (Exception e) {
 						Toast.makeText(TelaDeHistorico.this, "ERROR: #1", Toast.LENGTH_SHORT).show();
@@ -205,55 +200,47 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 					gastoMes = new GastoMes();
 					try
 					{
-						int dia = position;
-						String sDia = "";
-						if (dia > 0)  // selecionou o dia?
-						{
-							//dia += 1;
-							if (dia < 10) {
-								sDia += "0";
-							}
-							sDia += String.valueOf(dia);
-
-						}
-						else
-							sDia += "01";
-						int mes = spMes.getSelectedItemPosition();
+						mes = spMes.getSelectedItemPosition();
 						if (mes > 0) // selecionou o mes?
 						{
-							String sMes = "";
+							// Pega o mes selecionado
+							sMes = "";
 							if (mes < 10) {
 								sMes += "0";
 							}
 							sMes += String.valueOf(mes);
-							int ano = spAno.getSelectedItemPosition();
+							ano = spAno.getSelectedItemPosition();
 							ano += 2015;
-							String sAno = String.valueOf(ano);
-							gastoMes.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
-							String data = sDia + "/" + sMes + "/" + String.valueOf(ano);
-							gastoMes.setSdt_inclusao(data);
-							// Mudar a consulta par a
-							listEntDom = gastoMes.operar(session.getContext(), false, Controler.DF_CONSULTAR);
-							if (listEntDom != null) {
-								gastoMes = (GastoMes) listEntDom.get(0);
-								if (idRecurso == 1) // agua?
-								{
-									txtGastoHj.setText(String.valueOf(gastoMes.getNrMetroCubicoAgua()));
-									txtRsGastoHj.setText(String.valueOf(gastoMes.getVlrGastoAgua()));
+							sAno = String.valueOf(ano); // ano selecionado
+							// dia selecionado
+							dia = position;
+							sDia = "";
+							if (dia > 0)  // selecionou o dia?
+							{
+								//dia += 1;
+								if (dia < 10) {
+									sDia += "0";
 								}
-								if (idRecurso == 2) // luz?
-								{
-									txtGastoHj.setText(String.valueOf(gastoMes.getNrWatts()));
-									txtRsGastoHj.setText(String.valueOf(gastoMes.getVlrGastLuz()));
+								sDia += String.valueOf(dia);
+								data = sDia + "/" + sMes + "/" + String.valueOf(ano);
+								data += " 00:00:00";
+								retorno = pesquisarDia(data);
+								if(retorno == false) {
+									Toast.makeText(TelaDeHistorico.this, "Dia " + sDia + " de " + spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
+									limparCampos();
 								}
 							}
 							else
 							{
-								if (dia > 0)  // selecionou o dia?
-									Toast.makeText(TelaDeHistorico.this, "Dia " + sDia + " de " + spMes.getSelectedItem().toString() +" de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
-								else
+								sDia += "01";
+								data = sDia + "/" + sMes + "/" + String.valueOf(ano);
+
+								retorno = pesquisarMes(data);
+								if (retorno == false)
+								{
 									Toast.makeText(TelaDeHistorico.this, spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
-								limparCampos();
+									limparCampos();
+								}
 							}
 						}
 						else
@@ -292,30 +279,106 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 		
 	}
 
-	public void onBackPressed() // precionou o voltar do telefone?
-	{ // Sim, volta para a p�gina anterior 
-		Intent intent = new Intent();
-		// Para chamar a pr�xima tela tem que dizer qual e a tela atual, e dpois a pr�xima tela( a que vai ser chamada)
-		intent.setClass(TelaDeHistorico.this, TelaMenu.class);
-		intent.putExtra("absClasse", absRecurso);
-		startActivity(intent); // chama a pr�xima tela
-		finish();
-	}
-
-	@Override
-	public void onClick(View view) {
-		if(view == btnGrafico)
-		{
-			Intent intent = new Intent();
-			intent.setClass(TelaDeHistorico.this, TelaGrafico.class);
-			intent.putExtra("absClasse", absRecurso);
-			startActivity(intent);
-			finish();
-		}
-	}
 	private void limparCampos()
 	{
 		txtGastoHj.setText("");
 		txtRsGastoHj.setText("");
+	}
+
+	private boolean pesquisarMes(String data)
+	{
+		gastoMes = new GastoMes();
+		gastoMes.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
+		gastoMes.setSdt_inclusao(data);
+		// Mudar a consulta par a
+		listEntDom = gastoMes.operar(session.getContext(), false, Controler.DF_CONSULTAR);
+		if (listEntDom != null) {
+			gastoMes = (GastoMes) listEntDom.get(0);
+			if (idRecurso == 1) // agua?
+			{
+				txtGastoHj.setText(String.valueOf(gastoMes.getNrMetroCubicoAgua()));
+				txtRsGastoHj.setText(String.valueOf(gastoMes.getVlrGastoAgua()));
+			}
+			if (idRecurso == 2) // luz?
+			{
+				txtGastoHj.setText(String.valueOf(gastoMes.getNrWatts()));
+				txtRsGastoHj.setText(String.valueOf(gastoMes.getVlrGastLuz()));
+			}
+			return true;
+		}
+		else
+			return false;
+	}
+	private boolean pesquisarDia(String data)
+	{
+		gastoHoje = new GastoHoje();
+		gastoHoje.getMapInstance();
+		gastoHoje.setMapCdResidencia(session.getResidencia().getId());
+		gastoHoje.setMapsDtUltimoRegistroDia(data);
+		// Mudar a consulta par a
+		listEntDom = gastoHoje.operar(session.getContext(), false, Controler.DF_CONSULTAR);
+		if (listEntDom != null) {
+			gastoHoje = (GastoHoje) listEntDom.get(0);
+			if (idRecurso == 1) // agua?
+			{
+				txtGastoHj.setText(String.valueOf(gastoHoje.getNrMetroCubicoAgua()));
+				txtRsGastoHj.setText(String.valueOf(gastoHoje.getVlrGastoAgua()));
+			}
+			if (idRecurso == 2) // luz?
+			{
+				txtGastoHj.setText(String.valueOf(gastoHoje.getNrWatts()));
+				txtRsGastoHj.setText(String.valueOf(gastoHoje.getVlrGastLuz()));
+			}
+			return true;
+		}
+		else
+			return false;
+	}
+
+	@Override
+	public void onClick(View view) {
+		if(view == btnGrafico) {
+			mes = spMes.getSelectedItemPosition();
+			if (mes > 0) // selecionou o mes?
+			{
+				// Pega o mes selecionado
+				sMes = "";
+				if (mes < 10) {
+					sMes += "0";
+				}
+				sMes += String.valueOf(mes);
+				ano = spAno.getSelectedItemPosition();
+				ano += 2015;
+				sAno = String.valueOf(ano); // ano selecionado
+				dia = spDia.getSelectedItemPosition();
+				sDia = "";
+				if (dia > 0) {
+					if (dia < 10) {
+						sDia = "0";
+					}
+				}
+				sDia += dia;
+				Intent intent = new Intent();
+				intent.setClass(TelaDeHistorico.this, TelaGrafico.class);
+				intent.putExtra("absClasse", absRecurso);
+				intent.putExtra("dia", sDia);
+				intent.putExtra("mes", sMes);
+				intent.putExtra("ano", sAno);
+				startActivity(intent);
+				finish();
+			}
+			else
+				Toast.makeText(TelaDeHistorico.this, "Para gerar o gráfico, selecione ao menos o mês.", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	public void onBackPressed() // precionou o voltar do telefone?
+	{ // Sim, volta para a p�gina anterior
+		Intent intent = new Intent();
+		// Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
+		intent.setClass(TelaDeHistorico.this, TelaMenu.class);
+		intent.putExtra("absClasse", absRecurso);
+		startActivity(intent); // chama a pr�xima tela
+		finish();
 	}
 }
