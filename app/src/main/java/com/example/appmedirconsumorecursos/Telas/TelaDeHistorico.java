@@ -10,6 +10,8 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +39,9 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 					 txtRsGastoAtual,
 					 txtMediaFinal,
 					 txtRsMediaFinal;
+	private RadioButton rbConsumo,
+						rbVlrGasto;
+
 	private Button btnGrafico;
 	private int teste = 0,
 			teste2 = 0, // testar se foi selecionado algo no sppiner
@@ -80,9 +85,11 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 		txtRsMediaFinal = (TextView)findViewById(id.txtR$MediaFinal);
 		btnGrafico = (Button)findViewById(id.btnGrafico);
 		btnGrafico.setOnClickListener(this);
+		rbConsumo = (RadioButton)findViewById(id.rbConsumo);
 		spDia = (Spinner)findViewById(id.spDia);
 		spMes = (Spinner)findViewById(id.spMes);
 		spAno = (Spinner)findViewById(id.spAno1);
+		rbConsumo.setChecked(true);
 		
 		imgRecurso = (ImageView)findViewById(id.imgRecurso);
 		//
@@ -222,7 +229,7 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 									sDia += "0";
 								}
 								sDia += String.valueOf(dia);
-								data = sDia + "/" + sMes + "/" + String.valueOf(ano);
+								data = String.valueOf(ano) + "-" + sMes + "-" + sDia;
 								data += " 00:00:00";
 								retorno = pesquisarDia(data);
 								if(retorno == false) {
@@ -335,6 +342,19 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 			return false;
 	}
 
+	private int descobrirTipoGrafico()
+	{
+		int tipoGrafico = 0;
+		final RadioGroup radioGroupTipoGrafico = (RadioGroup)findViewById(id.rgTipoGrafico);
+		int idRadioButton = radioGroupTipoGrafico.getCheckedRadioButtonId();
+		if (idRadioButton == id.rbConsumo)
+			tipoGrafico = 1;
+		if(idRadioButton == id.rbValorGasto)
+			tipoGrafico = 2;
+
+		return tipoGrafico;
+	}
+
 	@Override
 	public void onClick(View view) {
 		if(view == btnGrafico) {
@@ -358,12 +378,14 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 					}
 				}
 				sDia += dia;
+				int tipoGrafico = descobrirTipoGrafico();
 				Intent intent = new Intent();
 				intent.setClass(TelaDeHistorico.this, TelaGrafico.class);
 				intent.putExtra("absClasse", absRecurso);
 				intent.putExtra("dia", sDia);
 				intent.putExtra("mes", sMes);
 				intent.putExtra("ano", sAno);
+				intent.putExtra("tipoGrafico", tipoGrafico);
 				startActivity(intent);
 				finish();
 			}

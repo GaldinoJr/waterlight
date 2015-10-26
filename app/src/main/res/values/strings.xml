@@ -40,4 +40,5 @@
     <string name="vlrTarLuz">Valor da tarifa de Luz</string>
     <string name="voltagemResidencia">Voltagem da residencia</string>
     <string name="gerarGrafico">Gerar gráfico</string>
+    <string name="tipoGrafico">Gráfico baseado</string>
 </resources>

@@ -121,6 +121,42 @@
         android:layout_marginLeft="20dp"
         android:text="@string/zero" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gerar grráfico baseado no:"
+        android:id="@+id/textView7"
+        android:layout_below="@+id/gastoHj"
+        android:layout_alignLeft="@+id/gastoHj"
+        android:layout_alignStart="@+id/gastoHj"
+        android:layout_marginTop="20dp"/>
+
+    <RadioGroup android:id="@+id/rgTipoGrafico"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView7">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Consumo"
+            android:id="@+id/rbConsumo"
+            android:checked="false"
+            android:layout_below="@+id/textview"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Valor gasto"
+            android:id="@+id/rbValorGasto"
+            android:checked="false"
+            android:layout_alignTop="@+id/rbHora"
+            android:layout_toRightOf="@+id/rbHora"
+            android:layout_toEndOf="@+id/rbHora" />
+    </RadioGroup>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

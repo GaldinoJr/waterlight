@@ -105,7 +105,7 @@ public class GastoHojeSqlDAO2 extends AbstractSqlDAO {
         gastohoje =  (GastoHoje)entidade;
         try
         {
-            String query = "SELECT " + Col_cd_gasto_hoje;
+            String query = "SELECT DISTINCT " + Col_cd_gasto_hoje;
             for(i = 1; i < colunasBusca.length; i++)
             {
                 query += ", " + colunasBusca[i];
@@ -121,11 +121,10 @@ public class GastoHojeSqlDAO2 extends AbstractSqlDAO {
                 query += " AND DATE(" + Col_dt_ultimo_registro_dia + ") BETWEEN '" + gastohoje.getsDtInicialBusca() +
                         "' AND '" + gastohoje.getsDtFinalBusca() +
                 "' AND TIME(" + Col_dt_ultimo_registro_dia + ") BETWEEN '00:00:00' AND '00:59:59'";
+                query += " ORDER BY " + Col_dt_ultimo_registro_dia + " ASC";
             }
             else
-                query += " ORDER BY "+Col_cd_gasto_hoje+ " DESC";
-
-
+                query += " ORDER BY " + Col_dt_ultimo_registro_dia + " DESC";
             listGastoHoje = new ArrayList<EntidadeDominio>();
             List<Map<String, String>> listMapGastoHoje = new LinkedList<Map<String, String>>();
             listMapGastoHoje = db.pesquisarComSelect(query, colunasBusca);

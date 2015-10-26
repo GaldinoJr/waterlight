@@ -48,7 +48,8 @@ public class GastoHojeDAO extends AbstractServerDAO {
 //            if(!TextUtils.isEmpty(residencia.getNome()))
 //                query += " AND ds_nome = '" + residencia.getNome() +"'";
 
-            query += " ORDER BY cd_gasto_hoje DESC LIMIT 1;";;
+            //query += " ORDER BY cd_gasto_hoje DESC LIMIT 1;";;
+            query += " ORDER BY dt_ultimo_registro_dia DESC LIMIT 1;";;
             //
             jo.put("query", query);
             String json = jo.toString();
