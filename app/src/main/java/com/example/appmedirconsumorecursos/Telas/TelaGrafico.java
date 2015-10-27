@@ -64,6 +64,8 @@ public class TelaGrafico extends Activity {
     private int tipoGrafico;
     private int dia;
     private String data;
+
+    //http://portalandroid.org/comunidade/viewtopic.php?f=2&t=16346
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -218,17 +220,33 @@ public class TelaGrafico extends Activity {
 
         mCurrentRenderer = new XYSeriesRenderer();
 
-        mCurrentRenderer.setColor(Color.RED); // cor da linha do grafico
+        mCurrentRenderer.setFillBelowLine(true);
+
+
+        //mCurrentRenderer.setColor(Color.RED); // cor da linha do grafico
+        if(idRecurso == 1) // agua?
+        {
+            mCurrentRenderer.setColor(Color.BLACK); // cor da linha do grafico
+            mCurrentRenderer.setFillBelowLineColor(Color.BLUE);
+        }
+        else if(idRecurso == 2) //luz?
+        {
+            mCurrentRenderer.setColor(Color.BLACK); // cor da linha do grafico
+            mCurrentRenderer.setFillBelowLineColor(Color.YELLOW);
+        }
         // Pontos no grafico
         mCurrentRenderer.setPointStyle(PointStyle.CIRCLE);
         mCurrentRenderer.setPointStrokeWidth(3);
         mCurrentRenderer.setDisplayChartValues(true);
         //
+//        mCurrentRenderer.setFillBelowLine(true);
+//        mCurrentRenderer.setFillBelowLineColor(Color.parseColor("#bb20bff2"));
 
         mRenderer.addSeriesRenderer(mCurrentRenderer);
         // We want to avoid black border
 
         mRenderer.setMarginsColor(Color.argb(0x00, 0xff, 0x00, 0x00)); // transparent margins
+
 
         // Disable Pan on two axis
 
@@ -238,6 +256,16 @@ public class TelaGrafico extends Activity {
         mRenderer.setYAxisMax(10);
 
         mRenderer.setYAxisMin(0);
+        //
+        mRenderer.setAxesColor(Color.BLACK);// Cor do eixo
+
+        mRenderer.setLabelsColor(Color.BLACK); // legendas
+        // Borda do gráfico
+        mRenderer.setYAxisColor(Color.BLACK);
+        mRenderer.setXAxisColor(Color.BLACK);
+        mRenderer.setXLabelsColor(Color.BLACK);
+        mRenderer.setXLabels(2); // escala do gráfico
+        mRenderer.setYLabelsColor(0,Color.BLACK);
 
         String xTituto = "",
                 yTitulo = "Gasto";
