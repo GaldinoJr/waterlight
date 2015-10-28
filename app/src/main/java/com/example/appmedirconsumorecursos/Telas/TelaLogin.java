@@ -42,7 +42,7 @@ public class TelaLogin extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_tela_login);
         //
         String logoff = null;
-        // region vincula��o de componentes
+        // region vinculação de componentes
         edtLogin = (EditText)findViewById(R.id.edtLogin);
         edtSenha = (EditText)findViewById(R.id.edtSenha);
         btnLogin = (Button) findViewById(R.id.btnLogin);

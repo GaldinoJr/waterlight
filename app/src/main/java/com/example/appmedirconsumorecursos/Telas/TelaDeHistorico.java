@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -41,6 +42,7 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 					 txtRsMediaFinal;
 	private RadioButton rbConsumo,
 						rbVlrGasto;
+	private CheckBox chkCompararMaiorConsumo;
 
 	private Button btnGrafico;
 	private int teste = 0,
@@ -89,6 +91,7 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 		spDia = (Spinner)findViewById(id.spDia);
 		spMes = (Spinner)findViewById(id.spMes);
 		spAno = (Spinner)findViewById(id.spAno1);
+		chkCompararMaiorConsumo = (CheckBox)findViewById(R.id.chkCompararMaiorConsumo);
 		rbConsumo.setChecked(true);
 		
 		imgRecurso = (ImageView)findViewById(id.imgRecurso);
@@ -379,12 +382,16 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 				}
 				sDia += dia;
 				int tipoGrafico = descobrirTipoGrafico();
+
+				int fgMaiorConsumo = chkCompararMaiorConsumo.isChecked() ? 1 : 0;
 				Intent intent = new Intent();
 				intent.setClass(TelaDeHistorico.this, TelaGrafico.class);
 				intent.putExtra("absClasse", absRecurso);
 				intent.putExtra("dia", sDia);
 				intent.putExtra("mes", sMes);
 				intent.putExtra("ano", sAno);
+				// filtros
+				intent.putExtra("maiorConsumo",fgMaiorConsumo);
 				intent.putExtra("tipoGrafico", tipoGrafico);
 				startActivity(intent);
 				finish();
@@ -394,8 +401,9 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 		}
 	}
 
+
 	public void onBackPressed() // precionou o voltar do telefone?
-	{ // Sim, volta para a p�gina anterior
+	{ // Sim, volta para a página anterior
 		Intent intent = new Intent();
 		// Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
 		intent.setClass(TelaDeHistorico.this, TelaMenu.class);

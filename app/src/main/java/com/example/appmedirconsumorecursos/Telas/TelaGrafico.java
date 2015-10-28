@@ -3,6 +3,7 @@ package com.example.appmedirconsumorecursos.Telas;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,9 +18,12 @@ import com.example.appmedirconsumorecursos.R;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
+import org.achartengine.chart.BarChart;
 import org.achartengine.chart.PointStyle;
+import org.achartengine.model.CategorySeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
+import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
@@ -64,6 +68,10 @@ public class TelaGrafico extends Activity {
     private int tipoGrafico;
     private int dia;
     private String data;
+    // GRAFICO DE BARRA
+    private GraphicalView mChartView;
+    //
+    private int maiorConsumo;
 
     //http://portalandroid.org/comunidade/viewtopic.php?f=2&t=16346
     @Override
@@ -78,6 +86,7 @@ public class TelaGrafico extends Activity {
         sDia = dados.getStringExtra("dia");
         sMes = dados.getStringExtra("mes");
         sAno = dados.getStringExtra("ano");
+        maiorConsumo = dados.getIntExtra("maiorConsumo",0);
         session = Session.getInstance();
         session.setContext(this);
 
@@ -92,7 +101,10 @@ public class TelaGrafico extends Activity {
         {
             data = "01/" + sMes + "/" + sAno;
             data += " 00:00:00";
-            pesquisarGastoNoMes(data);
+            if(maiorConsumo == 0)
+                pesquisarGastoNoMes(data);
+            else
+                createChart();
         }
 
     }
@@ -331,6 +343,66 @@ public class TelaGrafico extends Activity {
             dc = null;
         }
         return dc;
+    }
+    // --------------------------GRAFICO DE BARRA
+    public void createChart(){
+        int[] valores = {6, 7, 5, 3};
+
+        CategorySeries series = new CategorySeries("Grafico de barras");
+        for (int i = 0; i < valores.length; i++) {
+            series.add(valores[i]);
+        }
+
+        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+        dataset.addSeries(series.toXYSeries());
+        XYMultipleSeriesRenderer renderer = getBarDemoRenderer();
+        setChartSettings(renderer);
+
+        LinearLayout layout = (LinearLayout) findViewById(R.id.layout_chart);
+        mChartView = ChartFactory.getBarChartView(this, getBarDemoDataset(),
+                renderer, BarChart.Type.DEFAULT);
+        layout.addView(mChartView);
+
+    }
+    private XYMultipleSeriesDataset getBarDemoDataset() {
+        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+        int[] valores = {6, 7, 5, 3};
+        CategorySeries series = new CategorySeries("Demo series");
+        for (int i = 0; i < valores.length; i++) {
+            series.add(valores[i]);
+        }
+        dataset.addSeries(series.toXYSeries());
+        return dataset;
+    }
+
+    public XYMultipleSeriesRenderer getBarDemoRenderer() {
+        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+        renderer.setAxisTitleTextSize(16);
+        renderer.setBarSpacing(1);
+        renderer.setLegendTextSize(15);
+        SimpleSeriesRenderer r = new SimpleSeriesRenderer();
+        r.setColor(Color.YELLOW);
+        renderer.addSeriesRenderer(r);
+        return renderer;
+    }
+
+    private void setChartSettings(XYMultipleSeriesRenderer renderer) {
+        renderer.setShowLegend(false);
+        renderer.setAxesColor(Color.DKGRAY);
+        renderer.setXAxisMin(0.5);
+        renderer.setXAxisMax(12.5);
+        renderer.setYAxisMin(0);
+        renderer.setYLabelsAlign(Paint.Align.RIGHT);
+        renderer.setXLabels(0);
+        renderer.setZoomEnabled(false, false);
+        renderer.setShowCustomTextGrid(true);
+        renderer.setShowGridY(true);
+        renderer.setShowGridX(true);
+        renderer.addXTextLabel(1, "Jan");
+        renderer.addXTextLabel(2, "Fev");
+        renderer.addXTextLabel(3, "Mar");
+        renderer.addXTextLabel(4, "Abr");
+
     }
     public void onBackPressed() // precionou o voltar do telefone?
     { // Sim, volta para a página anterior
