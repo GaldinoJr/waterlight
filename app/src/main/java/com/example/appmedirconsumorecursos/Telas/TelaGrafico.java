@@ -35,6 +35,12 @@ import java.util.List;
 public class TelaGrafico extends Activity {
 
     private Intent dados;
+    //
+    private int indIgualNrMordador;
+    private int indIgualNrComodo;
+    private int indTipoComparacaoMaiorConsumo;
+    private int fgCompararOutrasResidencias;
+    //
     private AbsRecurso absRecurso;
     private Integer idRecurso;
     private String  sDia,
@@ -72,6 +78,11 @@ public class TelaGrafico extends Activity {
     private GraphicalView mChartView;
     //
     private int maiorConsumo;
+    //
+    private String[] mMonth = new String[] {
+            "Jan", "Feb" , "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug" , "Sep", "Oct", "Nov", "Dec"
+    };
 
     //http://portalandroid.org/comunidade/viewtopic.php?f=2&t=16346
     @Override
@@ -86,7 +97,13 @@ public class TelaGrafico extends Activity {
         sDia = dados.getStringExtra("dia");
         sMes = dados.getStringExtra("mes");
         sAno = dados.getStringExtra("ano");
-        maiorConsumo = dados.getIntExtra("maiorConsumo",0);
+        // filtros do gráfico
+        maiorConsumo = dados.getIntExtra("maiorConsumo", 0);
+        indIgualNrMordador = dados.getIntExtra("indTipoComparacaoMaiorConsumo",0);
+        indIgualNrComodo  = dados.getIntExtra("fgCompararOutrasResidencias",0);
+        indTipoComparacaoMaiorConsumo  = dados.getIntExtra("nrMorador", 0);
+        fgCompararOutrasResidencias  = dados.getIntExtra("nrComodo",0);
+
         session = Session.getInstance();
         session.setContext(this);
 
@@ -104,7 +121,8 @@ public class TelaGrafico extends Activity {
             if(maiorConsumo == 0)
                 pesquisarGastoNoMes(data);
             else
-                createChart();
+                openChart();
+               // createChart();
         }
 
     }
@@ -402,6 +420,66 @@ public class TelaGrafico extends Activity {
         renderer.addXTextLabel(2, "Fev");
         renderer.addXTextLabel(3, "Mar");
         renderer.addXTextLabel(4, "Abr");
+
+    }
+    private void openChart(){
+        int[] x = { 0,1,2,3,4,5,6,7 };
+        int[] income = { 2000,2500,2700,3000,2800,3500,3700,3800};
+        int[] expense = {2200, 2700, 2900, 2800, 2600, 3000, 3300, 3400 };
+
+        // Creating an  XYSeries for Income
+        XYSeries incomeSeries = new XYSeries("Income");
+        // Creating an  XYSeries for Expense
+        XYSeries expenseSeries = new XYSeries("Expense");
+        // Adding data to Income and Expense Series
+        for(int i=0;i<x.length;i++){
+            incomeSeries.add(i,income[i]);
+            expenseSeries.add(i,expense[i]);
+        }
+
+        // Creating a dataset to hold each series
+        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+        // Adding Income Series to the dataset
+        dataset.addSeries(incomeSeries);
+        // Adding Expense Series to dataset
+        dataset.addSeries(expenseSeries);
+
+        // Creating XYSeriesRenderer to customize incomeSeries
+        XYSeriesRenderer incomeRenderer = new XYSeriesRenderer();
+        incomeRenderer.setColor(Color.rgb(130, 130, 230));
+        incomeRenderer.setFillPoints(true);
+        incomeRenderer.setLineWidth(2);
+        incomeRenderer.setDisplayChartValues(true);
+
+        // Creating XYSeriesRenderer to customize expenseSeries
+        XYSeriesRenderer expenseRenderer = new XYSeriesRenderer();
+        expenseRenderer.setColor(Color.rgb(220, 80, 80));
+        expenseRenderer.setFillPoints(true);
+        expenseRenderer.setLineWidth(2);
+        expenseRenderer.setDisplayChartValues(true);
+
+        // Creating a XYMultipleSeriesRenderer to customize the whole chart
+        XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
+        multiRenderer.setXLabels(0);
+        multiRenderer.setChartTitle("Income vs Expense Chart");
+        multiRenderer.setXTitle("Year 2012");
+        multiRenderer.setYTitle("Amount in Dollars");
+        multiRenderer.setZoomButtonsVisible(true);
+        for(int i=0; i< x.length;i++){
+            multiRenderer.addXTextLabel(i, mMonth[i]);
+        }
+
+        // Adding incomeRenderer and expenseRenderer to multipleRenderer
+        // Note: The order of adding dataseries to dataset and renderers to multipleRenderer
+        // should be same
+        multiRenderer.addSeriesRenderer(incomeRenderer);
+        multiRenderer.addSeriesRenderer(expenseRenderer);
+
+        // Creating an intent to plot bar chart using dataset and multipleRenderer
+        Intent intent = ChartFactory.getBarChartIntent(getBaseContext(), dataset, multiRenderer, BarChart.Type.DEFAULT);
+
+        // Start Activity
+        startActivity(intent);
 
     }
     public void onBackPressed() // precionou o voltar do telefone?

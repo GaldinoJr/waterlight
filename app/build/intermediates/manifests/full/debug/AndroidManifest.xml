@@ -53,6 +53,7 @@
             android:label="@string/title_activity_tela_grafico_anual"
             android:screenOrientation="landscape" >
         </activity>
+        <activity android:name="org.achartengine.GraphicalActivity" />
     </application>
 
 </manifest>

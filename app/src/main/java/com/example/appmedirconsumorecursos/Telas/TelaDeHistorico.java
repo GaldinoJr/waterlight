@@ -10,6 +10,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -33,6 +34,7 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 	private Spinner spDia,
 					spMes,
 					spAno;
+
 	private TextView txtNomeRecurso,
 					 txtGastoHj,
 					 txtRsGastoHj,
@@ -40,10 +42,20 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 					 txtRsGastoAtual,
 					 txtMediaFinal,
 					 txtRsMediaFinal;
-	private RadioButton rbConsumo,
-						rbVlrGasto;
-	private CheckBox chkCompararMaiorConsumo;
 
+	private RadioButton rbConsumo,
+						rbVlrGasto,
+						rbMes,
+						rbDia;
+
+	private CheckBox chkCompararMaiorConsumo,
+			chkCruzarDados,
+			chkCompararOutrasResidencias,
+			chkIgualNrMorador,
+			chkIgualNrComodo;
+
+	private EditText edtNrComodos,
+			edtNrMorador;
 	private Button btnGrafico;
 	private int teste = 0,
 			teste2 = 0, // testar se foi selecionado algo no sppiner
@@ -92,6 +104,13 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 		spMes = (Spinner)findViewById(id.spMes);
 		spAno = (Spinner)findViewById(id.spAno1);
 		chkCompararMaiorConsumo = (CheckBox)findViewById(R.id.chkCompararMaiorConsumo);
+		chkCruzarDados = (CheckBox)findViewById(id.chkCruzarDados);
+		chkCompararOutrasResidencias = (CheckBox)findViewById(id.chkCompararOutrasResidencias);
+		chkIgualNrMorador = (CheckBox)findViewById(id.chkIgualNrMorador);
+		chkIgualNrComodo = (CheckBox)findViewById(id.chkIgualNrComodo);
+		edtNrComodos = (EditText)findViewById(id.edtNrComodos);
+		edtNrMorador = (EditText)findViewById(id.edtNrMorador);
+
 		rbConsumo.setChecked(true);
 		
 		imgRecurso = (ImageView)findViewById(id.imgRecurso);
@@ -358,6 +377,31 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 		return tipoGrafico;
 	}
 
+	private int descobrirPeriodoComparacaoMaiorConsumo()
+	{
+		int tipoGrafico = 0;
+		final RadioGroup rgMaiorConsumo = (RadioGroup)findViewById(id.rgMaiorConsumo);
+		int idRadioButton = rgMaiorConsumo.getCheckedRadioButtonId();
+		if (idRadioButton == id.rbMes)
+			tipoGrafico = 1;
+		else if(idRadioButton == id.rbDia)
+			tipoGrafico = 2;
+
+		return tipoGrafico;
+	}
+	private int validarInt(String sInt)
+	{
+		int inteiro;
+		try
+		{
+			inteiro = Integer.parseInt(sInt);
+		}
+		catch (Exception e)
+		{
+			inteiro = 0;
+		}
+		return inteiro;
+	}
 	@Override
 	public void onClick(View view) {
 		if(view == btnGrafico) {
@@ -383,7 +427,29 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 				sDia += dia;
 				int tipoGrafico = descobrirTipoGrafico();
 
-				int fgMaiorConsumo = chkCompararMaiorConsumo.isChecked() ? 1 : 0;
+				// 0 = nada
+				// 1 = mes
+				// 2 = dia
+				int indTipoComparacaoMaiorConsumo = 0;
+				if(chkCompararMaiorConsumo.isChecked())
+					indTipoComparacaoMaiorConsumo = descobrirPeriodoComparacaoMaiorConsumo();
+
+				int fgCompararOutrasResidencias = chkCompararOutrasResidencias.isChecked() ? 1 : 0;
+
+				int indIgualNrMordador;
+				int indIgualNrComodo;
+
+				if(chkIgualNrMorador.isChecked())
+					indIgualNrMordador = -1;
+				else
+					indIgualNrMordador = validarInt(edtNrMorador.getText().toString());
+
+
+				if(chkIgualNrComodo.isChecked())
+					indIgualNrComodo = -1;
+				else
+					indIgualNrComodo = validarInt(edtNrComodos.getText().toString());
+
 				Intent intent = new Intent();
 				intent.setClass(TelaDeHistorico.this, TelaGrafico.class);
 				intent.putExtra("absClasse", absRecurso);
@@ -391,8 +457,12 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 				intent.putExtra("mes", sMes);
 				intent.putExtra("ano", sAno);
 				// filtros
-				intent.putExtra("maiorConsumo",fgMaiorConsumo);
 				intent.putExtra("tipoGrafico", tipoGrafico);
+				intent.putExtra("indTipoComparacaoMaiorConsumo", indTipoComparacaoMaiorConsumo);
+				intent.putExtra("fgCompararOutrasResidencias",fgCompararOutrasResidencias);
+				intent.putExtra("nrMorador",indIgualNrMordador);
+				intent.putExtra("nrComodo",indIgualNrComodo);
+				//
 				startActivity(intent);
 				finish();
 			}
