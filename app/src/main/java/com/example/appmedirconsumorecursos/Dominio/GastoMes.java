@@ -38,8 +38,8 @@ public class GastoMes extends EntidadeDominio {
 
     private String sdt_inclusao;
 
-    // SETS
 
+    // SETS
 
     public void setSdt_inclusao(String sdt_inclusao) {
         this.sdt_inclusao = sdt_inclusao;
@@ -70,7 +70,6 @@ public class GastoMes extends EntidadeDominio {
     }
 
     // GETS
-
 
     public String getSdt_inclusao() {
         return sdt_inclusao;

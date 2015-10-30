@@ -379,13 +379,16 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 
 	private int descobrirPeriodoComparacaoMaiorConsumo()
 	{
-		int tipoGrafico = 0;
+		int tipoGrafico;
 		final RadioGroup rgMaiorConsumo = (RadioGroup)findViewById(id.rgMaiorConsumo);
 		int idRadioButton = rgMaiorConsumo.getCheckedRadioButtonId();
 		if (idRadioButton == id.rbMes)
 			tipoGrafico = 1;
 		else if(idRadioButton == id.rbDia)
 			tipoGrafico = 2;
+		else {
+			tipoGrafico = -1;
+		}
 
 		return tipoGrafico;
 	}
@@ -433,7 +436,11 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 				int indTipoComparacaoMaiorConsumo = 0;
 				if(chkCompararMaiorConsumo.isChecked())
 					indTipoComparacaoMaiorConsumo = descobrirPeriodoComparacaoMaiorConsumo();
-
+				if(indTipoComparacaoMaiorConsumo == -1)
+				{
+					Toast.makeText(TelaDeHistorico.this, "Para gerar o gráfico baseado no maior consumo, é preciso selecionar o período.", Toast.LENGTH_LONG).show();
+					return;
+				}
 				int fgCompararOutrasResidencias = chkCompararOutrasResidencias.isChecked() ? 1 : 0;
 
 				int indIgualNrMordador;

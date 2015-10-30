@@ -86,7 +86,8 @@ public class TelaGrafico extends Activity {
 
     //http://portalandroid.org/comunidade/viewtopic.php?f=2&t=16346
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_grafico_anual);
 

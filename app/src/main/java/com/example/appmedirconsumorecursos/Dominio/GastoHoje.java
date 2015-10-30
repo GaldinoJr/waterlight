@@ -22,6 +22,13 @@ public class GastoHoje extends EntidadeDominio {
 
     public final static String  DF_dt_inicial_busca = "dt_inicial_busca",
                                 DF_dt_final_busca = "dt_final_busca";
+    // filtros
+    public final static String  DF_FILTRO_maiorConsumo = "maiorConsumo",
+            DF_FILTRO_fitro_indTipoComparacaoMaiorConsumo = "indTipoComparacaoMaiorConsumo",
+            DF_FILTRO_fgCompararOutrasResidencias = "fgCompararOutrasResidencias",
+            DF_FILTRO_nrMorador = "nrMorador",
+            DF_FILTRO_nrComodo = "nrComodo";
+
     private Date dtUltimaRegistroDia;
 
     private double vlrGastoAgua,
@@ -35,8 +42,37 @@ public class GastoHoje extends EntidadeDominio {
     private String sDtInicialBusca;
     private String sDtFinalBusca;
 
+    private int fitro_maiorConsumo,
+            fitro_indTipoComparacaoMaiorConsumo,
+            fitro_fgCompararOutrasResidencias,
+            fitro_nrMorador,
+            fitro_nrComodo;
+
     // SETS
 
+    // filtros
+
+    public void setFitro_maiorConsumo(int fitro_maiorConsumo) {
+        this.fitro_maiorConsumo = fitro_maiorConsumo;
+    }
+
+    public void setFitro_indTipoComparacaoMaiorConsumo(int fitro_indTipoComparacaoMaiorConsumo) {
+        this.fitro_indTipoComparacaoMaiorConsumo = fitro_indTipoComparacaoMaiorConsumo;
+    }
+
+    public void setFitro_fgCompararOutrasResidencias(int fitro_fgCompararOutrasResidencias) {
+        this.fitro_fgCompararOutrasResidencias = fitro_fgCompararOutrasResidencias;
+    }
+
+    public void setFitro_nrMorador(int fitro_nrMorador) {
+        this.fitro_nrMorador = fitro_nrMorador;
+    }
+
+    public void setFitro_nrComodo(int fitro_nrComodo) {
+        this.fitro_nrComodo = fitro_nrComodo;
+    }
+
+    //
 
     public void setsDtUltimoRegistroDia(String sDtUltimoRegistroDia) {
         this.sDtUltimoRegistroDia = sDtUltimoRegistroDia;
@@ -77,7 +113,29 @@ public class GastoHoje extends EntidadeDominio {
 
     // GETS
 
+    // Filtros
 
+    public int getFitro_maiorConsumo() {
+        return fitro_maiorConsumo;
+    }
+
+    public int getFitro_indTipoComparacaoMaiorConsumo() {
+        return fitro_indTipoComparacaoMaiorConsumo;
+    }
+
+    public int getFitro_fgCompararOutrasResidencias() {
+        return fitro_fgCompararOutrasResidencias;
+    }
+
+    public int getFitro_nrMorador() {
+        return fitro_nrMorador;
+    }
+
+    public int getFitro_nrComodo() {
+        return fitro_nrComodo;
+    }
+
+    //
     public String getsDtInicialBusca() {
         return sDtInicialBusca;
     }
