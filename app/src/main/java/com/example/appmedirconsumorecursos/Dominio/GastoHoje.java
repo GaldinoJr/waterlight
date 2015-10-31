@@ -23,8 +23,7 @@ public class GastoHoje extends EntidadeDominio {
     public final static String  DF_dt_inicial_busca = "dt_inicial_busca",
                                 DF_dt_final_busca = "dt_final_busca";
     // filtros
-    public final static String  DF_FILTRO_maiorConsumo = "maiorConsumo",
-            DF_FILTRO_fitro_indTipoComparacaoMaiorConsumo = "indTipoComparacaoMaiorConsumo",
+    public final static String  DF_FILTRO_indTipoComparacaoMaiorConsumo = "indTipoComparacaoMaiorConsumo",
             DF_FILTRO_fgCompararOutrasResidencias = "fgCompararOutrasResidencias",
             DF_FILTRO_nrMorador = "nrMorador",
             DF_FILTRO_nrComodo = "nrComodo";
@@ -42,8 +41,11 @@ public class GastoHoje extends EntidadeDominio {
     private String sDtInicialBusca;
     private String sDtFinalBusca;
 
-    private int fitro_maiorConsumo,
-            fitro_indTipoComparacaoMaiorConsumo,
+    // fitro_indTipoComparacaoMaiorConsumo
+    // 0 = não filtra
+    // 1 = mes
+    // 2 = dia
+    private int fitro_indTipoComparacaoMaiorConsumo,
             fitro_fgCompararOutrasResidencias,
             fitro_nrMorador,
             fitro_nrComodo;
@@ -51,10 +53,6 @@ public class GastoHoje extends EntidadeDominio {
     // SETS
 
     // filtros
-
-    public void setFitro_maiorConsumo(int fitro_maiorConsumo) {
-        this.fitro_maiorConsumo = fitro_maiorConsumo;
-    }
 
     public void setFitro_indTipoComparacaoMaiorConsumo(int fitro_indTipoComparacaoMaiorConsumo) {
         this.fitro_indTipoComparacaoMaiorConsumo = fitro_indTipoComparacaoMaiorConsumo;
@@ -114,10 +112,6 @@ public class GastoHoje extends EntidadeDominio {
     // GETS
 
     // Filtros
-
-    public int getFitro_maiorConsumo() {
-        return fitro_maiorConsumo;
-    }
 
     public int getFitro_indTipoComparacaoMaiorConsumo() {
         return fitro_indTipoComparacaoMaiorConsumo;
@@ -197,6 +191,23 @@ public class GastoHoje extends EntidadeDominio {
 
     public void setMapCdResidencia(String cdResidencia) {
         map.put(DF_cdResidencia,String.valueOf(cdResidencia));
+    }
+
+    // filtros
+    public void setMapFitro_indTipoComparacaoMaiorConsumo(String Fitro_indTipoComparacaoMaiorConsumo) {
+        map.put(DF_FILTRO_indTipoComparacaoMaiorConsumo,String.valueOf(Fitro_indTipoComparacaoMaiorConsumo));
+    }
+
+    public void setMapFitro_fgCompararOutrasResidencias(String fitro_fgCompararOutrasResidencias) {
+        map.put(DF_FILTRO_fgCompararOutrasResidencias,String.valueOf(fitro_fgCompararOutrasResidencias));
+    }
+
+    public void setMapFitro_nrMorador(String Fitro_nrMorador) {
+        map.put(DF_FILTRO_nrMorador,String.valueOf(Fitro_nrMorador));
+    }
+
+    public void setMapFitro_nrComodo(String Fitro_nrComodo) {
+        map.put(DF_FILTRO_nrComodo,String.valueOf(Fitro_nrComodo));
     }
 
 
