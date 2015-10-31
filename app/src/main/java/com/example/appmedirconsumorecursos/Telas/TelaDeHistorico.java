@@ -443,17 +443,19 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 				}
 				int fgCompararOutrasResidencias = chkCompararOutrasResidencias.isChecked() ? 1 : 0;
 
+				int vincularAguaLuz = chkCruzarDados.isChecked() ? 1 : 0;
+
 				int indIgualNrMordador;
 				int indIgualNrComodo;
 
 				if(chkIgualNrMorador.isChecked())
-					indIgualNrMordador = -1;
+					indIgualNrMordador = Integer.parseInt(session.getResidencia().getNrMorador());
 				else
 					indIgualNrMordador = validarInt(edtNrMorador.getText().toString());
 
 
 				if(chkIgualNrComodo.isChecked())
-					indIgualNrComodo = -1;
+					indIgualNrComodo = Integer.parseInt(session.getResidencia().getNrComodos());
 				else
 					indIgualNrComodo = validarInt(edtNrComodos.getText().toString());
 
@@ -469,6 +471,7 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 				intent.putExtra("fgCompararOutrasResidencias",fgCompararOutrasResidencias);
 				intent.putExtra("nrMorador",indIgualNrMordador);
 				intent.putExtra("nrComodo",indIgualNrComodo);
+				intent.putExtra("vincularAguaLuz",vincularAguaLuz);
 				//
 				startActivity(intent);
 				finish();

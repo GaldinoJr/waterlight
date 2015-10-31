@@ -247,7 +247,7 @@
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:ems="10"
-        android:id="@+id/edtNumMorador"
+        android:id="@+id/edtNrMorador"
         android:layout_alignBottom="@+id/textView8"
         android:layout_alignLeft="@+id/spMes"
         android:layout_alignStart="@+id/spMes" />
@@ -256,10 +256,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Igual"
-        android:id="@+id/chkNumMorador"
-        android:layout_alignBottom="@+id/edtNumMorador"
-        android:layout_toRightOf="@+id/edtNumMorador"
-        android:layout_toEndOf="@+id/edtNumMorador"
+        android:id="@+id/chkIgualNrMorador"
+        android:layout_alignBottom="@+id/edtNrMorador"
+        android:layout_toRightOf="@+id/edtNrMorador"
+        android:layout_toEndOf="@+id/edtNrMorador"
         android:checked="false" />
 
     <TextView
@@ -277,7 +277,7 @@
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/edtNrComodos"
         android:layout_alignBottom="@+id/textView9"
         android:layout_toRightOf="@+id/textView9"
         android:layout_toEndOf="@+id/textView9" />
@@ -286,11 +286,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Igual"
-        android:id="@+id/chkNumComdos"
+        android:id="@+id/chkIgualNrComodo"
         android:checked="false"
-        android:layout_alignBottom="@+id/editText"
-        android:layout_toRightOf="@+id/editText"
-        android:layout_toEndOf="@+id/editText" />
+        android:layout_alignBottom="@+id/edtNrComodos"
+        android:layout_toRightOf="@+id/edtNrComodos"
+        android:layout_toEndOf="@+id/edtNrComodos" />
 
     <CheckBox
         android:layout_width="wrap_content"

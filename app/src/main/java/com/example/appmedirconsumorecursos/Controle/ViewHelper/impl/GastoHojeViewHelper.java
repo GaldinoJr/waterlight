@@ -30,7 +30,8 @@ public class GastoHojeViewHelper implements IViewHelper {
                 gastoHoje.setNrWatts(Double.parseDouble((String) request.get(gastoHoje.DF_nrWatts)));
             if(request.get(gastoHoje.DF_vlrGastoAgua)!= null)
                 gastoHoje.setNrMetroCubicoAgua(Double.parseDouble((String) request.get(gastoHoje.DF_nrMetroCubicoAgua)));
-            gastoHoje.setCdResidencia(Integer.parseInt((String) request.get(gastoHoje.DF_cdResidencia)));
+            if(request.get(gastoHoje.DF_cdResidencia)!= null)
+                gastoHoje.setCdResidencia(Integer.parseInt((String) request.get(gastoHoje.DF_cdResidencia)));
             gastoHoje.setsDtInicialBusca((String) request.get(gastoHoje.DF_dt_inicial_busca));
             gastoHoje.setsDtFinalBusca((String) request.get(gastoHoje.DF_dt_final_busca));
 

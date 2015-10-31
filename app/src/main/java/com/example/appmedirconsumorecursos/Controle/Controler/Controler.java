@@ -64,14 +64,14 @@ public class Controler {
         // Pega qual a a operação desejada(EX: CRUD) e qual a classe que está execultando a operação
         String operacao = (String)request.get("operacao");
         String classe = (String)request.get("classe");
-        // Atrav�s do nome da classe, diz qual � o viewHelper da correspondente da mesma
+        // Através do nome da classe, diz qual é o viewHelper da correspondente da mesma
         IViewHelper vh = vhs.get(classe); // manda o nome da classe e recebe o new do viewHelper Correspondente
         EntidadeDominio entidade =  vh.getEntidade(request); // pega os dados da entidade correspondete
-        // Verifica qual � a operação que est� sendo feita
-        // de acordo com o que est� descrito �cima, tem um mapa a chave � o nome da opera��o
-        // e o conteudo � o new da mesma
+        // Verifica qual a a operação que está sendo feita
+        // de acordo com o que está descrito acima, tem um mapa a chave é o nome da operação
+        // e o conteudo é o new da mesma
         ICommand command = commands.get(operacao);
-        Resultado resultado = command.execute(entidade); // Execulta a opera��o e
+        Resultado resultado = command.execute(entidade); // Execulta a operação e
         return resultado; // retorna o resultado da mesma
     }
 }

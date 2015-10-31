@@ -44,11 +44,11 @@ public final class R {
         public static final int chkCompararMaiorConsumo=0x7f080022;
         public static final int chkCompararOutrasResidencias=0x7f080026;
         public static final int chkCruzarDados=0x7f08002d;
-        public static final int chkNumComdos=0x7f08002c;
-        public static final int chkNumMorador=0x7f080029;
-        public static final int edtNrComodos =0x7f08002b;
+        public static final int chkIgualNrComodo=0x7f08002c;
+        public static final int chkIgualNrMorador=0x7f080029;
         public static final int edtLogin=0x7f080030;
-        public static final int edtNrMorador =0x7f080028;
+        public static final int edtNrComodos=0x7f08002b;
+        public static final int edtNrMorador=0x7f080028;
         public static final int edtSenha=0x7f080032;
         public static final int edtVlrTarifaAgua=0x7f080007;
         public static final int edtVlrTarifaLuz=0x7f080009;

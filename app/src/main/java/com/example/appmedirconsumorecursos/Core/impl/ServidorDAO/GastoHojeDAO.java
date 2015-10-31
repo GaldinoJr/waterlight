@@ -49,12 +49,13 @@ public class GastoHojeDAO extends AbstractServerDAO {
 
     @Override
     public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-        String retornoJason = "";
+        String retornoJason;
         gastoHoje = (GastoHoje) entidade;
-        JSONObject jo = new JSONObject();
         String query;
         if(gastoHoje.getFitro_indTipoComparacaoMaiorConsumo() == 0 )
         {
+            retornoJason = "";
+            JSONObject jo = new JSONObject();
             try {
                 query = "SELECT * FROM " + GastoHoje.DF_NOME_TABELA + " WHERE 1 = 1";
                 if (gastoHoje.getCdResidencia() != null)
@@ -112,15 +113,18 @@ public class GastoHojeDAO extends AbstractServerDAO {
                 qtdResidencias = 1;
             for(int j = 0; j<qtdResidencias; j++) {
                 try {
+                    JSONObject jo = new JSONObject();
+                    retornoJason = "";
+                    conexao = null; // ZERA A CONEXÃO INDICANDO QUE FARÁ UMA NOVA
                     cdResidenciaPesquisa = 0;
                     if(j == 0)
-                        cdResidenciaPesquisa = Integer.parseInt(session.getResidencia().getId());
+                        cdResidenciaPesquisa = gastoHoje.getCdResidencia();
                     else
                     {
                         if(gastoHoje.getFitro_fgCompararOutrasResidencias() == 1)
                         {
                             residencia = (Residencia)listEntDom.get(j);
-                            if(Integer.parseInt(residencia.getId()) != Integer.parseInt(session.getResidencia().getId()))
+                            if(Integer.parseInt(residencia.getId()) != gastoHoje.getCdResidencia())
                                 cdResidenciaPesquisa = Integer.parseInt(residencia.getId());
                         }
                     }

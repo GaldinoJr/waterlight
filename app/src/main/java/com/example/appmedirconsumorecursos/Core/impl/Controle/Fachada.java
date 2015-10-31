@@ -187,7 +187,7 @@ public class Fachada  implements IFachada {
             catch (Exception e)
             {
                 e.printStackTrace();
-                resultado.setMsg("N�o foi poss�vel realizar o registro!");
+                resultado.setMsg("Não foi possível realizar o registro!");
 
             }
         }
@@ -221,7 +221,7 @@ public class Fachada  implements IFachada {
             catch (Exception e)
             {
                 e.printStackTrace();
-                resultado.setMsg("N�o foi poss�vel realizar o registro!");
+                resultado.setMsg("Nãoo foi possível realizar o registro!");
 
             }
         }else
@@ -252,7 +252,7 @@ public class Fachada  implements IFachada {
             catch (Exception e)
             {
                 e.printStackTrace();
-                resultado.setMsg("N�o foi poss�vel realizar a consulta!");
+                resultado.setMsg("Não foi possível realizar a consulta!");
             }
         }
         else

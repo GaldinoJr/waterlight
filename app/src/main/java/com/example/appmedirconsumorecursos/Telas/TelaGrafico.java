@@ -36,10 +36,11 @@ public class TelaGrafico extends Activity {
 
     private Intent dados;
     //
-    private int indIgualNrMordador;
-    private int indIgualNrComodo;
+    private int nrMordador;
+    private int nrComodo;
     private int indTipoComparacaoMaiorConsumo;
     private int fgCompararOutrasResidencias;
+    private int vincularAguaLuz;
     //
     private AbsRecurso absRecurso;
     private Integer idRecurso;
@@ -77,8 +78,6 @@ public class TelaGrafico extends Activity {
     // GRAFICO DE BARRA
     private GraphicalView mChartView;
     //
-    private int maiorConsumo;
-    //
     private String[] mMonth = new String[] {
             "Jan", "Feb" , "Mar", "Apr", "May", "Jun",
             "Jul", "Aug" , "Sep", "Oct", "Nov", "Dec"
@@ -99,11 +98,11 @@ public class TelaGrafico extends Activity {
         sMes = dados.getStringExtra("mes");
         sAno = dados.getStringExtra("ano");
         // filtros do gráfico
-        maiorConsumo = dados.getIntExtra("maiorConsumo", 0);
-        indIgualNrMordador = dados.getIntExtra("indTipoComparacaoMaiorConsumo",0);
-        indIgualNrComodo  = dados.getIntExtra("fgCompararOutrasResidencias",0);
-        indTipoComparacaoMaiorConsumo  = dados.getIntExtra("nrMorador", 0);
-        fgCompararOutrasResidencias  = dados.getIntExtra("nrComodo",0);
+        indTipoComparacaoMaiorConsumo = dados.getIntExtra("indTipoComparacaoMaiorConsumo",0);
+        fgCompararOutrasResidencias= dados.getIntExtra("fgCompararOutrasResidencias",0);
+        nrMordador = dados.getIntExtra("nrMorador", 0);
+        nrComodo = dados.getIntExtra("nrComodo",0);
+        vincularAguaLuz = dados.getIntExtra("vincularAguaLuz",0);
 
         session = Session.getInstance();
         session.setContext(this);
@@ -119,10 +118,23 @@ public class TelaGrafico extends Activity {
         {
             data = "01/" + sMes + "/" + sAno;
             data += " 00:00:00";
-            if(maiorConsumo == 0)
+            if(indTipoComparacaoMaiorConsumo == 0)
                 pesquisarGastoNoMes(data);
             else
-                openChart();
+            {
+                gastoHoje = new GastoHoje();
+                gastoHoje.getMapInstance();
+                gastoHoje.setMapCdResidencia(session.getResidencia().getId());
+                gastoHoje.setMapDtInicialBusca(descobrirPrimeiroDiaData(data));
+                gastoHoje.setMapDtFinalBusca(descobrirUltimoDiaData(data));
+                gastoHoje.setMapFitro_nrMorador(String.valueOf(nrMordador));
+                gastoHoje.setMapFitro_nrComodo(String.valueOf(nrComodo));
+                gastoHoje.setMapFitro_fgCompararOutrasResidencias(String.valueOf(fgCompararOutrasResidencias));
+                gastoHoje.setMapFitro_indTipoComparacaoMaiorConsumo(String.valueOf(indTipoComparacaoMaiorConsumo));
+                listEntDom = gastoHoje.operar(this,false,Controler.DF_CONSULTAR);
+                //openChart();
+                graficoMairoConsumo(listEntDom);
+            }
                // createChart();
         }
 
@@ -428,6 +440,10 @@ public class TelaGrafico extends Activity {
         int[] income = { 2000,2500,2700,3000,2800,3500,3700,3800};
         int[] expense = {2200, 2700, 2900, 2800, 2600, 3000, 3300, 3400 };
 
+//        int[] x = { 0,1 };
+//        int[] income = { 2000,0};
+//        int[] expense = {2200,0};
+
         // Creating an  XYSeries for Income
         XYSeries incomeSeries = new XYSeries("Income");
         // Creating an  XYSeries for Expense
@@ -475,6 +491,184 @@ public class TelaGrafico extends Activity {
         // should be same
         multiRenderer.addSeriesRenderer(incomeRenderer);
         multiRenderer.addSeriesRenderer(expenseRenderer);
+
+        // Creating an intent to plot bar chart using dataset and multipleRenderer
+        Intent intent = ChartFactory.getBarChartIntent(getBaseContext(), dataset, multiRenderer, BarChart.Type.DEFAULT);
+
+        // Start Activity
+        startActivity(intent);
+
+    }
+    private void graficoMairoConsumo(List<EntidadeDominio> list)
+    {
+//        int[] x = { 0,1 };
+//        int[] income = { 2000,0};
+//        int[] expense = {2200,0};
+        int[] x = { 0,1,2,3,4,5,6,7 };
+        int[] income = { 2000,2500,2700,3000,2800,3500,3700,3800};
+        int[] expense = {2200, 2700, 2900, 2800, 2600, 3000, 3300, 3400 };
+
+        int i;
+        int qtdRegistros = list.size();
+        int[] iexoX;
+        double[] valoresAgua;
+        double[] valoresLuz;
+        String[] nmResidencias;
+        if(fgCompararOutrasResidencias == 0)
+        {
+            iexoX = new int[qtdRegistros+1];
+            valoresAgua = new double[qtdRegistros+1];
+            valoresLuz = new double[qtdRegistros+1];
+            nmResidencias = new String[qtdRegistros+1];
+        }
+        else
+        {
+            iexoX = new int[qtdRegistros];
+            valoresAgua = new double[qtdRegistros];
+            valoresLuz = new double[qtdRegistros];
+            nmResidencias = new String[qtdRegistros];
+        }
+        nmResidencias[0] = session.getResidencia().getNome();
+        String[] alfabeto = new String[] {
+                "A", "B" , "C", "D", "E", "F",
+                "G", "H" , "I", "J", "K", "L",
+                "M", "N" , "O", "O", "Q", "R",
+                "S", "T" , "U", "V", "W", "X",
+                "Y", "Z"
+        };
+        for(i = 0; i < qtdRegistros;i++)
+        {
+            iexoX[i] = i;
+            if(i > 0)
+                nmResidencias[i] = alfabeto[i-1];
+            GastoHoje g = (GastoHoje) listEntDom.get(i);
+
+            if(tipoGrafico == 1) // consumo?
+            {
+                valoresAgua[i] = g.getNrMetroCubicoAgua();
+                valoresLuz[i] = g.getNrWatts();
+            }
+            else if(tipoGrafico == 2) // valor gasto
+            {
+                valoresAgua[i] = g.getVlrGastoAgua();
+                valoresLuz[i] = g.getVlrGastLuz();
+            }
+        }
+        if(fgCompararOutrasResidencias == 0)// não vai comparar com outras residencias?
+        {
+            iexoX[1] = 1;
+            valoresAgua[1] = 0;
+            valoresLuz[1] = 0;
+            nmResidencias[1] = " ";
+            qtdRegistros++;
+        }
+        // Creating an  XYSeries for Income
+
+        aguaSeries = new XYSeries("Agua");
+        luzSeries = new XYSeries("Luz");
+
+
+        // Adding data to Income and Expense Series
+        for(i=0;i< qtdRegistros;i++){
+            aguaSeries.add(i,valoresAgua[i]);
+            luzSeries.add(i,valoresLuz[i]);
+        }
+
+        // Creating a dataset to hold each series
+        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+        // Adding Income Series to the dataset
+        if(vincularAguaLuz == 1) // vai vincular agua e luz?
+        {
+            dataset.addSeries(aguaSeries);
+            // Adding Expense Series to dataset
+            dataset.addSeries(luzSeries);
+        }
+        else
+        {
+            if(idRecurso == 1) // agua?
+                dataset.addSeries(aguaSeries);
+            else if(idRecurso == 2)
+                dataset.addSeries(luzSeries);
+        }
+
+        // Creating XYSeriesRenderer to customize incomeSeries
+        XYSeriesRenderer aguaRenderer = new XYSeriesRenderer();
+        aguaRenderer.setColor(Color.BLUE);
+        aguaRenderer.setFillPoints(true);
+        aguaRenderer.setLineWidth(2);
+        aguaRenderer.setDisplayChartValues(true);
+
+        // Creating XYSeriesRenderer to customize expenseSeries
+        XYSeriesRenderer luzRenderer = new XYSeriesRenderer();
+        luzRenderer.setColor(Color.YELLOW);
+        luzRenderer.setFillPoints(true);
+        luzRenderer.setLineWidth(2);
+        luzRenderer.setDisplayChartValues(true);
+
+        // Creating a XYMultipleSeriesRenderer to customize the whole chart
+        XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
+        multiRenderer.setXLabels(0);
+
+        String nmTempo;
+        String titulo = "";
+        if(dia > 0) // Vai pesquisar o gasto das horas do dia?
+            nmTempo = "Tempo(Horas)";
+        else
+            nmTempo = "Tempo(Dias)";
+
+        if(vincularAguaLuz == 1) // vai vincular agua e luz?
+            titulo = "Agua x Luz x " + nmTempo;
+        else
+        {
+            if(idRecurso == 1) // agua
+                titulo = "Agua x " + nmTempo;
+            else if(idRecurso == 2) // luz
+                titulo =  "Luz x " + nmTempo;
+        }
+        if(fgCompararOutrasResidencias == 1)
+            titulo += "x Residencias";
+        multiRenderer.setChartTitle(titulo);
+        String yTitulo = "Gasto: ";
+
+        if(tipoGrafico == 1) // consumo?
+        {
+            if(vincularAguaLuz == 1) {
+                yTitulo += "(m³) e (kw/h)";
+            }
+            else {
+                if (idRecurso == 1)// Agua
+                    yTitulo += "(m³)";
+                else
+                    yTitulo += "(kw/h)";
+            }
+        }
+        else if(tipoGrafico == 2)
+        {
+            yTitulo += "(R$)";
+        }
+        multiRenderer.setYTitle(yTitulo);
+        multiRenderer.setXTitle("Residencias");
+        multiRenderer.setZoomButtonsVisible(true);
+        for(i = 0; i< qtdRegistros;i++){
+            multiRenderer.addXTextLabel(i, nmResidencias[i]);
+        }
+
+        // Adding incomeRenderer and expenseRenderer to multipleRenderer
+        // Note: The order of adding dataseries to dataset and renderers to multipleRenderer
+        // should be same
+        if(vincularAguaLuz == 1) // vai vincular agua e luz?
+        {
+            multiRenderer.addSeriesRenderer(aguaRenderer);
+            multiRenderer.addSeriesRenderer(luzRenderer);
+        }
+        else
+        {
+            if(idRecurso == 1) // agua?
+                multiRenderer.addSeriesRenderer(aguaRenderer);
+            else if(idRecurso == 2)
+                multiRenderer.addSeriesRenderer(luzRenderer);
+        }
+
 
         // Creating an intent to plot bar chart using dataset and multipleRenderer
         Intent intent = ChartFactory.getBarChartIntent(getBaseContext(), dataset, multiRenderer, BarChart.Type.DEFAULT);
