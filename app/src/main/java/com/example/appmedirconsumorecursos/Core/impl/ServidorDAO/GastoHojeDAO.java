@@ -61,12 +61,22 @@ public class GastoHojeDAO extends AbstractServerDAO {
                 if (gastoHoje.getCdResidencia() != null)
                     query += " AND cd_residencia = " + String.valueOf(gastoHoje.getCdResidencia());
                 if (gastoHoje.getsDtUltimoRegistroDia() != null)
+                {
                     query += " AND dt_ultimo_registro_dia = STR_TO_DATE( '" + gastoHoje.getsDtUltimoRegistroDia() + "' ,'%Y-%m-%d %H:%i:%s')";
+                }
+                if (gastoHoje.getsDtInicialBusca() != null && gastoHoje.getsDtFinalBusca() != null) {
+                    query += " AND dt_ultimo_registro_dia " +
+                            " BETWEEN '" + gastoHoje.getsDtInicialBusca() + "' AND '" + gastoHoje.getsDtFinalBusca() + "' " +
+                            " AND concat(DATE_FORMAT(dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT(dt_ultimo_registro_dia,  '%i')) BETWEEN '00:00' AND '00:59'";
+                }
                 //            if(!TextUtils.isEmpty(residencia.getNome()))
                 //                query += " AND ds_nome = '" + residencia.getNome() +"'";
 
-                query += " ORDER BY dt_ultimo_registro_dia DESC LIMIT 1;";
-                ;
+
+                if(gastoHoje.getFitro_fgCompararOutrasResidencias() == 1) // usado para indicar que vai trazer todos os registros
+                    query += " ORDER BY dt_ultimo_registro_dia ASC;";
+                else
+                    query += " ORDER BY dt_ultimo_registro_dia DESC LIMIT 1;";
                 //
                 jo.put("query", query);
                 String json = jo.toString();

@@ -39,7 +39,8 @@ public class TelaMenu extends Activity implements OnClickListener {
 			txtValorGastoAtual,
 			txtValorMediaFinal;
 	private Button btnAtualizar,
-			btnHistorico;
+			btnHistorico,
+			btnRelatorio;
 	private ImageView imgRecurso;
 	private Intent dados;
 	private AbsRecurso absRecurso;
@@ -89,10 +90,12 @@ public class TelaMenu extends Activity implements OnClickListener {
 		//
 		btnAtualizar = (Button)findViewById(id.btnAtualizarDados);
 		btnHistorico = (Button)findViewById(id.btnHistorico);
+		btnRelatorio = (Button)findViewById(id.btnRelatorio);
 
 		// indica que os botoes podem ser clicados
 		btnAtualizar.setOnClickListener(this);
 		btnHistorico.setOnClickListener(this);
+		btnRelatorio.setOnClickListener(this);
 
 		//
 		dados = getIntent(); // Recebe os dados da tela anterior
@@ -244,6 +247,14 @@ public class TelaMenu extends Activity implements OnClickListener {
 		{
 			Intent intent = new Intent();
 			intent.setClass(TelaMenu.this, TelaDeHistorico.class);
+			intent.putExtra("absClasse", absRecurso);
+			startActivity(intent);
+			finish();
+		}
+		if(view == btnRelatorio)
+		{
+			Intent intent = new Intent();
+			intent.setClass(TelaMenu.this, TelaRelatorio.class);
 			intent.putExtra("absClasse", absRecurso);
 			startActivity(intent);
 			finish();

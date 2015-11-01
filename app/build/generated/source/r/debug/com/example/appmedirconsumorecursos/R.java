@@ -31,14 +31,15 @@ public final class R {
         public static final int R$GastoAtual=0x7f080039;
         public static final int R$GastoHj=0x7f08001a;
         public static final int R$MediaFinal=0x7f08003a;
-        public static final int action_settings=0x7f080041;
+        public static final int action_settings=0x7f080043;
         public static final int ano=0x7f080015;
-        public static final int btnAgua=0x7f08003f;
+        public static final int btnAgua=0x7f080040;
         public static final int btnAtualizarDados=0x7f08003d;
         public static final int btnGrafico=0x7f080025;
         public static final int btnHistorico=0x7f08003e;
         public static final int btnLogin=0x7f080033;
-        public static final int btnLuz=0x7f080040;
+        public static final int btnLuz=0x7f080041;
+        public static final int btnRelatorio=0x7f08003f;
         public static final int btnSalvarConfiguracao=0x7f080005;
         public static final int cbLogarAutomaticamente=0x7f080034;
         public static final int chkCompararMaiorConsumo=0x7f080022;
@@ -56,10 +57,11 @@ public final class R {
         public static final int gastoHj=0x7f080017;
         public static final int imgRecurso=0x7f08000e;
         public static final int layout_chart=0x7f08002e;
+        public static final int lvRelatorio=0x7f080042;
         public static final int mediaFinal=0x7f080036;
-        public static final int menu_configuracao=0x7f080043;
-        public static final int menu_configuracao_tela_menu=0x7f080042;
-        public static final int menu_logoff=0x7f080044;
+        public static final int menu_configuracao=0x7f080045;
+        public static final int menu_configuracao_tela_menu=0x7f080044;
+        public static final int menu_logoff=0x7f080046;
         public static final int mes=0x7f080013;
         public static final int rb110=0x7f08000c;
         public static final int rb220=0x7f08000d;
@@ -100,6 +102,7 @@ public final class R {
         public static final int activity_tela_login=0x7f030003;
         public static final int activity_tela_menu=0x7f030004;
         public static final int activity_tela_principal=0x7f030005;
+        public static final int activity_tela_relatorio=0x7f030006;
     }
     public static final class menu {
         public static final int menu_tela_configuracao_aplicativo=0x7f070000;
@@ -145,11 +148,12 @@ public final class R {
         public static final int title_activity_tela_menu=0x7f060020;
         public static final int title_activity_tela_principal_agua=0x7f060021;
         public static final int title_activity_tela_principal_luz=0x7f060022;
-        public static final int valorAtual=0x7f060023;
-        public static final int vlrTarAgua=0x7f060024;
-        public static final int vlrTarLuz=0x7f060025;
-        public static final int voltagemResidencia=0x7f060026;
-        public static final int zero=0x7f060027;
+        public static final int title_activity_tela_relatorio=0x7f060023;
+        public static final int valorAtual=0x7f060024;
+        public static final int vlrTarAgua=0x7f060025;
+        public static final int vlrTarLuz=0x7f060026;
+        public static final int voltagemResidencia=0x7f060027;
+        public static final int zero=0x7f060028;
     }
     public static final class style {
         /**  API 11 theme customizations can go here. 

@@ -41,4 +41,5 @@
     <string name="voltagemResidencia">Voltagem da residencia</string>
     <string name="gerarGrafico">Gerar gráfico</string>
     <string name="tipoGrafico">Gráfico baseado</string>
+    <string name="title_activity_tela_relatorio">telaRelatorio</string>
 </resources>

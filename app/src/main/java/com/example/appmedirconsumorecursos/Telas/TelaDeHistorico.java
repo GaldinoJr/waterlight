@@ -488,7 +488,7 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 		// Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
 		intent.setClass(TelaDeHistorico.this, TelaMenu.class);
 		intent.putExtra("absClasse", absRecurso);
-		startActivity(intent); // chama a pr�xima tela
+		startActivity(intent); // chama a próxima tela
 		finish();
 	}
 }

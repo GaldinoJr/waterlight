@@ -159,4 +159,13 @@
         android:layout_toRightOf="@+id/btnAtualizarDados"
         android:layout_toEndOf="@+id/btnAtualizarDados" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Relatório"
+        android:id="@+id/btnRelatorio"
+        android:layout_alignTop="@+id/btnHistorico"
+        android:layout_toRightOf="@+id/txtR$MediaFinal"
+        android:layout_toEndOf="@+id/txtR$MediaFinal" />
+
 </RelativeLayout><!-- From: file:/C:/Users/Galdino/Documents/tcc_git_hub/waterlight/app/src/main/res/layout/activity_tela_menu.xml -->
