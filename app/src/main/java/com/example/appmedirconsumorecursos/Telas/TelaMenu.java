@@ -254,7 +254,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 		if(view == btnRelatorio)
 		{
 			Intent intent = new Intent();
-			intent.setClass(TelaMenu.this, TelaRelatorio.class);
+			intent.setClass(TelaMenu.this, TelaRelatorio1.class);
 			intent.putExtra("absClasse", absRecurso);
 			startActivity(intent);
 			finish();
