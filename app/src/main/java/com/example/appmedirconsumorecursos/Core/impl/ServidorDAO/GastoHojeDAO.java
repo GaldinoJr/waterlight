@@ -133,13 +133,14 @@ public class GastoHojeDAO extends AbstractServerDAO {
                         // Seleciona o maior valor de cada casa, no periodo escolhido
                         query = "SELECT gh.cd_gasto_hoje, gh.nr_watts, gh.nr_metro_cubico_agua, gh.vlr_gasto_agua, gh.vlr_gasto_luz, gh.cd_residencia, gh.dt_ultimo_registro_dia";
                         query += " FROM " + GastoHoje.DF_NOME_TABELA + " gh";
-                        if(gastoHoje.getFitro_nrComodo() > 0 || gastoHoje.getFitro_nrMorador() > 0)
+                        if((cdResidenciaPesquisa != gastoHoje.getCdResidencia()) &&
+                                (gastoHoje.getFitro_nrComodo() > 0 || gastoHoje.getFitro_nrMorador() > 0))
                         {
                             query += " INNER JOIN tb_residencia r ON r.cd_residencia = gh.cd_residencia";
                             if(gastoHoje.getFitro_nrComodo() > 0)
                                 query += " AND r.nr_comodos = " + String.valueOf(gastoHoje.getFitro_nrComodo());
                             if(gastoHoje.getFitro_nrMorador() > 0)
-                                query += "AND r.nr_morador = " + gastoHoje.getFitro_nrMorador();
+                                query += " AND r.nr_morador = " + gastoHoje.getFitro_nrMorador();
                         }
                         query += " WHERE 1 = 1";
                         if(cdResidenciaPesquisa > 0)
@@ -164,13 +165,20 @@ public class GastoHojeDAO extends AbstractServerDAO {
                             if(cdResidenciaPesquisa > 0)
                                 query +=    " AND cd_residencia = "+ String.valueOf(cdResidenciaPesquisa);
 
-
+                            if((cdResidenciaPesquisa != gastoHoje.getCdResidencia()) &&
+                                    (gastoHoje.getFitro_nrComodo() > 0 || gastoHoje.getFitro_nrMorador() > 0))
+                            {
+                                if(gastoHoje.getFitro_nrComodo() > 0)
+                                    query += " AND r.nr_comodos = " + String.valueOf(gastoHoje.getFitro_nrComodo());
+                                if(gastoHoje.getFitro_nrMorador() > 0)
+                                    query += " AND r.nr_morador = " + gastoHoje.getFitro_nrMorador();
+                            }
 
                             query +=")";
                         }
 
-                        query += " ORDER BY dt_ultimo_registro_dia DESC LIMIT 1;";
-                        ;
+                        //query += " ORDER BY dt_ultimo_registro_dia DESC LIMIT 1;";
+
                         //
                         jo.put("query", query);
                         String json = jo.toString();

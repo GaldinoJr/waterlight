@@ -593,14 +593,17 @@ public class TelaGrafico extends Activity {
 
         // Creating XYSeriesRenderer to customize incomeSeries
         XYSeriesRenderer aguaRenderer = new XYSeriesRenderer();
-        aguaRenderer.setColor(Color.BLUE);
+       // aguaRenderer.setColor(Color.BLUE);
+        aguaRenderer.setColor(Color.rgb(130, 130, 230)); // azul
         aguaRenderer.setFillPoints(true);
         aguaRenderer.setLineWidth(2);
         aguaRenderer.setDisplayChartValues(true);
 
         // Creating XYSeriesRenderer to customize expenseSeries
         XYSeriesRenderer luzRenderer = new XYSeriesRenderer();
-        luzRenderer.setColor(Color.YELLOW);
+        //luzRenderer.setColor(Color.YELLOW);
+        //luzRenderer.setColor(Color.rgb(220, 80, 80));
+        luzRenderer.setColor(Color.rgb(217, 217, 25));
         luzRenderer.setFillPoints(true);
         luzRenderer.setLineWidth(2);
         luzRenderer.setDisplayChartValues(true);
@@ -626,7 +629,7 @@ public class TelaGrafico extends Activity {
                 titulo =  "Luz x " + nmTempo;
         }
         if(fgCompararOutrasResidencias == 1)
-            titulo += "x Residencias";
+            titulo += " x Residencias";
         multiRenderer.setChartTitle(titulo);
         String yTitulo = "Gasto: ";
 
