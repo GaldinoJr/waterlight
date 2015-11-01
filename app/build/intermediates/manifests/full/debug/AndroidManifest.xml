@@ -55,7 +55,7 @@
         </activity>
         <activity android:name="org.achartengine.GraphicalActivity" />
         <activity
-            android:name="com.example.appmedirconsumorecursos.Telas.TelaRelatorio"
+            android:name="com.example.appmedirconsumorecursos.Telas.TelaRelatorio1"
             android:label="@string/title_activity_tela_relatorio" >
         </activity>
     </application>

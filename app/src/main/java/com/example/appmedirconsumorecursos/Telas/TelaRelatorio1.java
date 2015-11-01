@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class TelaRelatorio1 extends Activity {
+    private ProgressBar progressBar;
     private TextView txtNomeRecurso;
     private Spinner spDia,
                     spMes,
@@ -67,6 +69,8 @@ public class TelaRelatorio1 extends Activity {
         spMes = (Spinner)findViewById(R.id.spMes);
         spAno = (Spinner)findViewById(R.id.spAno1);
         lvRelatorio = (ListView)findViewById(R.id.lvRelatorio);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
         //
         imgRecurso = (ImageView)findViewById(R.id.imgRecurso);
         //
@@ -131,8 +135,15 @@ public class TelaRelatorio1 extends Activity {
                             sDia = "01";
                             sMes = String.valueOf(position);
                             data = sDia + "/" + sMes + "/" + String.valueOf(ano);
+                            //retorno = pesquisarGastoNoMes(data);
+//                            new Runnable() {
+//                                public void run() {
+//                                    progressBar.setVisibility(View.VISIBLE);
                             retorno = pesquisarGastoNoMes(data);
+//                                }
+//                            }.run();
 
+                            progressBar.setVisibility(View.INVISIBLE);
                             if (retorno == false)
                             {
                                 Toast.makeText(TelaRelatorio1.this, spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
@@ -155,7 +166,6 @@ public class TelaRelatorio1 extends Activity {
     }
 
 
-
     private boolean pesquisarGastoNoMes(String data)
     {
         gastoHoje = new GastoHoje();
@@ -164,7 +174,7 @@ public class TelaRelatorio1 extends Activity {
         gastoHoje.setMapDtInicialBusca(descobrirPrimeiroDiaData(data));
         gastoHoje.setMapDtFinalBusca(descobrirUltimoDiaData(data));
         gastoHoje.setMapFitro_indTipoComparacaoMaiorConsumo("0");
-        gastoHoje.setMapFitro_fgCompararOutrasResidencias("1");
+        gastoHoje.setMapFiltro_fgTodosRegistros("1");
         // Mudar a consulta par a
         //listEntDom = gastoHoje.operar(session.getContext(), true, Controler.DF_CONSULTAR); // busca no banco interno
         listEntDom = gastoHoje.operar(session.getContext(), false, Controler.DF_CONSULTAR);

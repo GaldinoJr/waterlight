@@ -73,7 +73,7 @@ public class GastoHojeDAO extends AbstractServerDAO {
                 //                query += " AND ds_nome = '" + residencia.getNome() +"'";
 
 
-                if(gastoHoje.getFitro_fgCompararOutrasResidencias() == 1) // usado para indicar que vai trazer todos os registros
+                if(gastoHoje.getFiltro_fgTodosRegistros() == 1) // usado para indicar que vai trazer todos os registros
                     query += " ORDER BY dt_ultimo_registro_dia ASC;";
                 else
                     query += " ORDER BY dt_ultimo_registro_dia DESC LIMIT 1;";
@@ -109,8 +109,14 @@ public class GastoHojeDAO extends AbstractServerDAO {
         }
         else
         {
+            String colunaParaComparacao = "";
+            String dataParaComparacao = "";
             int cdResidenciaPesquisa;
             listGastoHoje = new ArrayList<EntidadeDominio>();
+            if(gastoHoje.getFiltro_idRecurso() == 1) // Água?
+                colunaParaComparacao = "nr_metro_cubico_agua";
+            else if(gastoHoje.getFiltro_idRecurso() == 2) // luz
+                colunaParaComparacao = "nr_watts";
             if(gastoHoje.getFitro_fgCompararOutrasResidencias() == 1) // vai comparar com outras residencias?
             {
                 instanciarClasses(false); // operação no servidor
@@ -155,38 +161,61 @@ public class GastoHojeDAO extends AbstractServerDAO {
                         query += " WHERE 1 = 1";
                         if(cdResidenciaPesquisa > 0)
                             query += " AND gh.cd_residencia = " + String.valueOf(cdResidenciaPesquisa);
-
-                        if (gastoHoje.getsDtInicialBusca() != null && gastoHoje.getsDtFinalBusca() != null) {
-                            // Validade data e hora(TEM QUE SER A PRIMEIRA HORA DO DIA)
-                            query += " AND gh.dt_ultimo_registro_dia " +
-                                    " BETWEEN '"+gastoHoje.getsDtInicialBusca()+"' AND '"+gastoHoje.getsDtFinalBusca()+"' " +
-                                    " AND concat(DATE_FORMAT(gh.dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT(gh.dt_ultimo_registro_dia,  '%i')) BETWEEN '00:00' AND '00:59'";
-                        }
-
-                        if(gastoHoje.getFitro_indTipoComparacaoMaiorConsumo() != 0 )
-                        {
-                            query +=
-                                    " AND gh.nr_metro_cubico_agua = "+
-                                    "("+
-                                            " SELECT MAX(nr_metro_cubico_agua) FROM tb_gasto_hoje WHERE dt_ultimo_registro_dia "+
-                                            " BETWEEN '"+gastoHoje.getsDtInicialBusca()+"' AND '"+gastoHoje.getsDtFinalBusca()+"' " +
-                                            "AND concat(DATE_FORMAT(dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT( dt_ultimo_registro_dia,  '%i'))"+
-                                            "BETWEEN '00:00' AND '00:59'";
-                            if(cdResidenciaPesquisa > 0)
-                                query +=    " AND cd_residencia = "+ String.valueOf(cdResidenciaPesquisa);
-
-                            if((cdResidenciaPesquisa != gastoHoje.getCdResidencia()) &&
-                                    (gastoHoje.getFitro_nrComodo() > 0 || gastoHoje.getFitro_nrMorador() > 0))
+                        if(j == 0) {
+                            if (gastoHoje.getsDtInicialBusca() != null && gastoHoje.getsDtFinalBusca() != null)
                             {
-                                if(gastoHoje.getFitro_nrComodo() > 0)
-                                    query += " AND r.nr_comodos = " + String.valueOf(gastoHoje.getFitro_nrComodo());
-                                if(gastoHoje.getFitro_nrMorador() > 0)
-                                    query += " AND r.nr_morador = " + gastoHoje.getFitro_nrMorador();
+                                // Validade data e hora(TEM QUE SER A PRIMEIRA HORA DO DIA)
+                                query += " AND gh.dt_ultimo_registro_dia"  +
+                                        " BETWEEN '" + gastoHoje.getsDtInicialBusca() + "' AND '" + gastoHoje.getsDtFinalBusca() + "' " +
+                                        " AND concat(DATE_FORMAT(gh.dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT(gh.dt_ultimo_registro_dia,  '%i')) BETWEEN '00:00' AND '00:59'";
                             }
 
-                            query +=")";
-                        }
+                            if (gastoHoje.getFitro_indTipoComparacaoMaiorConsumo() != 0)
+                            {
+                                query +=
+                                        " AND gh." + colunaParaComparacao + " = " +
+                                                "(" +
+                                                " SELECT MAX("+colunaParaComparacao+") FROM tb_gasto_hoje WHERE dt_ultimo_registro_dia " +
+                                                " BETWEEN '" + gastoHoje.getsDtInicialBusca() + "' AND '" + gastoHoje.getsDtFinalBusca() + "' " +
+                                                "AND concat(DATE_FORMAT(dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT( dt_ultimo_registro_dia,  '%i'))" +
+                                                "BETWEEN '00:00' AND '00:59'";
+                                if (cdResidenciaPesquisa > 0)
+                                    query += " AND cd_residencia = " + String.valueOf(cdResidenciaPesquisa);
 
+                                if ((cdResidenciaPesquisa != gastoHoje.getCdResidencia()) &&
+                                        (gastoHoje.getFitro_nrComodo() > 0 || gastoHoje.getFitro_nrMorador() > 0)) {
+                                    if (gastoHoje.getFitro_nrComodo() > 0)
+                                        query += " AND r.nr_comodos = " + String.valueOf(gastoHoje.getFitro_nrComodo());
+                                    if (gastoHoje.getFitro_nrMorador() > 0)
+                                        query += " AND r.nr_morador = " + gastoHoje.getFitro_nrMorador();
+                                }
+
+                                query += ")";
+                            }
+                        }
+                        else
+                        {
+                            if (gastoHoje.getsDtInicialBusca() != null && gastoHoje.getsDtFinalBusca() != null)
+                            {
+                                // Validade data e hora(TEM QUE SER A PRIMEIRA HORA DO DIA)
+                                query += " AND DATE_FORMAT(gh.dt_ultimo_registro_dia, '%Y-%m-%d') = STR_TO_DATE('" + dataParaComparacao + "', '%Y-%m-%d')" +
+                                        " AND concat(DATE_FORMAT(gh.dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT(gh.dt_ultimo_registro_dia,  '%i')) BETWEEN '00:00' AND '00:59'";
+                            }
+
+                            if (gastoHoje.getFitro_indTipoComparacaoMaiorConsumo() != 0)
+                            {
+                                if (cdResidenciaPesquisa > 0)
+                                    query += " AND cd_residencia = " + String.valueOf(cdResidenciaPesquisa);
+
+                                if ((cdResidenciaPesquisa != gastoHoje.getCdResidencia()) &&
+                                        (gastoHoje.getFitro_nrComodo() > 0 || gastoHoje.getFitro_nrMorador() > 0)) {
+                                    if (gastoHoje.getFitro_nrComodo() > 0)
+                                        query += " AND r.nr_comodos = " + String.valueOf(gastoHoje.getFitro_nrComodo());
+                                    if (gastoHoje.getFitro_nrMorador() > 0)
+                                        query += " AND r.nr_morador = " + gastoHoje.getFitro_nrMorador();
+                                }
+                            }
+                        }
                         //query += " ORDER BY dt_ultimo_registro_dia DESC LIMIT 1;";
 
                         //
@@ -209,6 +238,8 @@ public class GastoHojeDAO extends AbstractServerDAO {
                             g.setNrWatts(jsonObject.getDouble(g.DF_nrWatts));
                             g.setNrMetroCubicoAgua(jsonObject.getDouble(g.DF_nrMetroCubicoAgua));
                             g.setCdResidencia(jsonObject.getInt(g.DF_cdResidencia));
+                            if(j == 0)
+                                dataParaComparacao = jsonObject.getString(g.DF_dt_ultimo_registro_dia);
                             listGastoHoje.add(g);
                         }
                     }

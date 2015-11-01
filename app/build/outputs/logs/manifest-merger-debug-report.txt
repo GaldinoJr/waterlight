@@ -105,7 +105,7 @@ activity#org.achartengine.GraphicalActivity
 ADDED from AndroidManifest.xml:56:9
 	android:name
 		ADDED from AndroidManifest.xml:56:19
-activity#com.example.appmedirconsumorecursos.Telas.TelaRelatorio
+activity#com.example.appmedirconsumorecursos.Telas.TelaRelatorio1
 ADDED from AndroidManifest.xml:57:9
 	android:label
 		ADDED from AndroidManifest.xml:59:13

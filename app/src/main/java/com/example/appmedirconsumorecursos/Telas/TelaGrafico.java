@@ -31,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 public class TelaGrafico extends Activity {
 
@@ -131,9 +132,10 @@ public class TelaGrafico extends Activity {
                 gastoHoje.setMapFitro_nrComodo(String.valueOf(nrComodo));
                 gastoHoje.setMapFitro_fgCompararOutrasResidencias(String.valueOf(fgCompararOutrasResidencias));
                 gastoHoje.setMapFitro_indTipoComparacaoMaiorConsumo(String.valueOf(indTipoComparacaoMaiorConsumo));
+                gastoHoje.setMapFiltro_idRecurso(String.valueOf(idRecurso));
                 listEntDom = gastoHoje.operar(this,false,Controler.DF_CONSULTAR);
                 //openChart();
-                graficoMairoConsumo(listEntDom);
+                graficoMaiorConsumo(listEntDom);
             }
                // createChart();
         }
@@ -499,7 +501,7 @@ public class TelaGrafico extends Activity {
         startActivity(intent);
 
     }
-    private void graficoMairoConsumo(List<EntidadeDominio> list)
+    private void graficoMaiorConsumo(List<EntidadeDominio> list)
     {
 //        int[] x = { 0,1 };
 //        int[] income = { 2000,0};
@@ -514,7 +516,8 @@ public class TelaGrafico extends Activity {
         double[] valoresAgua;
         double[] valoresLuz;
         String[] nmResidencias;
-        if(fgCompararOutrasResidencias == 0)
+        String diaDeMaiorConsumo = "";
+        if(fgCompararOutrasResidencias == 0 || qtdRegistros == 1)
         {
             iexoX = new int[qtdRegistros+1];
             valoresAgua = new double[qtdRegistros+1];
@@ -543,6 +546,8 @@ public class TelaGrafico extends Activity {
                 nmResidencias[i] = alfabeto[i-1];
             GastoHoje g = (GastoHoje) listEntDom.get(i);
 
+            if( i ==0)
+                diaDeMaiorConsumo = converterDataParaString(String.valueOf(g.getDtUltimaRegistroDia()));
             if(tipoGrafico == 1) // consumo?
             {
                 valoresAgua[i] = g.getNrMetroCubicoAgua();
@@ -554,7 +559,7 @@ public class TelaGrafico extends Activity {
                 valoresLuz[i] = g.getVlrGastLuz();
             }
         }
-        if(fgCompararOutrasResidencias == 0)// não vai comparar com outras residencias?
+        if(fgCompararOutrasResidencias == 0 || qtdRegistros == 1)// não vai comparar com outras residencias?
         {
             iexoX[1] = 1;
             valoresAgua[1] = 0;
@@ -617,7 +622,7 @@ public class TelaGrafico extends Activity {
         if(dia > 0) // Vai pesquisar o gasto das horas do dia?
             nmTempo = "Tempo(Horas)";
         else
-            nmTempo = "Tempo(Dias)";
+            nmTempo = "Tempo(Dia: "+diaDeMaiorConsumo + ")";
 
         if(vincularAguaLuz == 1) // vai vincular agua e luz?
             titulo = "Agua x Luz x " + nmTempo;
@@ -679,6 +684,26 @@ public class TelaGrafico extends Activity {
         // Start Activity
         startActivity(intent);
 
+    }
+    // datas
+    private String converterDataParaString(String sDate) {
+
+        String dia,
+                mes,
+                ano,
+                hora;
+        dia = sDate.substring(8, 10);
+        mes = sDate.substring(4, 7);
+        ano = sDate.substring(24, 28);
+        hora = sDate.substring(10, 19);
+        try {
+            mes = new SimpleDateFormat("MM").format(new SimpleDateFormat("MMM", Locale.ENGLISH).parse(mes));
+        } catch (Exception e2) {
+            mes = null;
+        }
+        sDate = dia +"-"+mes+"-"+ ano + " de 00:00 até 00:59";
+
+        return sDate;
     }
     public void onBackPressed() // precionou o voltar do telefone?
     { // Sim, volta para a página anterior

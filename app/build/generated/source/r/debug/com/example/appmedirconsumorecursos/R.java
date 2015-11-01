@@ -31,7 +31,7 @@ public final class R {
         public static final int R$GastoAtual=0x7f080039;
         public static final int R$GastoHj=0x7f08001a;
         public static final int R$MediaFinal=0x7f08003a;
-        public static final int action_settings=0x7f080043;
+        public static final int action_settings=0x7f080044;
         public static final int ano=0x7f080015;
         public static final int btnAgua=0x7f080040;
         public static final int btnAtualizarDados=0x7f08003d;
@@ -59,10 +59,11 @@ public final class R {
         public static final int layout_chart=0x7f08002e;
         public static final int lvRelatorio=0x7f080042;
         public static final int mediaFinal=0x7f080036;
-        public static final int menu_configuracao=0x7f080045;
-        public static final int menu_configuracao_tela_menu=0x7f080044;
-        public static final int menu_logoff=0x7f080046;
+        public static final int menu_configuracao=0x7f080046;
+        public static final int menu_configuracao_tela_menu=0x7f080045;
+        public static final int menu_logoff=0x7f080047;
         public static final int mes=0x7f080013;
+        public static final int progressBar=0x7f080043;
         public static final int rb110=0x7f08000c;
         public static final int rb220=0x7f08000d;
         public static final int rbConsumo=0x7f08001f;

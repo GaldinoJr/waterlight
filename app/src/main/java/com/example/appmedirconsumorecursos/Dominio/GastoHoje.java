@@ -26,7 +26,10 @@ public class GastoHoje extends EntidadeDominio {
     public final static String  DF_FILTRO_indTipoComparacaoMaiorConsumo = "indTipoComparacaoMaiorConsumo",
             DF_FILTRO_fgCompararOutrasResidencias = "fgCompararOutrasResidencias",
             DF_FILTRO_nrMorador = "nrMorador",
-            DF_FILTRO_nrComodo = "nrComodo";
+            DF_FILTRO_nrComodo = "nrComodo",
+            DF_FILTRO_fgTodosRegistros = "filtro_fgTodosRegistros",
+            DF_FILTRO_idRecurso = "filtro_idRecurso";
+
 
     private Date dtUltimaRegistroDia;
 
@@ -45,10 +48,14 @@ public class GastoHoje extends EntidadeDominio {
     // 0 = não filtra
     // 1 = mes
     // 2 = dia
+    // filtro_fgTodosRegistros
+    // 1 - indica que é da tela de relatório e que vai trazer todos os registros
     private int fitro_indTipoComparacaoMaiorConsumo,
             fitro_fgCompararOutrasResidencias,
             fitro_nrMorador,
-            fitro_nrComodo;
+            fitro_nrComodo,
+            filtro_fgTodosRegistros,
+            filtro_idRecurso;
 
     // SETS
 
@@ -68,6 +75,14 @@ public class GastoHoje extends EntidadeDominio {
 
     public void setFitro_nrComodo(int fitro_nrComodo) {
         this.fitro_nrComodo = fitro_nrComodo;
+    }
+
+    public void setFiltro_fgTodosRegistros(int filtro_fgTodosRegistros) {
+        this.filtro_fgTodosRegistros = filtro_fgTodosRegistros;
+    }
+
+    public void setFiltro_idRecurso(int filtro_idRecurso) {
+        this.filtro_idRecurso = filtro_idRecurso;
     }
 
     //
@@ -127,6 +142,14 @@ public class GastoHoje extends EntidadeDominio {
 
     public int getFitro_nrComodo() {
         return fitro_nrComodo;
+    }
+
+    public int getFiltro_idRecurso() {
+        return filtro_idRecurso;
+    }
+
+    public int getFiltro_fgTodosRegistros() {
+        return filtro_fgTodosRegistros;
     }
 
     //
@@ -210,6 +233,13 @@ public class GastoHoje extends EntidadeDominio {
         map.put(DF_FILTRO_nrComodo,String.valueOf(Fitro_nrComodo));
     }
 
+    public void setMapFiltro_fgTodosRegistros(String filtro_fgTodosRegistros) {
+        map.put(DF_FILTRO_fgTodosRegistros,String.valueOf(filtro_fgTodosRegistros));
+    }
+
+    public void setMapFiltro_idRecurso(String filtro_idRecurso) {
+        map.put(DF_FILTRO_idRecurso,String.valueOf(filtro_idRecurso));
+    }
 
     public void setMapDtInicialBusca(String dtInicialBusca) {
         map.put(DF_dt_inicial_busca,String.valueOf(dtInicialBusca));
