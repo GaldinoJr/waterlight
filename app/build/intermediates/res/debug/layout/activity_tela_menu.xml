@@ -36,7 +36,8 @@
         android:id="@+id/gastoHj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-         android:layout_alignParentLeft="true"
+        android:textColor="#4682B4"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/imgRecurso"
         android:layout_marginTop="30dp"
         android:text="@string/Gastohj" />
@@ -45,6 +46,7 @@
         android:id="@+id/gastoAtual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#4682B4"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/gastoHj"
         android:layout_marginTop="20dp"
@@ -54,6 +56,7 @@
         android:id="@+id/mediaFinal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#4682B4"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/gastoAtual"
         android:layout_marginTop="20dp"
@@ -63,6 +66,7 @@
         android:id="@+id/txtGastoAtua"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#4682B4"
         android:layout_alignBottom="@+id/gastoAtual"
         android:layout_toRightOf="@+id/gastoHj"
         android:layout_marginLeft="10dp"
@@ -72,6 +76,7 @@
         android:id="@+id/txtGastoHj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#4682B4"
         android:layout_alignBottom="@+id/gastoHj"
         android:layout_alignLeft="@+id/txtGastoAtua"
         android:text="@string/zero" />
@@ -80,6 +85,7 @@
         android:id="@+id/txtMediaFina"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#4682B4"
         android:layout_alignBottom="@+id/mediaFinal"
         android:layout_alignLeft="@+id/txtGastoHj"
         android:text="@string/zero"
@@ -90,6 +96,7 @@
         android:id="@+id/R$GastoAtual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#4682B4"
         android:layout_alignBaseline="@+id/txtGastoAtua"
         android:layout_alignBottom="@+id/txtGastoAtua"
         android:layout_toRightOf="@+id/txtGastoAtua"
@@ -100,6 +107,7 @@
         android:id="@+id/R$GastoHj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#4682B4"
         android:layout_alignBaseline="@+id/txtGastoHj"
         android:layout_alignBottom="@+id/txtGastoHj"
         android:layout_alignLeft="@+id/R$GastoAtual"
@@ -109,6 +117,7 @@
         android:id="@+id/R$MediaFinal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#4682B4"
         android:layout_alignBottom="@+id/txtMediaFina"
         android:layout_alignLeft="@+id/R$GastoHj"
         android:text="@string/rs" />
@@ -117,6 +126,7 @@
         android:id="@+id/txtR$GastoAtual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#4682B4"
         android:layout_alignBaseline="@+id/R$GastoAtual"
         android:layout_alignBottom="@+id/R$GastoAtual"
         android:layout_toRightOf="@+id/R$GastoAtual"
@@ -127,6 +137,7 @@
         android:id="@+id/txtR$GastoHj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#4682B4"
         android:layout_alignBaseline="@+id/R$GastoHj"
         android:layout_alignBottom="@+id/R$GastoHj"
         android:layout_alignLeft="@+id/txtR$GastoAtual"
@@ -136,36 +147,49 @@
         android:id="@+id/txtR$MediaFinal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#4682B4"
         android:layout_alignBottom="@+id/R$MediaFinal"
         android:layout_alignLeft="@+id/txtR$GastoHj"
         android:text="@string/zero"
         android:numeric="decimal"
         android:maxLength="7" />
-    <Button
-        android:id="@+id/btnAtualizarDados"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imgRecurso"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="28dp"
-        android:text="@string/atualizar" />
+        android:weightSum="1">
 
-    <Button
-        android:id="@+id/btnHistorico"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/historico"
-        android:layout_alignTop="@+id/btnAtualizarDados"
-        android:layout_toRightOf="@+id/btnAtualizarDados"
-        android:layout_toEndOf="@+id/btnAtualizarDados" />
+        <Button
+            android:id="@+id/btnAtualizarDados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:layout_weight="0.33"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="28dp"
+            android:background="@drawable/layout_btn_login"
+            android:text="@string/atualizar" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Relatório"
-        android:id="@+id/btnRelatorio"
-        android:layout_alignTop="@+id/btnHistorico"
-        android:layout_toRightOf="@+id/txtR$MediaFinal"
-        android:layout_toEndOf="@+id/txtR$MediaFinal" />
+        <Button
+            android:id="@+id/btnHistorico"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:layout_weight="0.33"
+            android:text="@string/historico"
+            android:background="@drawable/layout_btn_login"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:text="Relatório"
+            android:id="@+id/btnRelatorio"
+            android:layout_alignTop="@+id/btnHistorico"
+            android:background="@drawable/layout_btn_login"
+            android:layout_weight="0.33" />
+    </LinearLayout>
 
 </RelativeLayout><!-- From: file:/C:/Users/Galdino/Documents/tcc_git_hub/waterlight/app/src/main/res/layout/activity_tela_menu.xml -->

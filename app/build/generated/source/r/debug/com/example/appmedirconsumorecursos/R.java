@@ -16,15 +16,16 @@ public final class R {
         public static final int tamanho20dp=0x7f040002;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int icone_agua=0x7f020001;
-        public static final int icone_luz=0x7f020002;
-        public static final int lampadawl=0x7f020003;
-        public static final int layout_btn_login=0x7f020004;
-        public static final int layout_tela_login=0x7f020005;
-        public static final int logo_agua=0x7f020006;
-        public static final int logo_luz=0x7f020007;
-        public static final int water_light=0x7f020008;
+        public static final int configuracao_braco=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
+        public static final int icone_agua=0x7f020002;
+        public static final int icone_luz=0x7f020003;
+        public static final int lampadawl=0x7f020004;
+        public static final int layout_btn_login=0x7f020005;
+        public static final int layout_tela_login=0x7f020006;
+        public static final int logo_agua=0x7f020007;
+        public static final int logo_luz=0x7f020008;
+        public static final int water_light=0x7f020009;
     }
     public static final class id {
         public static final int Divisor1=0x7f080010;
@@ -35,7 +36,7 @@ public final class R {
         public static final int R$GastoAtual=0x7f08003a;
         public static final int R$GastoHj=0x7f08001a;
         public static final int R$MediaFinal=0x7f08003b;
-        public static final int action_settings=0x7f080045;
+        public static final int action_settings=0x7f080047;
         public static final int ano=0x7f080015;
         public static final int btnAgua=0x7f080041;
         public static final int btnAtualizarDados=0x7f08003e;
@@ -45,6 +46,8 @@ public final class R {
         public static final int btnLuz=0x7f080042;
         public static final int btnRelatorio=0x7f080040;
         public static final int btnSalvarConfiguracao=0x7f080005;
+        public static final int button=0x7f080043;
+        public static final int button2=0x7f080044;
         public static final int cbLogarAutomaticamente=0x7f080034;
         public static final int chkCompararMaiorConsumo=0x7f080022;
         public static final int chkCompararOutrasResidencias=0x7f080026;
@@ -62,13 +65,13 @@ public final class R {
         public static final int imageView=0x7f080035;
         public static final int imgRecurso=0x7f08000e;
         public static final int layout_chart=0x7f08002e;
-        public static final int lvRelatorio=0x7f080043;
+        public static final int lvRelatorio=0x7f080045;
         public static final int mediaFinal=0x7f080037;
-        public static final int menu_configuracao=0x7f080047;
-        public static final int menu_configuracao_tela_menu=0x7f080046;
-        public static final int menu_logoff=0x7f080048;
+        public static final int menu_configuracao=0x7f080049;
+        public static final int menu_configuracao_tela_menu=0x7f080048;
+        public static final int menu_logoff=0x7f08004a;
         public static final int mes=0x7f080013;
-        public static final int progressBar=0x7f080044;
+        public static final int progressBar=0x7f080046;
         public static final int rb110=0x7f08000c;
         public static final int rb220=0x7f08000d;
         public static final int rbConsumo=0x7f08001f;
