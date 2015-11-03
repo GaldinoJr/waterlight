@@ -15,23 +15,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="2">
-    <Button
+    <ImageButton
         android:id="@+id/btnAgua"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2"
-        android:background="#4682B4"
+        android:background="#00688B"
         android:text="Água"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:src="@drawable/icon_agua_75x125"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/btnLuz"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2"
-        android:background="#708090"
+        android:background="#009ACD"
         android:text="Luz"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:src="@drawable/icone_luz75x113"/>
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -40,24 +42,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="2">
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:id="@+id/button"
-        android:background="#778899"
-        android:text="Configuraçao"
-        android:textColor="#FFFFFF"
+
+        <ImageButton
+           android:src="@drawable/icone_config_150"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:id="@+id/btnConfig"
+            android:background="#00B2EE"
+            android:drawableLeft="@drawable/icone_config_150_2"
+            android:text="Configurações"
+            android:textColor="#FFFFFF"
          />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:id="@+id/button2"
-        android:background="#B0C4DE"
-        android:text="Logoff"
-        android:textColor="#FFFFFF"
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:id="@+id/btnLogoff"
+            android:background="#00BFFF"
+            android:text="Logoff"
+            android:textColor="#FFFFFF"
+            android:src="@drawable/icon_saida_150"
         />
     </LinearLayout>
 </LinearLayout>

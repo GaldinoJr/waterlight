@@ -38,9 +38,9 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
     //
     private int indTipoAtualizacao;
     private int indTipoVoltagem;
-    private Context contextTelaParaVoltar;
+    //private Context contextTelaParaVoltar;
     private Intent dados;
-    private AbsRecurso absRecurso;
+   // private AbsRecurso absRecurso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
         rb220 = (RadioButton)findViewById(R.id.rb220);
         btnSalvarConfigApp = (Button)findViewById(R.id.btnSalvarConfiguracao);
         btnSalvarConfigApp.setOnClickListener(this);
-        contextTelaParaVoltar = session.getContext();
+        //contextTelaParaVoltar = session.getContext();
         dados = getIntent(); // Recebe os dados da tela anterior
 
         configSistema = session.getConfiguracaoSistema();
@@ -102,13 +102,13 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -167,18 +167,27 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
         }
     }
     public void onBackPressed() // precionou o voltar do telefone?
-    { // Sim, volta para a p?gina anterior
+    { // Sim, volta para a página anterior
         Intent intent = new Intent();
-        // Volta para a tela que fez a solicita��o
-        intent.setClass(Tela_configuracao_aplicativo.this, contextTelaParaVoltar.getClass());
-        if(contextTelaParaVoltar.getClass() == TelaMenu.class)
-        {
-            absRecurso = (AbsRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
-            intent.putExtra("absClasse", absRecurso);
-        }
-        startActivity(intent); // chama a pr?xima tela
+        // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
+        intent.setClass(Tela_configuracao_aplicativo.this, TelaPrincipal.class);
+        startActivity(intent); // chama a próxima tela
         finish();
     }
+    // usando para voltar pela bara de cima(menu)
+//    public void onBackPressed() // precionou o voltar do telefone?
+//    { // Sim, volta para a p?gina anterior
+//        Intent intent = new Intent();
+//        // Volta para a tela que fez a solicita��o
+//        intent.setClass(Tela_configuracao_aplicativo.this, contextTelaParaVoltar.getClass());
+//        if(contextTelaParaVoltar.getClass() == TelaMenu.class)
+//        {
+//            absRecurso = (AbsRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
+//            intent.putExtra("absClasse", absRecurso);
+//        }
+//        startActivity(intent); // chama a pr?xima tela
+//        finish();
+//    }
     private double validarDouble(String sValor)
     {
         double dValor= 0;

@@ -56,22 +56,22 @@ public class TelaMenu extends Activity implements OnClickListener {
 	//
 	private Integer idRecurso;
 
-	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent intent;
-		session = Session.getInstance();
-		switch (item.getItemId()) {
-			case id.menu_configuracao_tela_menu:
-				session.setContext(this);
-				intent = new Intent();
-				intent.setClass(TelaMenu.this, Tela_configuracao_aplicativo.class);
-				intent.putExtra("absClasse", absRecurso);
-				startActivity(intent);
-				finish();
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
-	}
+//	public boolean onOptionsItemSelected(MenuItem item) {
+////		Intent intent;
+////		session = Session.getInstance();
+////		switch (item.getItemId()) {
+////			case id.menu_configuracao_tela_menu:
+////				session.setContext(this);
+////				intent = new Intent();
+////				intent.setClass(TelaMenu.this, Tela_configuracao_aplicativo.class);
+////				intent.putExtra("absClasse", absRecurso);
+////				startActivity(intent);
+////				finish();
+////				return true;
+////			default:
+////				return super.onOptionsItemSelected(item);
+////		}
+//	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -262,12 +262,12 @@ public class TelaMenu extends Activity implements OnClickListener {
 	}
 
 	public void onBackPressed() // precionou o voltar do telefone?
-	{ // Sim, volta para a p�gina anterior 
+	{ // Sim, volta para a página anterior
 		Intent intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
         intent.setClass(TelaMenu.this, TelaPrincipal.class);
         intent.putExtra("absClasse", absRecurso);
-		startActivity(intent); // chama a pr�xima tela
+		startActivity(intent); // chama a próxima tela
         finish();
 	}
 	private void instanciarClasses()
