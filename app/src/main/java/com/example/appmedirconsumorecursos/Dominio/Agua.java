@@ -15,7 +15,7 @@ public class Agua extends AbsRecurso {
 	
 	protected void setIdImage()
 	{
-		idIcone = R.drawable.icone_agua;
+		idIcone = R.drawable.icon_agua_75x125;
 	}
 
 }

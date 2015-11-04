@@ -14,6 +14,7 @@ public final class R {
         public static final int activity_horizontal_margin=0x7f040000;
         public static final int activity_vertical_margin=0x7f040001;
         public static final int tamanho20dp=0x7f040002;
+        public static final int tamanho25dp=0x7f040003;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
@@ -28,10 +29,9 @@ public final class R {
         public static final int lampadawl=0x7f020009;
         public static final int layout_btn_login=0x7f02000a;
         public static final int layout_tela_login=0x7f02000b;
-        public static final int layout_teste=0x7f02000c;
-        public static final int logo_agua=0x7f02000d;
-        public static final int logo_luz=0x7f02000e;
-        public static final int water_light=0x7f02000f;
+        public static final int logo_agua=0x7f02000c;
+        public static final int logo_luz=0x7f02000d;
+        public static final int water_light=0x7f02000e;
     }
     public static final class id {
         public static final int Divisor1=0x7f080010;
@@ -39,19 +39,19 @@ public final class R {
         public static final int Divisor3=0x7f080019;
         public static final int Divisor4=0x7f080025;
         public static final int Divisor5=0x7f08001e;
-        public static final int R$GastoAtual=0x7f08003a;
+        public static final int R$GastoAtual=0x7f08003e;
         public static final int R$GastoHj=0x7f08001b;
-        public static final int R$MediaFinal=0x7f08003b;
+        public static final int R$MediaFinal=0x7f080040;
         public static final int ano=0x7f080016;
-        public static final int btnAgua=0x7f080041;
-        public static final int btnAtualizarDados=0x7f08003e;
-        public static final int btnConfig=0x7f080043;
+        public static final int btnAgua=0x7f080047;
+        public static final int btnAtualizarDados=0x7f080044;
+        public static final int btnConfig=0x7f080049;
         public static final int btnGrafico=0x7f080011;
-        public static final int btnHistorico=0x7f08003f;
+        public static final int btnHistorico=0x7f080045;
         public static final int btnLogin=0x7f080033;
-        public static final int btnLogoff=0x7f080044;
-        public static final int btnLuz=0x7f080042;
-        public static final int btnRelatorio=0x7f080040;
+        public static final int btnLogoff=0x7f08004a;
+        public static final int btnLuz=0x7f080048;
+        public static final int btnRelatorio=0x7f080046;
         public static final int btnSalvarConfiguracao=0x7f080005;
         public static final int cbLogarAutomaticamente=0x7f080034;
         public static final int chkCompararMaiorConsumo=0x7f080023;
@@ -65,15 +65,16 @@ public final class R {
         public static final int edtSenha=0x7f080032;
         public static final int edtVlrTarifaAgua=0x7f080007;
         public static final int edtVlrTarifaLuz=0x7f080009;
-        public static final int gastoAtual=0x7f080036;
+        public static final int gastoAtual=0x7f080038;
         public static final int gastoHj=0x7f080018;
         public static final int imageView=0x7f080035;
         public static final int imgRecurso=0x7f08000e;
         public static final int layout_chart=0x7f08002e;
-        public static final int lvRelatorio=0x7f080045;
-        public static final int mediaFinal=0x7f080037;
+        public static final int linearParaBotao=0x7f080043;
+        public static final int lvRelatorio=0x7f08004b;
+        public static final int mediaFinal=0x7f08003a;
         public static final int mes=0x7f080014;
-        public static final int progressBar=0x7f080046;
+        public static final int progressBar=0x7f08004c;
         public static final int rb110=0x7f08000c;
         public static final int rb220=0x7f08000d;
         public static final int rbConsumo=0x7f080020;
@@ -81,6 +82,8 @@ public final class R {
         public static final int rbHora=0x7f080002;
         public static final int rbMes=0x7f080004;
         public static final int rbValorGasto=0x7f080021;
+        public static final int relativeLayout=0x7f080037;
+        public static final int relativeLayout2=0x7f080036;
         public static final int rgMaiorConsumo=0x7f080024;
         public static final int rgTipoAtualizacao=0x7f080001;
         public static final int rgTipoGrafico=0x7f08001f;
@@ -98,13 +101,16 @@ public final class R {
         public static final int textView8=0x7f080027;
         public static final int textView9=0x7f08002a;
         public static final int textview=0x7f080000;
-        public static final int txtGastoAtua=0x7f080038;
+        public static final int txtGastoAtua=0x7f080039;
         public static final int txtGastoHj=0x7f08001a;
-        public static final int txtMediaFina=0x7f080039;
+        public static final int txtMediaFina=0x7f08003d;
         public static final int txtNomeRecurso=0x7f08000f;
-        public static final int txtR$GastoAtual=0x7f08003c;
+        public static final int txtR$GastoAtual=0x7f08003b;
         public static final int txtR$GastoHj=0x7f08001c;
-        public static final int txtR$MediaFinal=0x7f08003d;
+        public static final int txtR$MediaFinal=0x7f080041;
+        public static final int txtUnMediaGastoAtual=0x7f08003f;
+        public static final int txtUnMedidaGastoHoje=0x7f08003c;
+        public static final int txtUnMedidaMediaFinal=0x7f080042;
     }
     public static final class layout {
         public static final int activity_tela_configuracao_aplicativo=0x7f030000;

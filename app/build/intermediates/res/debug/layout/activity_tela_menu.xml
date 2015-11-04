@@ -6,157 +6,229 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#4682B4"
     tools:context=".TelaMenu" >
+
 
     <ImageView
         android:id="@+id/imgRecurso"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/icone_luz" />
+        android:src="@drawable/icon_agua_75x125"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/txtNomeRecurso"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imgRecurso"
-        android:layout_marginBottom="18dp"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/imgRecurso"
-        android:text="@string/dadosIndisponiveis"
-        android:textSize="@dimen/tamanho20dp" />
-
-    <View
-        android:id="@+id/Divisor1"
-        android:layout_width="fill_parent"
-        android:layout_height="2dip"
-        android:layout_below="@+id/imgRecurso"
-        android:background="#A8A8A8" />
-
-    <TextView
-        android:id="@+id/gastoHj"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#4682B4"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imgRecurso"
-        android:layout_marginTop="30dp"
-        android:text="@string/Gastohj" />
-    
-    <TextView
-        android:id="@+id/gastoAtual"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#4682B4"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/gastoHj"
-        android:layout_marginTop="20dp"
-        android:text="@string/gastoAtual" />
-    
-    <TextView
-        android:id="@+id/mediaFinal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#4682B4"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/gastoAtual"
-        android:layout_marginTop="20dp"
-        android:text="@string/MediaValorFinal" />
-     
-    <TextView
-        android:id="@+id/txtGastoAtua"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#4682B4"
-        android:layout_alignBottom="@+id/gastoAtual"
-        android:layout_toRightOf="@+id/gastoHj"
-        android:layout_marginLeft="10dp"
-        android:text="@string/zero" />
-
-    <TextView
-        android:id="@+id/txtGastoHj"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#4682B4"
-        android:layout_alignBottom="@+id/gastoHj"
-        android:layout_alignLeft="@+id/txtGastoAtua"
-        android:text="@string/zero" />
-
-    <TextView
-        android:id="@+id/txtMediaFina"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#4682B4"
-        android:layout_alignBottom="@+id/mediaFinal"
-        android:layout_alignLeft="@+id/txtGastoHj"
-        android:text="@string/zero"
-        android:numeric="decimal"
-        android:maxLength="7" />
-
-    <TextView
-        android:id="@+id/R$GastoAtual"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#4682B4"
-        android:layout_alignBaseline="@+id/txtGastoAtua"
-        android:layout_alignBottom="@+id/txtGastoAtua"
-        android:layout_toRightOf="@+id/txtGastoAtua"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/layout_tela_login"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="90dp"
         android:layout_marginLeft="30dp"
-        android:text="@string/rs" />
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="120dp"
+        android:id="@+id/relativeLayout2">
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            ></ScrollView>
 
-    <TextView
-        android:id="@+id/R$GastoHj"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#4682B4"
-        android:layout_alignBaseline="@+id/txtGastoHj"
-        android:layout_alignBottom="@+id/txtGastoHj"
-        android:layout_alignLeft="@+id/R$GastoAtual"
-        android:text="@string/rs" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/layout_tela_login"
+            android:id="@+id/relativeLayout"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+            <View
+                android:id="@+id/Divisor1"
+                android:layout_width="fill_parent"
+                android:layout_height="2dip"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                />
+            <TextView
+                android:id="@+id/gastoHj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4682B4"
+                android:layout_marginTop="-100dp"
+                android:text="@string/Gastohj"
+                android:textSize="@dimen/tamanho25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignTop="@+id/Divisor1"
+                />
 
-    <TextView
-        android:id="@+id/R$MediaFinal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#4682B4"
-        android:layout_alignBottom="@+id/txtMediaFina"
-        android:layout_alignLeft="@+id/R$GastoHj"
-        android:text="@string/rs" />
+            <TextView
+                android:id="@+id/gastoAtual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4682B4"
+                android:text="@string/gastoAtual"
+                android:textSize="@dimen/tamanho25dp"
+                android:layout_below="@+id/R$GastoHj"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"/>
 
-    <TextView
-        android:id="@+id/txtR$GastoAtual"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#4682B4"
-        android:layout_alignBaseline="@+id/R$GastoAtual"
-        android:layout_alignBottom="@+id/R$GastoAtual"
-        android:layout_toRightOf="@+id/R$GastoAtual"
-        android:layout_marginLeft="10dp"
-        android:text="@string/zero" />
 
-    <TextView
-        android:id="@+id/txtR$GastoHj"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#4682B4"
-        android:layout_alignBaseline="@+id/R$GastoHj"
-        android:layout_alignBottom="@+id/R$GastoHj"
-        android:layout_alignLeft="@+id/txtR$GastoAtual"
-        android:text="@string/zero" />
+            <TextView
+                android:id="@+id/txtGastoAtua"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4682B4"
+                android:layout_below="@+id/gastoAtual"
+                android:text="@string/zero"
+                android:textSize="@dimen/tamanho25dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignLeft="@+id/txtGastoHj"/>
 
-    <TextView
-        android:id="@+id/txtR$MediaFinal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#4682B4"
-        android:layout_alignBottom="@+id/R$MediaFinal"
-        android:layout_alignLeft="@+id/txtR$GastoHj"
-        android:text="@string/zero"
-        android:numeric="decimal"
-        android:maxLength="7" />
+            <TextView
+                android:id="@+id/mediaFinal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4682B4"
+                android:text="@string/MediaValorFinal"
+                android:layout_below="@+id/txtR$GastoAtual"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/tamanho25dp"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:id="@+id/txtGastoHj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4682B4"
+                android:layout_below="@+id/gastoHj"
+                android:text="@string/zero"
+                android:textSize="@dimen/tamanho25dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignLeft="@+id/gastoHj"
+                android:layout_marginLeft="-20dp"/>
+
+            <TextView
+                android:id="@+id/txtUnMedidaGastoHoje"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4682B4"
+                android:text="m³"
+                android:layout_toRightOf="@+id/txtGastoHj"
+                android:layout_alignBottom="@+id/txtGastoHj"
+                android:textSize="@dimen/tamanho25dp"/>
+
+            <TextView
+                android:id="@+id/txtMediaFina"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4682B4"
+                android:text="@string/zero"
+                android:numeric="decimal"
+                android:maxLength="7"
+                android:layout_below="@+id/mediaFinal"
+                android:textSize="@dimen/tamanho25dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignLeft="@+id/txtGastoHj"/>
+
+            <TextView
+                android:id="@+id/R$GastoHj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4682B4"
+                android:layout_toRightOf="@+id/txtUnMedidaGastoHoje"
+                android:layout_alignBottom="@+id/txtUnMedidaGastoHoje"
+                android:layout_marginLeft="@dimen/tamanho20dp"
+                android:text="@string/rs"
+                android:textSize="@dimen/tamanho25dp"/>
+
+            <TextView
+                android:id="@+id/R$GastoAtual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4682B4"
+                android:layout_alignBottom="@+id/txtGastoAtua"
+                android:layout_toRightOf="@+id/txtUnMediaGastoAtual"
+                android:layout_marginLeft="@dimen/tamanho20dp"
+                android:text="@string/rs"
+                android:textSize="@dimen/tamanho25dp"/>
+
+
+            <TextView
+                android:id="@+id/R$MediaFinal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4682B4"
+                android:layout_alignBottom="@+id/txtMediaFina"
+                android:layout_alignLeft="@+id/R$GastoHj"
+                android:text="@string/rs"
+                android:textSize="@dimen/tamanho25dp"/>
+
+            <TextView
+                android:id="@+id/txtR$GastoAtual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4682B4"
+                android:layout_alignBottom="@+id/R$GastoAtual"
+                android:layout_toRightOf="@+id/R$GastoAtual"
+                android:layout_alignLeft="@+id/txtR$GastoHj"
+                android:text="@string/zero"
+                android:textSize="@dimen/tamanho25dp"/>
+
+            <TextView
+                android:id="@+id/txtR$GastoHj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4682B4"
+                android:layout_toRightOf="@+id/R$GastoHj"
+                android:layout_alignBottom="@+id/R$GastoHj"
+                android:text="@string/zero"
+                android:textSize="@dimen/tamanho25dp"
+                android:layout_marginLeft="10dp"/>
+
+
+
+            <TextView
+                android:id="@+id/txtR$MediaFinal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4682B4"
+                android:layout_alignBottom="@+id/R$MediaFinal"
+                android:layout_alignLeft="@+id/txtR$GastoHj"
+                android:text="@string/zero"
+                android:numeric="decimal"
+                android:maxLength="7"
+                android:textSize="@dimen/tamanho25dp"/>
+
+                <TextView
+                    android:id="@+id/txtUnMediaGastoAtual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#4682B4"
+                    android:text="m³"
+                    android:layout_toRightOf="@+id/txtGastoAtua"
+                    android:layout_alignBottom="@+id/txtGastoAtua"
+                    android:textSize="@dimen/tamanho25dp"/>
+
+                <TextView
+                    android:id="@+id/txtUnMedidaMediaFinal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#4682B4"
+                    android:text="m³"
+                    android:layout_toRightOf="@+id/txtMediaFina"
+                    android:layout_alignBottom="@+id/txtMediaFina"
+                    android:textSize="@dimen/tamanho25dp"
+                    />
+        </RelativeLayout>
+    </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/linearParaBotao"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:weightSum="1">
@@ -165,31 +237,31 @@
             android:id="@+id/btnAtualizarDados"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
+            android:textColor="#4682B4"
             android:layout_weight="0.33"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="28dp"
-            android:background="@drawable/layout_btn_login"
+            android:background="@drawable/layout_tela_login"
             android:text="@string/atualizar" />
 
         <Button
             android:id="@+id/btnHistorico"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
+            android:textColor="#4682B4"
             android:layout_weight="0.33"
             android:text="@string/historico"
-            android:background="@drawable/layout_btn_login"/>
+            android:background="@drawable/layout_tela_login"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
+            android:textColor="#4682B4"
             android:text="Relatório"
             android:id="@+id/btnRelatorio"
             android:layout_alignTop="@+id/btnHistorico"
-            android:background="@drawable/layout_btn_login"
+            android:background="@drawable/layout_tela_login"
             android:layout_weight="0.33" />
     </LinearLayout>
+
 
 </RelativeLayout><!-- From: file:/C:/Users/Galdino/Documents/tcc_git_hub/waterlight/app/src/main/res/layout/activity_tela_menu.xml -->

@@ -100,7 +100,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 		//
 		dados = getIntent(); // Recebe os dados da tela anterior
 		absRecurso = (AbsRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
-		txtNome.setText(absRecurso.getNome()); // Recebe o nome do recurso e manda pra tela
+		//txtNome.setText(absRecurso.getNome()); // Recebe o nome do recurso e manda pra tela
 		imgRecurso.setImageResource(absRecurso.getIdIcone()); // Recebe o id da imagem e manda pra tela
 		idRecurso = Integer.parseInt(absRecurso.getIdRecurso());
 		// Consulta a ultima medição registrada para apresentá-la
