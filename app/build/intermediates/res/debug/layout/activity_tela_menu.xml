@@ -32,8 +32,7 @@
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
+
             ></ScrollView>
 
         <RelativeLayout
@@ -56,11 +55,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#4682B4"
-                android:layout_marginTop="-100dp"
                 android:text="@string/Gastohj"
                 android:textSize="@dimen/tamanho25dp"
                 android:layout_centerHorizontal="true"
                 android:layout_alignTop="@+id/Divisor1"
+                android:layout_marginTop="-100dp"
                 />
 
             <TextView
@@ -102,9 +101,9 @@
                 android:id="@+id/txtGastoHj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#4682B4"
                 android:layout_below="@+id/gastoHj"
                 android:text="@string/zero"
+                android:textColor="#4682B4"
                 android:textSize="@dimen/tamanho25dp"
                 android:layout_marginTop="10dp"
                 android:layout_alignLeft="@+id/gastoHj"
@@ -237,11 +236,11 @@
             android:id="@+id/btnAtualizarDados"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#4682B4"
             android:layout_weight="0.33"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/layout_tela_login"
-            android:text="@string/atualizar" />
+            android:text="@string/atualizar"
+            android:textColor="#4682B4"
+            android:background="@drawable/layout_tela_login"/>
 
         <Button
             android:id="@+id/btnHistorico"

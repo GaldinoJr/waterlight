@@ -15,7 +15,7 @@ public class Luz extends AbsRecurso {
 	
 	protected void setIdImage()
 	{
-		idIcone = R.drawable.icone_luz75x113;
+		idIcone = R.drawable.icone_lampada_150x150;
 	}
 
 }

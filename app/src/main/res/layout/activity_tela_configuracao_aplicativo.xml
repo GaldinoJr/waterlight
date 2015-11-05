@@ -5,50 +5,176 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.appmedirconsumorecursos.Telas.Tela_configuracao_sistema"
-    android:background="@android:color/background_light">
+    android:background="#4682B4">
 
-    <TextView android:text="@string/tipoAtualizacao" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textview"
+    <ImageView
+        android:id="@+id/imgConfig"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/icone_config_150"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <RadioGroup android:id="@+id/rgTipoAtualizacao"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textview">
-        <RadioButton
+        android:layout_centerHorizontal="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/layout_tela_login"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="90dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="120dp">
+        <View
+            android:id="@+id/Divisor1"
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            />
+        <View
+            android:id="@+id/Divisor2"
+            android:layout_width="2dip"
+            android:layout_height="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            />
+        <TextView
+            android:text="Atualizar por"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hora"
-            android:id="@+id/rbHora"
-            android:checked="false"
+            android:id="@+id/textview"
+            android:layout_centerHorizontal="true"
+            android:textColor="#4682B4"
+            android:textSize="@dimen/tamanho25dp"
+            android:layout_alignTop="@+id/Divisor1"
+            android:layout_marginTop="-125dp"/>
+
+        <RadioGroup android:id="@+id/rgTipoAtualizacao"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/textview"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignLeft="@+id/Divisor2"
+            android:layout_marginLeft="-135dp">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hora"
+                android:id="@+id/rbHora"
+                android:checked="false"
+                android:layout_below="@+id/textview"
+                android:textColor="#4682B4"
+                android:textSize="@dimen/tamanho25dp"/>
 
-        <RadioButton
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dia"
+                android:id="@+id/rbDia"
+                android:checked="false"
+                android:layout_alignTop="@+id/rbHora"
+                android:layout_toRightOf="@+id/rbHora"
+                android:layout_toEndOf="@+id/rbHora"
+                android:textColor="#4682B4"
+                android:textSize="@dimen/tamanho25dp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mês"
+                android:id="@+id/rbMes"
+                android:checked="false"
+                android:layout_alignTop="@+id/rbDia"
+                android:layout_toRightOf="@+id/rbDia"
+                android:layout_toEndOf="@+id/rbDia"
+                android:textColor="#4682B4"
+                android:textSize="@dimen/tamanho25dp"/>
+        </RadioGroup>
+
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dia"
-            android:id="@+id/rbDia"
-            android:checked="false"
-            android:layout_alignTop="@+id/rbHora"
-            android:layout_toRightOf="@+id/rbHora"
-            android:layout_toEndOf="@+id/rbHora" />
+            android:text="@string/vlrTarAgua"
+            android:id="@+id/textView3"
+            android:layout_below="@+id/rgTipoVoltagem"
+            android:layout_marginTop="30dp"
+            android:textColor="#4682B4"
+            android:textSize="@dimen/tamanho25dp"
+            android:layout_alignLeft="@+id/Divisor2"
+            android:layout_marginLeft="-135dp"/>
 
-        <RadioButton
+        <EditText
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtVlrTarifaAgua"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_toRightOf="@+id/textView3"
+            android:inputType="numberDecimal" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mês"
-            android:id="@+id/rbMes"
-            android:checked="false"
-            android:layout_alignTop="@+id/rbDia"
-            android:layout_toRightOf="@+id/rbDia"
-            android:layout_toEndOf="@+id/rbDia" />
-    </RadioGroup>
+            android:text="@string/vlrTarLuz"
+            android:id="@+id/textView4"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/textView3"
+            android:textColor="#4682B4"
+            android:textSize="@dimen/tamanho25dp"
+            android:layout_alignLeft="@+id/Divisor2"
+            android:layout_marginLeft="-135dp"/>
+
+        <EditText
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtVlrTarifaLuz"
+            android:layout_alignBottom="@+id/textView4"
+            android:layout_alignLeft="@+id/edtVlrTarifaAgua"
+            android:layout_alignStart="@+id/edtVlrTarifaAgua"
+            android:editable="false"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/voltagemResidencia"
+            android:id="@+id/textView5"
+            android:layout_below="@+id/rgTipoAtualizacao"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:textColor="#4682B4"
+            android:textSize="@dimen/tamanho25dp"/>
+
+        <RadioGroup android:id="@+id/rgTipoVoltagem"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView5"
+            android:layout_alignLeft="@+id/Divisor2"
+            android:layout_marginLeft="-135dp">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="110"
+                android:id="@+id/rb110"
+                android:checked="false"
+                android:layout_below="@+id/textview"
+                android:textColor="#4682B4"
+                android:textSize="@dimen/tamanho25dp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="220"
+                android:id="@+id/rb220"
+                android:checked="false"
+                android:layout_alignTop="@+id/rbHora"
+                android:layout_toRightOf="@+id/rbHora"
+                android:layout_toEndOf="@+id/rbHora"
+                android:textColor="#4682B4"
+                android:textSize="@dimen/tamanho25dp"/>
+        </RadioGroup>
+    </RelativeLayout>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,81 +184,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/vlrTarAgua"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/rgTipoAtualizacao"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="29dp" />
-
-    <EditText
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/edtVlrTarifaAgua"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_toRightOf="@+id/textView3"
-        android:inputType="number|numberSigned" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/vlrTarLuz"
-        android:id="@+id/textView4"
-        android:layout_marginTop="36dp"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/edtVlrTarifaLuz"
-        android:layout_alignBottom="@+id/textView4"
-        android:layout_alignLeft="@+id/edtVlrTarifaAgua"
-        android:layout_alignStart="@+id/edtVlrTarifaAgua"
-        android:editable="false"
-        android:inputType="number|numberSigned" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/voltagemResidencia"
-        android:id="@+id/textView5"
-        android:layout_below="@+id/edtVlrTarifaLuz"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="28dp" />
-
-    <RadioGroup android:id="@+id/rgTipoVoltagem"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView5">
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="110"
-            android:id="@+id/rb110"
-            android:checked="false"
-            android:layout_below="@+id/textview"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="220"
-            android:id="@+id/rb220"
-            android:checked="false"
-            android:layout_alignTop="@+id/rbHora"
-            android:layout_toRightOf="@+id/rbHora"
-            android:layout_toEndOf="@+id/rbHora" />
-    </RadioGroup>
-
-
+        android:layout_alignParentEnd="true"
+        android:textColor="#4682B4"
+        android:background="@drawable/layout_tela_login"/>
 </RelativeLayout>

@@ -33,7 +33,7 @@
         android:background="#009ACD"
         android:text="Luz"
         android:textColor="#FFFFFF"
-        android:src="@drawable/icone_luz75x113"/>
+        android:src="@drawable/icone_lampada_150x150"/>
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

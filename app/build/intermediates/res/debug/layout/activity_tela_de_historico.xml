@@ -243,7 +243,7 @@
         <EditText
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="number|numberSigned"
             android:ems="10"
             android:id="@+id/edtNrMorador"
             android:layout_alignBottom="@+id/textView8"
@@ -273,7 +273,7 @@
         <EditText
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="number|numberSigned"
             android:ems="10"
             android:id="@+id/edtNrComodos"
             android:layout_alignBottom="@+id/textView9"
