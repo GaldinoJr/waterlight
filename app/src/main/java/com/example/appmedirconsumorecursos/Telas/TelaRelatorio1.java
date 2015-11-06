@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
-import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
+import com.example.appmedirconsumorecursos.Dominio.AbsFactoryRecurso;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
 import com.example.appmedirconsumorecursos.R;
@@ -48,7 +48,7 @@ public class TelaRelatorio1 extends Activity {
     private String[] vetDia;
     private ImageView imgRecurso;
     private Intent dados;
-    private AbsRecurso absRecurso;
+    private AbsFactoryRecurso absFactoryRecurso;
     private Integer idRecurso;
 
     // sempre usar com requisições
@@ -64,7 +64,7 @@ public class TelaRelatorio1 extends Activity {
         setContentView(R.layout.activity_tela_relatorio);
         int i, j = 2015;
         //
-        txtNomeRecurso = (TextView)findViewById(R.id.txtNomeRecurso);
+        //txtNomeRecurso = (TextView)findViewById(R.id.txtNomeRecurso);
         spDia = (Spinner)findViewById(R.id.spDia);
         spMes = (Spinner)findViewById(R.id.spMes);
         spAno = (Spinner)findViewById(R.id.spAno1);
@@ -75,10 +75,14 @@ public class TelaRelatorio1 extends Activity {
         imgRecurso = (ImageView)findViewById(R.id.imgRecurso);
         //
         dados = getIntent(); // Recebe os dados da tela anterior
-        absRecurso = (AbsRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
-        txtNomeRecurso.setText(absRecurso.getNome()); // Recebe o nome do recurso e manda pra tela
-        imgRecurso.setImageResource(absRecurso.getIdIcone()); // Recebe o id da imagem e manda pra tela
-        idRecurso = Integer.parseInt(absRecurso.getIdRecurso());
+        absFactoryRecurso = (AbsFactoryRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
+        //txtNomeRecurso.setText(absFactoryRecurso.getNome()); // Recebe o nome do recurso e manda pra tela
+        //imgRecurso.setImageResource(absFactoryRecurso.getIdIcone()); // Recebe o id da imagem e manda pra tela
+        idRecurso = Integer.parseInt(absFactoryRecurso.getIdRecurso());
+        if(idRecurso == 1)
+            imgRecurso.setImageResource(R.drawable.icone_agua_transparente_azul_300x500);
+        else if(idRecurso == 2)
+            imgRecurso.setImageResource(R.drawable.icone_lampada_azul_transparente_azul358x640);
         //
         //
         vetNano = new Integer[85];
@@ -266,7 +270,7 @@ public class TelaRelatorio1 extends Activity {
         Intent intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
         intent.setClass(TelaRelatorio1.this, TelaMenu.class);
-        intent.putExtra("absClasse", absRecurso);
+        intent.putExtra("absClasse", absFactoryRecurso);
         startActivity(intent); // chama a pr�xima tela
         finish();
     }

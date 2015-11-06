@@ -2,7 +2,7 @@ package com.example.appmedirconsumorecursos.Dominio;
 
 import com.example.appmedirconsumorecursos.R;
 
-public class Agua extends AbsRecurso {
+public class Agua extends AbsFactoryRecurso {
 	protected void setIdRecurso()
 	{
 		id = "1";

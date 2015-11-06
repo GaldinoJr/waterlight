@@ -1,7 +1,6 @@
 package com.example.appmedirconsumorecursos.Telas;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 
 import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
-import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
 import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.R;
@@ -40,7 +38,7 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
     private int indTipoVoltagem;
     //private Context contextTelaParaVoltar;
     private Intent dados;
-   // private AbsRecurso absRecurso;
+   // private AbsFactoryRecurso absRecurso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,7 +180,7 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
 //        intent.setClass(Tela_configuracao_aplicativo.this, contextTelaParaVoltar.getClass());
 //        if(contextTelaParaVoltar.getClass() == TelaMenu.class)
 //        {
-//            absRecurso = (AbsRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
+//            absRecurso = (AbsFactoryRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
 //            intent.putExtra("absClasse", absRecurso);
 //        }
 //        startActivity(intent); // chama a pr?xima tela

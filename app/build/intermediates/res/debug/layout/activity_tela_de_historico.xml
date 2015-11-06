@@ -6,309 +6,323 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#4682B4"
     tools:context=".TelaDeHistorico" >
 
-    <ImageView
-        android:id="@+id/imgRecurso"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/icone_luz" />
-
-    <TextView
-        android:id="@+id/txtNomeRecurso"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imgRecurso"
-        android:layout_marginBottom="18dp"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/imgRecurso"
-        android:text="@string/dadosIndisponiveis"
-        android:textSize="@dimen/tamanho20dp" />
-
-    <View
-        android:id="@+id/Divisor1"
+    <FrameLayout
+        android:id="@+id/my_frame"
         android:layout_width="fill_parent"
-        android:layout_height="2dip"
-        android:layout_below="@+id/imgRecurso"
-        android:background="#A8A8A8" />
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/btnGrafico"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/layout_tela_login">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Divisor1"
-        android:layout_above="@+id/btnGrafico">
+        <ImageView
+            android:id="@+id/imgRecurso"
+            android:layout_width="250dp"
+            android:layout_height="350dp"
+            android:src="@drawable/icone_lampada_azul_transparente_azul358x640"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       >
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Dia"
-
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="25dp" />
-
-        <Spinner
-            android:id="@+id/spDia"
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/textView6"
-            android:layout_alignLeft="@+id/textView6" />
-
-        <TextView
-            android:id="@+id/mes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mes"
-            android:layout_above="@+id/spMes"
-            android:layout_toRightOf="@+id/spDia"
-            android:layout_marginLeft="5dp" />
-
-        <Spinner
-            android:id="@+id/spMes"
-            android:layout_width="130dp"
-            android:layout_height="40dp"
-            android:layout_alignTop="@+id/spDia"
-            android:layout_alignLeft="@+id/mes" />
-
-        <TextView
-            android:id="@+id/ano"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="@string/ano"
-            android:layout_alignTop="@+id/mes"
-            android:layout_toRightOf="@+id/spMes"
-            android:layout_marginLeft="5dp"/>
-
-        <Spinner
-            android:id="@+id/spAno1"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_alignTop="@+id/spMes"
-            android:layout_alignLeft="@+id/ano" />
-
-        <TextView
-            android:id="@+id/gastoHj"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="@string/gasto"
-            android:layout_below="@+id/spDia"
-            android:layout_alignParentLeft="true" />
-        <View
-            android:id="@+id/Divisor3"
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="2dip"
-            android:layout_below="@+id/gastoHj"
-            android:background="#A8A8A8" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Divisor1"
+            android:layout_above="@+id/btnGrafico">
 
-        <TextView
-            android:id="@+id/txtGastoHj"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/gastoHj"
-            android:layout_alignBottom="@+id/gastoHj"
-            android:layout_toRightOf="@+id/gastoHj"
-            android:layout_marginLeft="20dp"
-            android:text="@string/zero" />
+           >
+            <View
+                android:id="@+id/Divisor6"
+                android:layout_width="fill_parent"
+                android:layout_height="2dip"
 
-        <TextView
-            android:id="@+id/R$GastoHj"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/txtGastoHj"
-            android:layout_alignBottom="@+id/txtGastoHj"
-            android:layout_toRightOf="@+id/txtGastoHj"
-            android:layout_marginLeft="20dp"
-            android:text="@string/rs" />
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+            <View
+                android:id="@+id/Divisor7"
+                android:layout_width="2dip"
+                android:layout_height="fill_parent"
 
-        <TextView
-            android:id="@+id/txtR$GastoHj"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/R$GastoHj"
-            android:layout_alignBottom="@+id/R$GastoHj"
-            android:layout_toRightOf="@+id/R$GastoHj"
-            android:layout_marginLeft="20dp"
-            android:text="@string/zero" />
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gerar gráfico baseado no:"
-            android:id="@+id/textView7"
-            android:layout_below="@+id/Divisor5"
-            android:layout_alignLeft="@+id/gastoHj"
-            android:layout_alignStart="@+id/gastoHj"
-            android:layout_marginTop="10dp"/>
-
-        <RadioGroup android:id="@+id/rgTipoGrafico"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView7">
-            <RadioButton
+            <TextView
+                android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Consumo"
-                android:id="@+id/rbConsumo"
-                android:checked="false"
-                android:layout_below="@+id/textview"
+                android:text="Dia"
+                android:layout_below="@+id/Divisor6"
+                android:layout_toRightOf="@+id/Divisor7"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="20dp"/>
+
+            <Spinner
+                android:id="@+id/spDia"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/textView6"
+                android:layout_alignLeft="@+id/textView6" />
+
+            <TextView
+                android:id="@+id/mes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mes"
+                android:layout_above="@+id/spMes"
+                android:layout_toRightOf="@+id/spDia"
+                android:layout_marginLeft="5dp" />
+
+            <Spinner
+                android:id="@+id/spMes"
+                android:layout_width="130dp"
+                android:layout_height="40dp"
+                android:layout_alignTop="@+id/spDia"
+                android:layout_alignLeft="@+id/mes" />
+
+            <TextView
+                android:id="@+id/ano"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/ano"
+                android:layout_alignTop="@+id/mes"
+                android:layout_toRightOf="@+id/spMes"
+                android:layout_marginLeft="5dp"/>
+
+            <Spinner
+                android:id="@+id/spAno1"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_alignTop="@+id/spMes"
+                android:layout_alignLeft="@+id/ano" />
+
+            <TextView
+                android:id="@+id/gastoHj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/gasto"
+                android:layout_below="@+id/spDia"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_marginLeft="20dp"/>
+            <View
+                android:id="@+id/Divisor3"
+                android:layout_width="fill_parent"
+                android:layout_height="2dip"
+                android:layout_below="@+id/gastoHj"
+                android:background="#A8A8A8" />
 
-            <RadioButton
+            <TextView
+                android:id="@+id/txtGastoHj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Valor gasto"
-                android:id="@+id/rbValorGasto"
-                android:checked="false"
-                android:layout_alignTop="@+id/rbHora"
-                android:layout_toRightOf="@+id/rbHora"
-                android:layout_toEndOf="@+id/rbHora" />
-        </RadioGroup>
+                android:layout_alignBaseline="@+id/gastoHj"
+                android:layout_alignBottom="@+id/gastoHj"
+                android:layout_toRightOf="@+id/gastoHj"
+                android:layout_marginLeft="20dp"
+                android:text="@string/zero" />
 
-        <View
-            android:id="@+id/Divisor2"
-            android:layout_width="fill_parent"
-            android:layout_height="2dip"
-            android:layout_below="@+id/rgTipoGrafico"
-            android:background="#A8A8A8" />
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Comparar por maior consumo?"
-            android:id="@+id/chkCompararMaiorConsumo"
-            android:checked="false"
-            android:layout_below="@+id/rgTipoGrafico"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <RadioGroup android:id="@+id/rgMaiorConsumo"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/chkCompararMaiorConsumo">
-            <RadioButton
+            <TextView
+                android:id="@+id/R$GastoHj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No mês"
-                android:id="@+id/rbMes"
+                android:layout_alignBaseline="@+id/txtGastoHj"
+                android:layout_alignBottom="@+id/txtGastoHj"
+                android:layout_toRightOf="@+id/txtGastoHj"
+                android:layout_marginLeft="20dp"
+                android:text="@string/rs" />
+
+            <TextView
+                android:id="@+id/txtR$GastoHj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/R$GastoHj"
+                android:layout_alignBottom="@+id/R$GastoHj"
+                android:layout_toRightOf="@+id/R$GastoHj"
+                android:layout_marginLeft="20dp"
+                android:text="@string/zero" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gerar gráfico baseado no:"
+                android:id="@+id/textView7"
+                android:layout_below="@+id/Divisor3"
+                android:layout_alignLeft="@+id/gastoHj"
+                android:layout_alignStart="@+id/gastoHj"
+                android:layout_marginTop="10dp"/>
+
+            <RadioGroup android:id="@+id/rgTipoGrafico"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView7"
+                android:layout_marginLeft="20dp">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Consumo"
+                    android:id="@+id/rbConsumo"
+                    android:checked="false"
+                    android:layout_below="@+id/textview"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Valor gasto"
+                    android:id="@+id/rbValorGasto"
+                    android:checked="false"
+                    android:layout_alignTop="@+id/rbHora"
+                    android:layout_toRightOf="@+id/rbHora"
+                    android:layout_toEndOf="@+id/rbHora" />
+            </RadioGroup>
+
+            <View
+                android:id="@+id/Divisor2"
+                android:layout_width="fill_parent"
+                android:layout_height="2dip"
+                android:layout_below="@+id/rgTipoGrafico"
+                android:background="#A8A8A8" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Comparar por maior consumo?"
+                android:id="@+id/chkCompararMaiorConsumo"
                 android:checked="false"
+                android:layout_below="@+id/rgTipoGrafico"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                />
+
+            <RadioGroup android:id="@+id/rgMaiorConsumo"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/chkCompararMaiorConsumo"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                >
 
-            <RadioButton
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No mês"
+                    android:id="@+id/rbMes"
+                    android:checked="false"
+                    android:layout_below="@+id/chkCompararMaiorConsumo"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="20dp"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="no dia"
+                    android:id="@+id/rbDia"
+                    android:checked="false"
+                    android:layout_alignTop="@+id/rbMes"
+                    android:layout_toRightOf="@+id/rbMes"
+                    android:layout_toEndOf="@+id/rbMes" />
+            </RadioGroup>
+
+            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="no dia"
-                android:id="@+id/rbDia"
+                android:text="Comparar com outras residencias?"
+                android:id="@+id/chkCompararOutrasResidencias"
+                android:layout_below="@+id/Divisor5"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:checked="false"
-                android:layout_alignTop="@+id/rbMes"
-                android:layout_toRightOf="@+id/rbMes"
-                android:layout_toEndOf="@+id/rbMes" />
-        </RadioGroup>
-        <View
-            android:id="@+id/Divisor4"
-            android:layout_width="fill_parent"
-            android:layout_height="2dip"
-            android:layout_below="@+id/rgMaiorConsumo"
-            android:background="#A8A8A8" />
+                android:layout_marginLeft="20dp"/>
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Comparar com outras residencias?"
-            android:id="@+id/chkCompararOutrasResidencias"
-            android:layout_below="@+id/Divisor4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:checked="false" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nº Morador"
+                android:id="@+id/textView8"
+                android:layout_below="@+id/chkCompararOutrasResidencias"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nº Morador"
-            android:id="@+id/textView8"
-            android:layout_below="@+id/chkCompararOutrasResidencias"
-            android:layout_marginTop="10dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            <EditText
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:inputType="number|numberSigned"
+                android:ems="10"
+                android:id="@+id/edtNrMorador"
+                android:layout_alignBottom="@+id/textView8"
+                android:layout_alignLeft="@+id/spMes"
+                android:layout_alignStart="@+id/spMes" />
 
-        <EditText
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:inputType="number|numberSigned"
-            android:ems="10"
-            android:id="@+id/edtNrMorador"
-            android:layout_alignBottom="@+id/textView8"
-            android:layout_alignLeft="@+id/spMes"
-            android:layout_alignStart="@+id/spMes" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Igual"
+                android:id="@+id/chkIgualNrMorador"
+                android:layout_alignBottom="@+id/edtNrMorador"
+                android:layout_toRightOf="@+id/edtNrMorador"
+                android:layout_toEndOf="@+id/edtNrMorador"
+                android:checked="false" />
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Igual"
-            android:id="@+id/chkIgualNrMorador"
-            android:layout_alignBottom="@+id/edtNrMorador"
-            android:layout_toRightOf="@+id/edtNrMorador"
-            android:layout_toEndOf="@+id/edtNrMorador"
-            android:checked="false" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nº Comodos"
+                android:id="@+id/textView9"
+                android:layout_below="@+id/textView8"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nº Comodos"
-            android:id="@+id/textView9"
-            android:layout_below="@+id/textView8"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp"/>
+            <EditText
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:inputType="number|numberSigned"
+                android:ems="10"
+                android:id="@+id/edtNrComodos"
+                android:layout_alignBottom="@+id/textView9"
+                android:layout_toRightOf="@+id/textView9"
+                android:layout_toEndOf="@+id/textView9" />
 
-        <EditText
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:inputType="number|numberSigned"
-            android:ems="10"
-            android:id="@+id/edtNrComodos"
-            android:layout_alignBottom="@+id/textView9"
-            android:layout_toRightOf="@+id/textView9"
-            android:layout_toEndOf="@+id/textView9" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Igual"
+                android:id="@+id/chkIgualNrComodo"
+                android:checked="false"
+                android:layout_alignBottom="@+id/edtNrComodos"
+                android:layout_toRightOf="@+id/edtNrComodos"
+                android:layout_toEndOf="@+id/edtNrComodos" />
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Igual"
-            android:id="@+id/chkIgualNrComodo"
-            android:checked="false"
-            android:layout_alignBottom="@+id/edtNrComodos"
-            android:layout_toRightOf="@+id/edtNrComodos"
-            android:layout_toEndOf="@+id/edtNrComodos" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cruzar os dados de água e luz?"
+                android:id="@+id/chkCruzarDados"
+                android:checked="false"
+                android:layout_below="@+id/rgMaiorConsumo"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"/>
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cruzar os dados de água e luz?"
-            android:id="@+id/chkCruzarDados"
-            android:checked="false"
-            android:layout_below="@+id/Divisor3"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <View
-            android:id="@+id/Divisor5"
-            android:layout_width="fill_parent"
-            android:layout_height="2dip"
-            android:layout_below="@+id/chkCruzarDados"
-            android:background="#A8A8A8" />
-    </RelativeLayout>
-    </ScrollView>
-
+            <View
+                android:id="@+id/Divisor5"
+                android:layout_width="fill_parent"
+                android:layout_height="2dip"
+                android:layout_below="@+id/chkCruzarDados"
+                android:background="#A8A8A8" />
+        </RelativeLayout>
+        </ScrollView>
+    </FrameLayout>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -317,6 +331,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/Divisor1"
-        android:layout_alignEnd="@+id/Divisor1" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/layout_tela_login"/>
 </RelativeLayout><!-- From: file:/C:/Users/Galdino/Documents/tcc_git_hub/waterlight/app/src/main/res/layout/activity_tela_de_historico.xml -->

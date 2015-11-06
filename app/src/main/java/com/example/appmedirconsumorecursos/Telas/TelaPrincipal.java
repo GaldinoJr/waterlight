@@ -2,7 +2,7 @@ package com.example.appmedirconsumorecursos.Telas;
 
 import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
-import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
+import com.example.appmedirconsumorecursos.Dominio.AbsFactoryRecurso;
 import com.example.appmedirconsumorecursos.Dominio.Agua;
 import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
@@ -14,10 +14,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import java.util.List;
@@ -32,7 +30,7 @@ public class TelaPrincipal extends Activity implements OnClickListener {
 	private ConfiguracaoSistema configSistema;
 	private List<EntidadeDominio> listEntDom;
 	//
-	private AbsRecurso absRecurso;
+	private AbsFactoryRecurso absFactoryRecurso;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -91,12 +89,12 @@ public class TelaPrincipal extends Activity implements OnClickListener {
 		
 		if(v == btnAgua)
 		{
-			absRecurso = new Agua();
+			absFactoryRecurso = new Agua();
 			chamarTelaCorrespondente();
 		}
 		if(v == btnLuz)
 		{
-			absRecurso = new Luz();
+			absFactoryRecurso = new Luz();
 			chamarTelaCorrespondente();
 		}
 		if(v == btnConfig)
@@ -125,7 +123,7 @@ public class TelaPrincipal extends Activity implements OnClickListener {
 	{	
 		Intent intent = new Intent();
 		intent.setClass(TelaPrincipal.this, TelaMenu.class);
-		intent.putExtra("absClasse", absRecurso);
+		intent.putExtra("absClasse", absFactoryRecurso);
 		startActivity(intent);
 		finish();
 	}

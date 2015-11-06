@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
-import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
+import com.example.appmedirconsumorecursos.Dominio.AbsFactoryRecurso;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
 import com.example.appmedirconsumorecursos.Dominio.GastoMes;
@@ -70,7 +70,7 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 	private String[] vetDia;
 	private ImageView imgRecurso;
 	private Intent dados;
-	private AbsRecurso absRecurso;
+	private AbsFactoryRecurso absFactoryRecurso;
 	private Integer idRecurso;
 	// sempre usar com requisições
 	private Session session;
@@ -90,7 +90,7 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_de_historico);
 		//
-		txtNomeRecurso = (TextView)findViewById(id.txtNomeRecurso);
+		//txtNomeRecurso = (TextView)findViewById(id.txtNomeRecurso);
 		txtGastoHj = (TextView)findViewById(id.txtGastoHj);
 		txtRsGastoHj = (TextView)findViewById(id.txtR$GastoHj);
 		txtGastoAtual = (TextView)findViewById(id.txtGastoAtua);
@@ -116,10 +116,10 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 		imgRecurso = (ImageView)findViewById(id.imgRecurso);
 		//
 		dados = getIntent(); // Recebe os dados da tela anterior
-		absRecurso = (AbsRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
-		txtNomeRecurso.setText(absRecurso.getNome()); // Recebe o nome do recurso e manda pra tela
-		imgRecurso.setImageResource(absRecurso.getIdIcone()); // Recebe o id da imagem e manda pra tela
-		idRecurso = Integer.parseInt(absRecurso.getIdRecurso());
+		absFactoryRecurso = (AbsFactoryRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
+		//txtNomeRecurso.setText(absFactoryRecurso.getNome()); // Recebe o nome do recurso e manda pra tela
+		imgRecurso.setImageResource(absFactoryRecurso.getIdIcone()); // Recebe o id da imagem e manda pra tela
+		idRecurso = Integer.parseInt(absFactoryRecurso.getIdRecurso());
 		//
 		vetNano = new Integer[85];
 		for(i= 0; i < 85; i++, j++) // Popula o sppiner de ano
@@ -461,7 +461,7 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 
 				Intent intent = new Intent();
 				intent.setClass(TelaDeHistorico.this, TelaGrafico.class);
-				intent.putExtra("absClasse", absRecurso);
+				intent.putExtra("absClasse", absFactoryRecurso);
 				intent.putExtra("dia", sDia);
 				intent.putExtra("mes", sMes);
 				intent.putExtra("ano", sAno);
@@ -487,7 +487,7 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 		Intent intent = new Intent();
 		// Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
 		intent.setClass(TelaDeHistorico.this, TelaMenu.class);
-		intent.putExtra("absClasse", absRecurso);
+		intent.putExtra("absClasse", absFactoryRecurso);
 		startActivity(intent); // chama a próxima tela
 		finish();
 	}

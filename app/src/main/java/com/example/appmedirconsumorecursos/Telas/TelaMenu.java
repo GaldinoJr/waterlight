@@ -1,7 +1,7 @@
 package com.example.appmedirconsumorecursos.Telas;
 
 import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
-import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
+import com.example.appmedirconsumorecursos.Dominio.AbsFactoryRecurso;
 import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -43,7 +42,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 			btnRelatorio;
 	private ImageView imgRecurso;
 	private Intent dados;
-	private AbsRecurso absRecurso;
+	private AbsFactoryRecurso absFactoryRecurso;
 	//
 	private GastoAtual gastoAtual;
 	private GastoHoje gastoHoje;
@@ -64,7 +63,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 ////				session.setContext(this);
 ////				intent = new Intent();
 ////				intent.setClass(TelaMenu.this, Tela_configuracao_aplicativo.class);
-////				intent.putExtra("absClasse", absRecurso);
+////				intent.putExtra("absClasse", absFactoryRecurso);
 ////				startActivity(intent);
 ////				finish();
 ////				return true;
@@ -79,7 +78,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_tela_menu);
 		// associa os objetos
 		imgRecurso = (ImageView)findViewById(id.imgRecurso);
-		txtNome = (TextView)findViewById(id.txtNomeRecurso);
+		//txtNome = (TextView)findViewById(id.txtNomeRecurso);
 		//
 		txtGastoHj = (TextView)findViewById(id.txtGastoHj);
 		txtGastoAtual = (TextView)findViewById(id.txtGastoAtua);
@@ -99,10 +98,10 @@ public class TelaMenu extends Activity implements OnClickListener {
 
 		//
 		dados = getIntent(); // Recebe os dados da tela anterior
-		absRecurso = (AbsRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
-		//txtNome.setText(absRecurso.getNome()); // Recebe o nome do recurso e manda pra tela
-		imgRecurso.setImageResource(absRecurso.getIdIcone()); // Recebe o id da imagem e manda pra tela
-		idRecurso = Integer.parseInt(absRecurso.getIdRecurso());
+		absFactoryRecurso = (AbsFactoryRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
+		//txtNome.setText(absFactoryRecurso.getNome()); // Recebe o nome do recurso e manda pra tela
+		imgRecurso.setImageResource(absFactoryRecurso.getIdIcone()); // Recebe o id da imagem e manda pra tela
+		idRecurso = Integer.parseInt(absFactoryRecurso.getIdRecurso());
 		// Consulta a ultima medição registrada para apresentá-la
 		session = Session.getInstance();
 		// Gasto no dia
@@ -247,7 +246,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 		{
 			Intent intent = new Intent();
 			intent.setClass(TelaMenu.this, TelaDeHistorico.class);
-			intent.putExtra("absClasse", absRecurso);
+			intent.putExtra("absClasse", absFactoryRecurso);
 			startActivity(intent);
 			finish();
 		}
@@ -255,7 +254,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 		{
 			Intent intent = new Intent();
 			intent.setClass(TelaMenu.this, TelaRelatorio1.class);
-			intent.putExtra("absClasse", absRecurso);
+			intent.putExtra("absClasse", absFactoryRecurso);
 			startActivity(intent);
 			finish();
 		}
@@ -266,7 +265,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 		Intent intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
         intent.setClass(TelaMenu.this, TelaPrincipal.class);
-        intent.putExtra("absClasse", absRecurso);
+        intent.putExtra("absClasse", absFactoryRecurso);
 		startActivity(intent); // chama a próxima tela
         finish();
 	}

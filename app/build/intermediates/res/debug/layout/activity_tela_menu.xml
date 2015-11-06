@@ -248,7 +248,7 @@
             android:layout_height="wrap_content"
             android:textColor="#4682B4"
             android:layout_weight="0.33"
-            android:text="@string/historico"
+            android:text="Análise"
             android:background="@drawable/layout_tela_login"/>
 
         <Button

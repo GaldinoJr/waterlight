@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 
 import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
-import com.example.appmedirconsumorecursos.Dominio.AbsRecurso;
+import com.example.appmedirconsumorecursos.Dominio.AbsFactoryRecurso;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
 import com.example.appmedirconsumorecursos.R;
@@ -43,7 +43,7 @@ public class TelaGrafico extends Activity {
     private int fgCompararOutrasResidencias;
     private int vincularAguaLuz;
     //
-    private AbsRecurso absRecurso;
+    private AbsFactoryRecurso absFactoryRecurso;
     private Integer idRecurso;
     private String  sDia,
                     sMes,
@@ -92,8 +92,8 @@ public class TelaGrafico extends Activity {
         setContentView(R.layout.activity_tela_grafico_anual);
 
         dados = getIntent(); // Recebe os dados da tela anterior
-        absRecurso = (AbsRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
-        idRecurso = Integer.parseInt(absRecurso.getIdRecurso());
+        absFactoryRecurso = (AbsFactoryRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
+        idRecurso = Integer.parseInt(absFactoryRecurso.getIdRecurso());
         tipoGrafico = (dados.getIntExtra("tipoGrafico",0));
         sDia = dados.getStringExtra("dia");
         sMes = dados.getStringExtra("mes");
@@ -710,7 +710,7 @@ public class TelaGrafico extends Activity {
         Intent intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
         intent.setClass(TelaGrafico.this, TelaDeHistorico.class);
-        intent.putExtra("absClasse", absRecurso);
+        intent.putExtra("absClasse", absFactoryRecurso);
         startActivity(intent); // chama a próxima tela
         finish();
     }
