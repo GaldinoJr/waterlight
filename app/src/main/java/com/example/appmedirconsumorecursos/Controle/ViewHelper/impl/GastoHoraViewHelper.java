@@ -31,6 +31,20 @@ public class GastoHoraViewHelper  implements IViewHelper {
                 gastoHora.setNrMetroCubicoAgua(Double.parseDouble((String) request.get(gastoHora.DF_nrMetroCubicoAgua)));
             gastoHora.setCdResidencia(Integer.parseInt((String) request.get(gastoHora.DF_cdResidencia)));
             gastoHora.setsDtInclusao((String) request.get(gastoHora.DF_AUX_DATA));
+
+            // filtros
+//            if(request.get(gastoHora.DF_FILTRO_fgCompararOutrasResidencias)!= null)
+//                gastoHora.setFitro_fgCompararOutrasResidencias(Integer.parseInt((String) request.get(gastoHoje.DF_FILTRO_fgCompararOutrasResidencias)));
+            if(request.get(gastoHora.DF_FILTRO_indTipoComparacaoMaiorConsumo)!= null)
+                gastoHora.setFitro_indTipoComparacaoMaiorConsumo(Integer.parseInt((String) request.get(gastoHora.DF_FILTRO_indTipoComparacaoMaiorConsumo)));
+//            if(request.get(gastoHoje.DF_FILTRO_nrComodo)!= null)
+//                gastoHoje.setFitro_nrComodo(Integer.parseInt((String) request.get(gastoHoje.DF_FILTRO_nrComodo)));
+//            if(request.get(gastoHoje.DF_FILTRO_nrMorador)!= null)
+//                gastoHoje.setFitro_nrMorador(Integer.parseInt((String) request.get(gastoHoje.DF_FILTRO_nrMorador)));
+            if(request.get(gastoHora.DF_FILTRO_fgTodosRegistros)!= null)
+                gastoHora.setFiltro_fgTodosRegistros(Integer.parseInt((String) request.get(gastoHora.DF_FILTRO_fgTodosRegistros)));
+//            if(request.get(gastoHoje.DF_FILTRO_idRecurso)!= nullgastoHora
+//                gastoHoje.setFiltro_idRecurso(Integer.parseInt((String) request.get(gastoHoje.DF_FILTRO_idRecurso)));
             return gastoHora;
         }
         catch (Exception e)

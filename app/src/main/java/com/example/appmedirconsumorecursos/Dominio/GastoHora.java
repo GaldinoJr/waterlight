@@ -19,7 +19,14 @@ public class GastoHora extends EntidadeDominio {
             DF_CD_TABELA = "cd_gasto_hora",
             DF_NOME_PHP = "cadGastoHora.php";
 
+    public final static String  DF_dt_inicial_busca = "dt_inicial_busca",
+                                DF_dt_final_busca = "dt_final_busca";
+
     public final static String DF_AUX_DATA = "AUX_dt_inclusao";
+
+    // Filtros
+    public final static String DF_FILTRO_indTipoComparacaoMaiorConsumo = "indTipoComparacaoMaiorConsumo"
+                                ,DF_FILTRO_fgTodosRegistros = "filtro_fgTodosRegistros";
 
     private Date dtInclusao;
     private double vlrGastoAgua,
@@ -29,8 +36,12 @@ public class GastoHora extends EntidadeDominio {
     private Integer cdResidencia;
 
     private String sDtInclusao;
-    // SETS
 
+    // Filtros
+    private int fitro_indTipoComparacaoMaiorConsumo
+                ,filtro_fgTodosRegistros;
+
+    // SETS
 
     public void setsDtInclusao(String sDtInclusao) {
         this.sDtInclusao = sDtInclusao;
@@ -60,6 +71,15 @@ public class GastoHora extends EntidadeDominio {
         this.cdResidencia = cdResidencia;
     }
 
+    // Filtros
+
+    public void setFitro_indTipoComparacaoMaiorConsumo(int fitro_indTipoComparacaoMaiorConsumo) {
+        this.fitro_indTipoComparacaoMaiorConsumo = fitro_indTipoComparacaoMaiorConsumo;
+    }
+
+    public void setFiltro_fgTodosRegistros(int filtro_fgTodosRegistros) {
+        this.filtro_fgTodosRegistros = filtro_fgTodosRegistros;
+    }
     // GETS
 
 
@@ -91,7 +111,17 @@ public class GastoHora extends EntidadeDominio {
         return cdResidencia;
     }
 
-// SETS DO MAPA
+    // Filtros
+
+    public int getFitro_indTipoComparacaoMaiorConsumo() {
+        return fitro_indTipoComparacaoMaiorConsumo;
+    }
+
+    public int getFiltro_fgTodosRegistros() {
+        return filtro_fgTodosRegistros;
+    }
+
+    // SETS DO MAPA
 
     public void setMapsDtInclusao(String sDtInclusao)
     {
@@ -122,6 +152,16 @@ public class GastoHora extends EntidadeDominio {
         map.put(DF_cdResidencia,String.valueOf(cdResidencia));
     }
 
+    // Filtros
+    public void setMapFiltro_fgTodosRegistros(String filtro_fgTodosRegistros) {
+        map.put(DF_FILTRO_fgTodosRegistros,String.valueOf(filtro_fgTodosRegistros));
+    }
+
+    public void setMapFitro_indTipoComparacaoMaiorConsumo(String Fitro_indTipoComparacaoMaiorConsumo) {
+        map.put(DF_FILTRO_indTipoComparacaoMaiorConsumo,String.valueOf(Fitro_indTipoComparacaoMaiorConsumo));
+    }
+
+
     public void popularMap() {
         map.put(DF_ID, id);
 
@@ -136,7 +176,7 @@ public class GastoHora extends EntidadeDominio {
     public void getMapInstance()
     {
         map = new HashMap<String, String>();
-        map.put("classe", GastoAtual.class.getName());
+        map.put("classe", GastoHora.class.getName());
     }
     private String formatarData(Date data)
     {

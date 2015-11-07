@@ -4,6 +4,7 @@ import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.AguaViewHelp
 import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.ConfiguracaoSistemaViewHelper;
 import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.GastoAtualViewHelper;
 import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.GastoHojeViewHelper;
+import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.GastoHoraViewHelper;
 import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.GastoMesViewHelper;
 import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.LuzViewHelper;
 import com.example.appmedirconsumorecursos.Controle.ViewHelper.impl.ResidenciaViewHelper;
@@ -19,6 +20,7 @@ import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
 import com.example.appmedirconsumorecursos.Dominio.GastoAtual;
 import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
+import com.example.appmedirconsumorecursos.Dominio.GastoHora;
 import com.example.appmedirconsumorecursos.Dominio.GastoMes;
 import com.example.appmedirconsumorecursos.Dominio.Luz;
 import com.example.appmedirconsumorecursos.Dominio.Residencia;
@@ -58,6 +60,7 @@ public class Controler {
         vhs.put(GastoAtual.class.getName(), new GastoAtualViewHelper());
         vhs.put(GastoHoje.class.getName(), new GastoHojeViewHelper());
         vhs.put(GastoMes.class.getName(), new GastoMesViewHelper());
+        vhs.put(GastoHora.class.getName(), new GastoHoraViewHelper());
 
     }
     public Resultado doPost(Map request){

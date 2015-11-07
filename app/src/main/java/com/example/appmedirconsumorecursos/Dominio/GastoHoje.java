@@ -57,8 +57,6 @@ public class GastoHoje extends EntidadeDominio {
             filtro_fgTodosRegistros,
             filtro_idRecurso;
 
-    // SETS
-
     // filtros
 
     public void setFitro_indTipoComparacaoMaiorConsumo(int fitro_indTipoComparacaoMaiorConsumo) {
@@ -85,6 +83,7 @@ public class GastoHoje extends EntidadeDominio {
         this.filtro_idRecurso = filtro_idRecurso;
     }
 
+    // SETS
     //
 
     public void setsDtUltimoRegistroDia(String sDtUltimoRegistroDia) {

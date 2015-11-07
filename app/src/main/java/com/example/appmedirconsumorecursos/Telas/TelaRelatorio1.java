@@ -18,6 +18,8 @@ import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.AbsFactoryRecurso;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
+import com.example.appmedirconsumorecursos.Dominio.GastoHora;
+import com.example.appmedirconsumorecursos.Dominio.GastoMes;
 import com.example.appmedirconsumorecursos.R;
 
 import java.text.SimpleDateFormat;
@@ -55,9 +57,11 @@ public class TelaRelatorio1 extends Activity {
     private Session session;
     private List<EntidadeDominio> listEntDom;
     int dia, mes, ano;
-    String sDia, sMes, sAno;
+    private String sDia, sMes, sAno;
+    private int testeSpDia;
     //
     private GastoHoje gastoHoje;
+    private GastoHora gastoHora;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,50 +117,60 @@ public class TelaRelatorio1 extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (teste != 0) {
                     //Toast.makeText(TelaDeHistorico.this, "posição: " + position + " \nnome: " + spMes.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-                    try {
-                        dia = spDia.getSelectedItemPosition();
-                        ano = spAno.getSelectedItemPosition();
-                        ano += 2015;
-                        sAno = String.valueOf(ano);
-                        sDia = "";
-                        if (dia > 0)
+                    try
+                    {
+                        mes = spMes.getSelectedItemPosition();
+                        if (mes > 0) // selecionou o mes?
                         {
-                            if (dia < 10) {
-                                sDia = "0";
-                            }
-                            sDia += String.valueOf(dia);
+                            dia = spDia.getSelectedItemPosition();
+                            ano = spAno.getSelectedItemPosition();
+                            ano += 2015;
+                            sAno = String.valueOf(ano);
+                            sDia = "";
                             sMes = String.valueOf(position);
-                            data = sDia + "/" + sMes + "/" + String.valueOf(ano);
-                            data += " 00:00:00";
-                            //retorno = pesquisarMes(data);
-                            if(retorno == false) {
-                                Toast.makeText(TelaRelatorio1.this, "Dia " + sDia + " de " + spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
-                               // limparCampos();
+                            if (dia > 0)
+                            {
+                                if (dia < 10)
+                                {
+                                    sDia = "0";
+                                }
+                                sDia += String.valueOf(dia);
+                                data = sDia + "/" + sMes + "/" + String.valueOf(ano);
+                                //data += " 00:00:00";
+                                retorno = pesquisarGastoNoDia(data);
+                                if (!retorno)
+                                {
+                                    Toast.makeText(TelaRelatorio1.this, "Dia " + sDia + " de " + spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
+                                    lvRelatorio.setAdapter(null); // limpa a listView
+                                }
+                            }
+                            else
+                            {
+                                sDia = "01";
+                                data = sDia + "/" + sMes + "/" + String.valueOf(ano);
+                                //retorno = pesquisarGastoNoMes(data);
+                                //                            new Runnable() {
+                                //                                public void run() {
+                                //                                    progressBar.setVisibility(View.VISIBLE);
+                                retorno = pesquisarGastoNoMes(data);
+                                //                                }
+                                //                            }.run();
+
+                                progressBar.setVisibility(View.INVISIBLE);
+                                if (retorno == false)
+                                {
+                                    Toast.makeText(TelaRelatorio1.this, spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
+                                    lvRelatorio.setAdapter(null); // limpa a listView
+                                    //  limparCampos();
+                                }
                             }
                         }
                         else
-                        {
-                            sDia = "01";
-                            sMes = String.valueOf(position);
-                            data = sDia + "/" + sMes + "/" + String.valueOf(ano);
-                            //retorno = pesquisarGastoNoMes(data);
-//                            new Runnable() {
-//                                public void run() {
-//                                    progressBar.setVisibility(View.VISIBLE);
-                            retorno = pesquisarGastoNoMes(data);
-//                                }
-//                            }.run();
-
-                            progressBar.setVisibility(View.INVISIBLE);
-                            if (retorno == false)
-                            {
-                                Toast.makeText(TelaRelatorio1.this, spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
-                                lvRelatorio.setAdapter(null); // limpa a listView
-                              //  limparCampos();
-                            }
-                        }
-                    } catch (Exception e) {
+                            lvRelatorio.setAdapter(null); // limpa a listView
+                    }
+                    catch (Exception e) {
                         Toast.makeText(TelaRelatorio1.this, "ERROR: #1", Toast.LENGTH_SHORT).show();
+                        lvRelatorio.setAdapter(null); // limpa a listView
                     }
                 } else {
                     teste++;
@@ -167,8 +181,126 @@ public class TelaRelatorio1 extends Activity {
 
             }
         });
+        // SPINNER DIA
+        spDia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (testeSpDia != 0) {
+                    //Toast.makeText(TelaDeHistorico.this, "posição: " + position + " \nnome: " + spMes.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                    try
+                    {
+                        mes = spMes.getSelectedItemPosition();
+                        dia = position;
+                        if (mes > 0) // selecionou o mes?
+                        {
+                            // Pega o mes selecionado
+                            sMes = "";
+                            if (mes < 10)
+                            {
+                                sMes += "0";
+                            }
+                            sMes += String.valueOf(mes);
+                            ano = spAno.getSelectedItemPosition();
+                            ano += 2015;
+                            sAno = String.valueOf(ano); // ano selecionado
+                            // dia selecionado
+                            sDia = "";
+                            if (dia > 0)  // selecionou o dia?
+                            {
+                                if (dia < 10)
+                                {
+                                    sDia += "0";
+                                }
+                                sDia += String.valueOf(dia);
+                                data = sDia + "/" + sMes + "/" + String.valueOf(ano);
+                                //data += " 00:00:00";
+                                retorno = pesquisarGastoNoDia(data);
+                                if (!retorno) {
+                                    Toast.makeText(TelaRelatorio1.this, "Dia " + sDia + " de " + spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
+                                    lvRelatorio.setAdapter(null); // limpa a listView
+                                }
+                            }
+                            else
+                            {
+                                sDia += "01";
+                                data = sDia + "/" + sMes + "/" + String.valueOf(ano);
+
+                                retorno = pesquisarGastoNoMes(data);
+                                if (!retorno) {
+                                    Toast.makeText(TelaRelatorio1.this, spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
+                                    lvRelatorio.setAdapter(null); // limpa a listView
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (dia > 0)  // selecionou o dia?
+                                Toast.makeText(TelaRelatorio1.this, "Para fazer a busca, primeiro selecione o mês.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Toast.makeText(TelaRelatorio1.this, "ERROR: #1", Toast.LENGTH_SHORT).show();
+                        lvRelatorio.setAdapter(null); // limpa a listView
+                    }
+                }
+                else
+                {
+                    testeSpDia++;
+                }
+                // spGrupo.getSelectedItem().toString(); ********************pegar o conteudo em texto do spinner
+                //spNomes.setAdapter((SpinnerAdapter) aExPeito);
+                //spNomes.setAdapter(aExPeito); // Devolve a lista de exercicios de peito
+                //}
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
+    private boolean pesquisarGastoNoDia(String data)
+    {
+        gastoHora = new GastoHora();
+        gastoHora.getMapInstance();
+        gastoHora.setMapCdResidencia(session.getResidencia().getId());
+        gastoHora.setMapsDtInclusao(data);
+        gastoHora.setMapFitro_indTipoComparacaoMaiorConsumo("0");
+        gastoHora.setMapFiltro_fgTodosRegistros("1");
+        // Mudar a consulta par a
+        //listEntDom = gastoHoje.operar(session.getContext(), true, Controler.DF_CONSULTAR); // busca no banco interno
+        listEntDom = gastoHora.operar(session.getContext(), false, Controler.DF_CONSULTAR);
+        if (listEntDom != null) {
+            //gastoHoje = (GastoHoje) listEntDom.get(0);
+            // Verificar se é necessário**************
+            String sDataMedicao;
+            String linha;
+            String[] vetSGasto = new String[listEntDom.size()];
+            for (int i = 0; i < listEntDom.size(); i++) {
+                GastoHora g = (GastoHora) listEntDom.get(i);
+                linha = "";
+                sDataMedicao ="";
+                //sDataMedicao = extrairDiaDoMes(g.getDtUltimaRegistroDia());
+                if(idRecurso == 1) // agua?
+                {
+                    linha = "Consumo: " + g.getNrMetroCubicoAgua() + "m³ - " + g.getVlrGastoAgua() + " R$ - ";
+                }
+                else if(idRecurso == 2) // luz?
+                {
+                    linha = "Consumo: " + g.getNrWatts() + "kw/h - " + g.getVlrGastLuz() + " R$ - ";
+                }
+                sDataMedicao = converterDataParaString(String.valueOf(g.getDtInclusao()));
+                vetSGasto[i] = linha + sDataMedicao;
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, vetSGasto);
+
+            lvRelatorio.setAdapter(adapter);
+            return true;
+        }
+        else
+            return false;
+    }
 
     private boolean pesquisarGastoNoMes(String data)
     {
