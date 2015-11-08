@@ -19,14 +19,15 @@ public class GastoHora extends EntidadeDominio {
             DF_CD_TABELA = "cd_gasto_hora",
             DF_NOME_PHP = "cadGastoHora.php";
 
-    public final static String  DF_dt_inicial_busca = "dt_inicial_busca",
-                                DF_dt_final_busca = "dt_final_busca";
-
     public final static String DF_AUX_DATA = "AUX_dt_inclusao";
 
     // Filtros
-    public final static String DF_FILTRO_indTipoComparacaoMaiorConsumo = "indTipoComparacaoMaiorConsumo"
-                                ,DF_FILTRO_fgTodosRegistros = "filtro_fgTodosRegistros";
+    public final static String  DF_FILTRO_indTipoComparacaoMaiorConsumo = "indTipoComparacaoMaiorConsumo",
+            DF_FILTRO_fgCompararOutrasResidencias = "fgCompararOutrasResidencias",
+            DF_FILTRO_nrMorador = "nrMorador",
+            DF_FILTRO_nrComodo = "nrComodo",
+            DF_FILTRO_fgTodosRegistros = "filtro_fgTodosRegistros",
+            DF_FILTRO_idRecurso = "filtro_idRecurso";
 
     private Date dtInclusao;
     private double vlrGastoAgua,
@@ -38,8 +39,12 @@ public class GastoHora extends EntidadeDominio {
     private String sDtInclusao;
 
     // Filtros
-    private int fitro_indTipoComparacaoMaiorConsumo
-                ,filtro_fgTodosRegistros;
+    private int fitro_indTipoComparacaoMaiorConsumo,
+            fitro_fgCompararOutrasResidencias,
+            fitro_nrMorador,
+            fitro_nrComodo,
+            filtro_fgTodosRegistros,
+            filtro_idRecurso;
 
     // SETS
 
@@ -80,8 +85,24 @@ public class GastoHora extends EntidadeDominio {
     public void setFiltro_fgTodosRegistros(int filtro_fgTodosRegistros) {
         this.filtro_fgTodosRegistros = filtro_fgTodosRegistros;
     }
-    // GETS
 
+    public void setFiltro_idRecurso(int filtro_idRecurso) {
+        this.filtro_idRecurso = filtro_idRecurso;
+    }
+
+    public void setFitro_fgCompararOutrasResidencias(int fitro_fgCompararOutrasResidencias) {
+        this.fitro_fgCompararOutrasResidencias = fitro_fgCompararOutrasResidencias;
+    }
+
+    public void setFitro_nrMorador(int fitro_nrMorador) {
+        this.fitro_nrMorador = fitro_nrMorador;
+    }
+
+    public void setFitro_nrComodo(int fitro_nrComodo) {
+        this.fitro_nrComodo = fitro_nrComodo;
+    }
+
+    // GETS
 
     public String getsDtInclusao() {
         return sDtInclusao;
@@ -112,6 +133,22 @@ public class GastoHora extends EntidadeDominio {
     }
 
     // Filtros
+
+    public int getFitro_fgCompararOutrasResidencias() {
+        return fitro_fgCompararOutrasResidencias;
+    }
+
+    public int getFitro_nrMorador() {
+        return fitro_nrMorador;
+    }
+
+    public int getFitro_nrComodo() {
+        return fitro_nrComodo;
+    }
+
+    public int getFiltro_idRecurso() {
+        return filtro_idRecurso;
+    }
 
     public int getFitro_indTipoComparacaoMaiorConsumo() {
         return fitro_indTipoComparacaoMaiorConsumo;
@@ -153,12 +190,29 @@ public class GastoHora extends EntidadeDominio {
     }
 
     // Filtros
+
+    public void setMapFitro_indTipoComparacaoMaiorConsumo(String Fitro_indTipoComparacaoMaiorConsumo) {
+        map.put(DF_FILTRO_indTipoComparacaoMaiorConsumo,String.valueOf(Fitro_indTipoComparacaoMaiorConsumo));
+    }
+
+    public void setMapFitro_fgCompararOutrasResidencias(String fitro_fgCompararOutrasResidencias) {
+        map.put(DF_FILTRO_fgCompararOutrasResidencias,String.valueOf(fitro_fgCompararOutrasResidencias));
+    }
+
+    public void setMapFitro_nrMorador(String Fitro_nrMorador) {
+        map.put(DF_FILTRO_nrMorador,String.valueOf(Fitro_nrMorador));
+    }
+
+    public void setMapFitro_nrComodo(String Fitro_nrComodo) {
+        map.put(DF_FILTRO_nrComodo,String.valueOf(Fitro_nrComodo));
+    }
+
     public void setMapFiltro_fgTodosRegistros(String filtro_fgTodosRegistros) {
         map.put(DF_FILTRO_fgTodosRegistros,String.valueOf(filtro_fgTodosRegistros));
     }
 
-    public void setMapFitro_indTipoComparacaoMaiorConsumo(String Fitro_indTipoComparacaoMaiorConsumo) {
-        map.put(DF_FILTRO_indTipoComparacaoMaiorConsumo,String.valueOf(Fitro_indTipoComparacaoMaiorConsumo));
+    public void setMapFiltro_idRecurso(String filtro_idRecurso) {
+        map.put(DF_FILTRO_idRecurso,String.valueOf(filtro_idRecurso));
     }
 
 

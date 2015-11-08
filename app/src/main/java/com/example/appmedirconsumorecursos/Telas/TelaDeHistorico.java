@@ -152,39 +152,45 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 				//{
 				if (teste != 0) {
 					//Toast.makeText(TelaDeHistorico.this, "posição: " + position + " \nnome: " + spMes.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-					try {
-						dia = spDia.getSelectedItemPosition();
-						ano = spAno.getSelectedItemPosition();
-						ano += 2015;
-						sAno = String.valueOf(ano);
-						sDia = "";
-						if (dia > 0)
+					try
+					{
+						mes = position;
+						if (mes > 0) // selecionou o mes?
 						{
-							if (dia < 10) {
-								sDia = "0";
+							dia = spDia.getSelectedItemPosition();
+							ano = spAno.getSelectedItemPosition();
+							ano += 2015;
+							sAno = String.valueOf(ano);
+							sDia = "";
+							if (dia > 0) {
+								if (dia < 10) {
+									sDia = "0";
+								}
+								sDia += String.valueOf(dia);
+								data = sDia + "/" + position + "/" + String.valueOf(ano);
+								data += " 00:00:00";
+								retorno = pesquisarMes(data);
+								if (retorno == false) {
+									Toast.makeText(TelaDeHistorico.this, "Dia " + sDia + " de " + spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
+									limparCampos();
+								}
 							}
-							sDia += String.valueOf(dia);
-							data = sDia + "/" + position + "/" + String.valueOf(ano);
-							data += " 00:00:00";
-							retorno = pesquisarMes(data);
-							if(retorno == false) {
-								Toast.makeText(TelaDeHistorico.this, "Dia " + sDia + " de " + spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
-								limparCampos();
+							else
+							{
+								sDia = "01";
+								data = sDia + "/" + mes + "/" + String.valueOf(ano);
+								retorno = pesquisarMes(data);
+								if (retorno == false) {
+									Toast.makeText(TelaDeHistorico.this, spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
+									limparCampos();
+								}
 							}
 						}
 						else
-						{
-							sDia = "01";
-							data = sDia + "/" + position + "/" + String.valueOf(ano);
-							retorno = pesquisarMes(data);
-							if (retorno == false)
-							{
-								Toast.makeText(TelaDeHistorico.this, spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
-								limparCampos();
-							}
-						}
+							limparCampos();
 					} catch (Exception e) {
 						Toast.makeText(TelaDeHistorico.this, "ERROR: #1", Toast.LENGTH_SHORT).show();
+						limparCampos();
 					}
 				} else {
 					teste++;
@@ -229,10 +235,12 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 					gastoMes = new GastoMes();
 					try
 					{
+						// dia selecionado
+						dia = position;
+						// Pega o mes selecionado
 						mes = spMes.getSelectedItemPosition();
 						if (mes > 0) // selecionou o mes?
 						{
-							// Pega o mes selecionado
 							sMes = "";
 							if (mes < 10) {
 								sMes += "0";
@@ -241,8 +249,6 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 							ano = spAno.getSelectedItemPosition();
 							ano += 2015;
 							sAno = String.valueOf(ano); // ano selecionado
-							// dia selecionado
-							dia = position;
 							sDia = "";
 							if (dia > 0)  // selecionou o dia?
 							{
@@ -274,16 +280,17 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 						}
 						else
 						{
-							Toast.makeText(TelaDeHistorico.this, "Para fazer a busca, primeiro selecione o mês.", Toast.LENGTH_SHORT).show();
+							if (dia > 0)  // selecionou o dia?
+								Toast.makeText(TelaDeHistorico.this, "Para fazer a busca, primeiro selecione o mês.", Toast.LENGTH_SHORT).show();
 						}
 
 					}
 					catch (Exception e)
 					{
 						Toast.makeText(TelaDeHistorico.this, "ERROR: #1", Toast.LENGTH_SHORT).show();
+						limparCampos();
 					}
-				}
-				else
+				} else
 				{
 					testeSpDia++;
 				}

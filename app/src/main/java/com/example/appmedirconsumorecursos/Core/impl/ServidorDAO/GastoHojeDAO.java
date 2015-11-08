@@ -161,36 +161,37 @@ public class GastoHojeDAO extends AbstractServerDAO {
                         query += " WHERE 1 = 1";
                         if(cdResidenciaPesquisa > 0)
                             query += " AND gh.cd_residencia = " + String.valueOf(cdResidenciaPesquisa);
-                        if(j == 0) {
+                        if(j == 0) // Na primeira vez, busca os dados da residencia que usa o app
+                        {
                             if (gastoHoje.getsDtInicialBusca() != null && gastoHoje.getsDtFinalBusca() != null)
                             {
                                 // Validade data e hora(TEM QUE SER A PRIMEIRA HORA DO DIA)
-                                query += " AND gh.dt_ultimo_registro_dia"  +
+                                query += " AND gh.dt_ultimo_registro_dia" +
                                         " BETWEEN '" + gastoHoje.getsDtInicialBusca() + "' AND '" + gastoHoje.getsDtFinalBusca() + "' " +
                                         " AND concat(DATE_FORMAT(gh.dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT(gh.dt_ultimo_registro_dia,  '%i')) BETWEEN '00:00' AND '00:59'";
-                            }
 
-                            if (gastoHoje.getFitro_indTipoComparacaoMaiorConsumo() != 0)
-                            {
-                                query +=
-                                        " AND gh." + colunaParaComparacao + " = " +
-                                                "(" +
-                                                " SELECT MAX("+colunaParaComparacao+") FROM tb_gasto_hoje WHERE dt_ultimo_registro_dia " +
-                                                " BETWEEN '" + gastoHoje.getsDtInicialBusca() + "' AND '" + gastoHoje.getsDtFinalBusca() + "' " +
-                                                "AND concat(DATE_FORMAT(dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT( dt_ultimo_registro_dia,  '%i'))" +
-                                                "BETWEEN '00:00' AND '00:59'";
-                                if (cdResidenciaPesquisa > 0)
-                                    query += " AND cd_residencia = " + String.valueOf(cdResidenciaPesquisa);
 
-                                if ((cdResidenciaPesquisa != gastoHoje.getCdResidencia()) &&
-                                        (gastoHoje.getFitro_nrComodo() > 0 || gastoHoje.getFitro_nrMorador() > 0)) {
-                                    if (gastoHoje.getFitro_nrComodo() > 0)
-                                        query += " AND r.nr_comodos = " + String.valueOf(gastoHoje.getFitro_nrComodo());
-                                    if (gastoHoje.getFitro_nrMorador() > 0)
-                                        query += " AND r.nr_morador = " + gastoHoje.getFitro_nrMorador();
+                                if (gastoHoje.getFitro_indTipoComparacaoMaiorConsumo() != 0) {
+                                    query +=
+                                            " AND gh." + colunaParaComparacao + " = " +
+                                                    "(" +
+                                                    " SELECT MAX(" + colunaParaComparacao + ") FROM tb_gasto_hoje WHERE dt_ultimo_registro_dia " +
+                                                    " BETWEEN '" + gastoHoje.getsDtInicialBusca() + "' AND '" + gastoHoje.getsDtFinalBusca() + "' " +
+                                                    "AND concat(DATE_FORMAT(dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT( dt_ultimo_registro_dia,  '%i'))" +
+                                                    "BETWEEN '00:00' AND '00:59'";
+                                    if (cdResidenciaPesquisa > 0)
+                                        query += " AND cd_residencia = " + String.valueOf(cdResidenciaPesquisa);
+
+                                    if ((cdResidenciaPesquisa != gastoHoje.getCdResidencia()) &&
+                                            (gastoHoje.getFitro_nrComodo() > 0 || gastoHoje.getFitro_nrMorador() > 0)) {
+                                        if (gastoHoje.getFitro_nrComodo() > 0)
+                                            query += " AND r.nr_comodos = " + String.valueOf(gastoHoje.getFitro_nrComodo());
+                                        if (gastoHoje.getFitro_nrMorador() > 0)
+                                            query += " AND r.nr_morador = " + gastoHoje.getFitro_nrMorador();
+                                    }
+
+                                    query += ")";
                                 }
-
-                                query += ")";
                             }
                         }
                         else

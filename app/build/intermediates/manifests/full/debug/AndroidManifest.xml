@@ -34,11 +34,11 @@
         </activity>
         <activity
             android:name="com.example.appmedirconsumorecursos.Telas.TelaMenu"
-            android:label="@string/title_activity_tela_menu" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.example.appmedirconsumorecursos.Telas.TelaDeHistorico"
-            android:label="@string/title_activity_tela_de_estatisticas" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.example.appmedirconsumorecursos.Telas.TelaPrincipal"
@@ -46,17 +46,17 @@
         </activity>
         <activity
             android:name="com.example.appmedirconsumorecursos.Telas.Tela_configuracao_aplicativo"
-            android:label="@string/title_activity_tela_configuracao_aplicativo" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.example.appmedirconsumorecursos.Telas.TelaGrafico"
-            android:label="@string/title_activity_tela_grafico_anual"
+            android:label="@string/app_name"
             android:screenOrientation="landscape" >
         </activity>
         <activity android:name="org.achartengine.GraphicalActivity" />
         <activity
             android:name="com.example.appmedirconsumorecursos.Telas.TelaRelatorio1"
-            android:label="@string/title_activity_tela_relatorio" >
+            android:label="@string/app_name" >
         </activity>
     </application>
 

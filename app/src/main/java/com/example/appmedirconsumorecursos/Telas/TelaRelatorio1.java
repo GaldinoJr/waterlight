@@ -188,11 +188,12 @@ public class TelaRelatorio1 extends Activity {
                     //Toast.makeText(TelaDeHistorico.this, "posição: " + position + " \nnome: " + spMes.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
                     try
                     {
+                        // Pega o mes selecionado
                         mes = spMes.getSelectedItemPosition();
+                        // dia selecionado
                         dia = position;
                         if (mes > 0) // selecionou o mes?
                         {
-                            // Pega o mes selecionado
                             sMes = "";
                             if (mes < 10)
                             {
@@ -202,7 +203,6 @@ public class TelaRelatorio1 extends Activity {
                             ano = spAno.getSelectedItemPosition();
                             ano += 2015;
                             sAno = String.valueOf(ano); // ano selecionado
-                            // dia selecionado
                             sDia = "";
                             if (dia > 0)  // selecionou o dia?
                             {
