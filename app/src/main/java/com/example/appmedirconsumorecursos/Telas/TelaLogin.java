@@ -167,6 +167,7 @@ public class TelaLogin extends Activity implements View.OnClickListener {
                     configSistema.setMapId(session.getResidencia().getId()); // grava o ID na config
                     configSistema.setMapFgLogarAutomaticamente(chkLogar);
                     listEntDom = configSistema.operar(this,true, Controler.DF_ALTERAR);
+                    session.setConfiguracaoSistema(configSistema);
                 }
             }
             // inclui
@@ -176,6 +177,7 @@ public class TelaLogin extends Activity implements View.OnClickListener {
                 configSistema.setMapId(session.getResidencia().getId()); // grava o ID na config
                 configSistema.setMapFgLogarAutomaticamente(chkLogar);
                 listEntDom = configSistema.operar(this, true, Controler.DF_SALVAR);
+                session.setConfiguracaoSistema(configSistema);
             }
             if (resultado.getMsg() != null) {
                 Toast.makeText(TelaLogin.this, "Erro ao cadastrar as configurações do aplicativo, favor contatar o suporte.", Toast.LENGTH_LONG).show();
