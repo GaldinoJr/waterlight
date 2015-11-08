@@ -12,7 +12,7 @@ public class ConfiguracaoSistema extends EntidadeDominio{
     // Atualiza o app automaticamente conforme parametriza��o do sistema
     // ind_tipo_atualizacao = 1 - Hora
     //                        2 - Dia
-    //                        3 - M�s
+    //                        3 - Mês
     //
     // 1 = 110
     // 2 = 220
