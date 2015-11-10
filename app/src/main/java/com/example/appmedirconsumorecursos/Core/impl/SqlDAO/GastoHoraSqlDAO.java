@@ -22,7 +22,7 @@ public class GastoHoraSqlDAO  extends AbstractSqlDAO {
     // Tabela
     private static final String NM_TABELA = GastoHora.DF_NOME_TABELA;
     // Colunas
-    private static final String Col_cd_gasto_hoje = GastoHora.DF_CD_TABELA;
+    private static final String Col_cd_gasto_hora = GastoHora.DF_CD_TABELA;
     private static final String Col_dt_inclusao = GastoHora.DF_dt_inclusao;
     private static final String Col_vlr_gasto_agua = GastoHora.DF_vlrGastoAgua;
     private static final String Col_vlr_gasto_luz = GastoHora.DF_vlrGastLuz;
@@ -31,7 +31,7 @@ public class GastoHoraSqlDAO  extends AbstractSqlDAO {
     private static final String Col_cd_residencia = GastoHora.DF_cdResidencia;
     //
     private static final String[] colunas = { Col_dt_inclusao, Col_vlr_gasto_agua, Col_vlr_gasto_luz, Col_nr_watts, Col_nr_metro_cubico_agua, Col_cd_residencia};
-    private static final String[] colunasBusca = {Col_cd_gasto_hoje, Col_dt_inclusao, Col_vlr_gasto_agua, Col_vlr_gasto_luz, Col_nr_watts, Col_nr_metro_cubico_agua, Col_cd_residencia};
+    private static final String[] colunasBusca = {Col_cd_gasto_hora, Col_dt_inclusao, Col_vlr_gasto_agua, Col_vlr_gasto_luz, Col_nr_watts, Col_nr_metro_cubico_agua, Col_cd_residencia};
     private SQL db;
     private Map<String, String> mapGastoHoje;
     private List<EntidadeDominio> listGastoHoje;
@@ -48,7 +48,7 @@ public class GastoHoraSqlDAO  extends AbstractSqlDAO {
         DATABASE_NAME = "watherLightDB";
         nomeTabela = NM_TABELA;
         sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nomeTabela+ "( " +
-                Col_cd_gasto_hoje + " INTEGER PRIMARY KEY, " +
+                Col_cd_gasto_hora + " INTEGER PRIMARY KEY, " +
                 Col_dt_inclusao + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
                 Col_vlr_gasto_agua + " REAL, " +
                 Col_vlr_gasto_luz + " REAL, " +
@@ -88,7 +88,7 @@ public class GastoHoraSqlDAO  extends AbstractSqlDAO {
             mapGastoHoje.put(Col_nr_watts, String.valueOf(gastoHora.getNrWatts()));
             mapGastoHoje.put(Col_nr_metro_cubico_agua, String.valueOf(gastoHora.getNrMetroCubicoAgua()));
             mapGastoHoje.put(Col_cd_residencia, String.valueOf(gastoHora.getCdResidencia()));
-            i = db.alterarRegistro(mapGastoHoje,Col_cd_gasto_hoje, gastoHora.getId());
+            i = db.alterarRegistro(mapGastoHoje,Col_cd_gasto_hora, gastoHora.getId());
 
         }
         catch(Exception e){ e.printStackTrace(); }
@@ -105,18 +105,24 @@ public class GastoHoraSqlDAO  extends AbstractSqlDAO {
         gastoHora =  (GastoHora)entidade;
         try
         {
-            String query = "SELECT " + Col_cd_gasto_hoje;
+            String query = "SELECT " + Col_cd_gasto_hora;
             for(i = 1; i < colunasBusca.length; i++)
             {
                 query += ", " + colunasBusca[i];
             }
             query += " FROM " + nomeTabela + " WHERE 1 = 1";
             if (!TextUtils.isEmpty(gastoHora.getId()))
-                query += " AND "+ Col_cd_gasto_hoje  +" = '" + gastoHora.getId() + "'";
+                query += " AND "+ Col_cd_gasto_hora  +" = '" + gastoHora.getId() + "'";
             if (gastoHora.getDtInclusao() != null)
                 query += " AND " + Col_dt_inclusao + " = '" + gastoHora.getDtInclusao() + "'";
+            if(gastoHora.getsDtInclusao() != null)
+            {
+                query += " AND DATE(" + Col_dt_inclusao + ") = '"+ gastoHora.getsDtInclusao() +
+                        "' AND TIME(" + Col_dt_inclusao + ") BETWEEN '00:00:00' AND '23:59:59'";
+            }
 
-            query += " ORDER BY "+Col_cd_gasto_hoje+ " DESC";
+            //query += " ORDER BY "+Col_cd_gasto_hoje+ " DESC";
+            query += " ORDER BY " + Col_dt_inclusao + " ASC";
             listGastoHoje = new ArrayList<EntidadeDominio>();
             List<Map<String, String>> listMapGastoHoje = new LinkedList<Map<String, String>>();
             listMapGastoHoje = db.pesquisarComSelect(query, colunasBusca);

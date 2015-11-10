@@ -479,6 +479,7 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 				intent.putExtra("nrMorador",indIgualNrMordador);
 				intent.putExtra("nrComodo",indIgualNrComodo);
 				intent.putExtra("vincularAguaLuz",vincularAguaLuz);
+				intent.putExtra("fgTelaHistorico",1);
 				//
 				startActivity(intent);
 				finish();

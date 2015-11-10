@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
@@ -103,7 +104,15 @@ public class TelaGrafico extends Activity {
         sAno = dados.getStringExtra("ano");
         // filtros do gráfico
         indTipoComparacaoMaiorConsumo = dados.getIntExtra("indTipoComparacaoMaiorConsumo",0);
-        fgCompararOutrasResidencias= dados.getIntExtra("fgCompararOutrasResidencias",0);
+        if(indTipoComparacaoMaiorConsumo > 0) // É o gráfico por maior consumo?
+        {
+            int fgTelaGrafico = dados.getIntExtra("fgTelaHistorico", 0);
+            if(fgTelaGrafico == 1) // Já gerou o gráfico?
+            { // sim, então volta para a tela de filtros
+                onBackPressed();
+            }
+        }
+        fgCompararOutrasResidencias = dados.getIntExtra("fgCompararOutrasResidencias",0);
         nrMordador = dados.getIntExtra("nrMorador", 0);
         nrComodo = dados.getIntExtra("nrComodo",0);
         vincularAguaLuz = dados.getIntExtra("vincularAguaLuz",0);
@@ -116,11 +125,12 @@ public class TelaGrafico extends Activity {
         {
             fgBuscaNoDia = true;
             data = sDia + "/" + sMes + "/" + sAno;
-            //data += " 00:00:00";
-            //if(indTipoComparacaoMaiorConsumo == 0)
-                //pesquisarGastoNoMes(data);
-            //else
-            //{
+            if(indTipoComparacaoMaiorConsumo == 0) {
+                //data += " 00:00:00";
+                pesquisarGastoNoDia(data);
+            }
+            else
+            {
                 gastoHora = new GastoHora();
                 gastoHora.getMapInstance();
                 gastoHora.setMapCdResidencia(session.getResidencia().getId());
@@ -131,9 +141,8 @@ public class TelaGrafico extends Activity {
                 gastoHora.setMapFitro_indTipoComparacaoMaiorConsumo(String.valueOf(indTipoComparacaoMaiorConsumo));
                 gastoHora.setMapFiltro_idRecurso(String.valueOf(idRecurso));
                 listEntDom = gastoHora.operar(this,false,Controler.DF_CONSULTAR);
-                //openChart();
                 graficoMaiorConsumo(listEntDom);
-            //}
+            }
         }
         else // Vai pesquisar o gasto dos dias do mês
         {
@@ -215,6 +224,78 @@ public class TelaGrafico extends Activity {
             for (int i = 0; i < listEntDom.size(); i++) {
                 GastoHoje g = (GastoHoje) listEntDom.get(i);
                 diaParaGrafico = extrairDiaDoMes(g.getDtUltimaRegistroDia());
+                if(idRecurso == 1) // agua?
+                {
+                    if(tipoGrafico == 1) // consumo?
+                    {
+                        vetNrGastoAgua[i] = g.getNrMetroCubicoAgua();
+                        aguaSeries.add(diaParaGrafico,vetNrGastoAgua[i]);
+                    }
+                    else if(tipoGrafico == 2) // valor gasto
+                    {
+                        vetNrVlrGastoAgua[i] = g.getVlrGastoAgua();
+                        aguaSeries.add(diaParaGrafico,vetNrVlrGastoAgua[i]);
+                    }
+                }
+                else if(idRecurso == 2) // luz?
+                {
+                    if(tipoGrafico == 1) // Consumo ?
+                    {
+                        vetNrGastoLuz[i] = g.getNrWatts();
+                        luzSeries.add(diaParaGrafico, vetNrGastoLuz[i]);
+                    }
+                    else if(tipoGrafico == 2) // valor gasto?
+                    {
+                        vetNrVlrGastoLuz[i] = g.getVlrGastLuz();
+                        luzSeries.add(diaParaGrafico,vetNrVlrGastoLuz[i]);
+                    }
+                }
+            }
+
+            if(idRecurso == 1) // agua?
+            {
+                //msDataset.addSeries(aguaSeries);
+                criarGrafico(aguaSeries);
+            }
+            else if(idRecurso == 2) {
+                //  msDataset.addSeries(luzSeries);
+                criarGrafico(luzSeries);
+            }
+
+        }
+
+    }
+
+    private void pesquisarGastoNoDia(String data)
+    {
+        gastoHora = new GastoHora();
+        gastoHora.getMapInstance();
+        gastoHora.setMapCdResidencia(session.getResidencia().getId());
+        gastoHora.setMapsDtInclusao(data);
+        // Mudar a consulta par a
+        listEntDom = gastoHora.operar(session.getContext(), true, Controler.DF_CONSULTAR);
+        if (listEntDom != null) {
+            //gastoHoje = (GastoHoje) listEntDom.get(0);
+            if(idRecurso == 1) // agua?
+            {
+                aguaSeries = new XYSeries("Agua");
+                if(tipoGrafico == 1)
+                    vetNrGastoAgua = new double[listEntDom.size()];
+                else if(tipoGrafico == 2)
+                    vetNrVlrGastoAgua = new double[listEntDom.size()];
+            }
+            else if(idRecurso == 2)
+            {
+                luzSeries = new XYSeries("Luz");
+                if(tipoGrafico == 1)
+                    vetNrGastoLuz = new double[listEntDom.size()];
+                else if(tipoGrafico == 2)
+                    vetNrVlrGastoLuz = new double[listEntDom.size()];
+            }
+            int diaParaGrafico;
+            for (int i = 0; i < listEntDom.size(); i++) {
+                GastoHora g = (GastoHora) listEntDom.get(i);
+                diaParaGrafico = extrairDiaDoMes(g.getDtInclusao());
                 if(idRecurso == 1) // agua?
                 {
                     if(tipoGrafico == 1) // consumo?
