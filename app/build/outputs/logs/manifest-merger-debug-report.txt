@@ -23,91 +23,97 @@ ADDED from AndroidManifest.xml:7:5
 		ADDED from AndroidManifest.xml:8:9
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
-android:uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from AndroidManifest.xml:11:5
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from AndroidManifest.xml:12:5
 	android:maxSdkVersion
-		ADDED from AndroidManifest.xml:13:9
+		ADDED from AndroidManifest.xml:12:79
 	android:name
-		ADDED from AndroidManifest.xml:12:9
-android:uses-permission#android.permission.READ_PHONE_STATE
+		ADDED from AndroidManifest.xml:12:22
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from AndroidManifest.xml:13:5
+	android:name
+		ADDED from AndroidManifest.xml:13:22
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
 ADDED from AndroidManifest.xml:14:5
-	android:name
-		ADDED from AndroidManifest.xml:14:30
-android:uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from AndroidManifest.xml:15:5
 	android:maxSdkVersion
-		ADDED from AndroidManifest.xml:17:9
+		ADDED from AndroidManifest.xml:14:78
 	android:name
-		ADDED from AndroidManifest.xml:16:9
+		ADDED from AndroidManifest.xml:14:22
 uses-permission#android.permission.INTERNET
-ADDED from AndroidManifest.xml:19:5
+ADDED from AndroidManifest.xml:15:5
 	android:name
-		ADDED from AndroidManifest.xml:19:22
+		ADDED from AndroidManifest.xml:15:22
 application
-ADDED from AndroidManifest.xml:21:5
+ADDED from AndroidManifest.xml:18:5
 	android:label
-		ADDED from AndroidManifest.xml:24:9
+		ADDED from AndroidManifest.xml:21:9
 	android:allowBackup
-		ADDED from AndroidManifest.xml:22:9
+		ADDED from AndroidManifest.xml:19:9
 	android:icon
-		ADDED from AndroidManifest.xml:23:9
+		ADDED from AndroidManifest.xml:20:9
 	android:theme
-		ADDED from AndroidManifest.xml:25:9
+		ADDED from AndroidManifest.xml:22:9
 activity#com.example.appmedirconsumorecursos.Telas.TelaLogin
-ADDED from AndroidManifest.xml:26:9
+ADDED from AndroidManifest.xml:23:9
 	android:label
-		ADDED from AndroidManifest.xml:28:13
+		ADDED from AndroidManifest.xml:25:13
 	android:name
-		ADDED from AndroidManifest.xml:27:13
+		ADDED from AndroidManifest.xml:24:13
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:29:13
+ADDED from AndroidManifest.xml:26:13
 action#android.intent.action.MAIN
-ADDED from AndroidManifest.xml:30:17
+ADDED from AndroidManifest.xml:27:17
 	android:name
-		ADDED from AndroidManifest.xml:30:25
+		ADDED from AndroidManifest.xml:27:25
 category#android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:32:17
+ADDED from AndroidManifest.xml:29:17
 	android:name
-		ADDED from AndroidManifest.xml:32:27
+		ADDED from AndroidManifest.xml:29:27
 activity#com.example.appmedirconsumorecursos.Telas.TelaMenu
-ADDED from AndroidManifest.xml:35:9
+ADDED from AndroidManifest.xml:32:9
 	android:label
-		ADDED from AndroidManifest.xml:37:13
+		ADDED from AndroidManifest.xml:34:13
 	android:name
-		ADDED from AndroidManifest.xml:36:13
+		ADDED from AndroidManifest.xml:33:13
 activity#com.example.appmedirconsumorecursos.Telas.TelaDeHistorico
-ADDED from AndroidManifest.xml:39:9
+ADDED from AndroidManifest.xml:36:9
 	android:label
-		ADDED from AndroidManifest.xml:41:13
+		ADDED from AndroidManifest.xml:38:13
 	android:name
-		ADDED from AndroidManifest.xml:40:13
+		ADDED from AndroidManifest.xml:37:13
 activity#com.example.appmedirconsumorecursos.Telas.TelaPrincipal
-ADDED from AndroidManifest.xml:43:9
+ADDED from AndroidManifest.xml:40:9
 	android:label
-		ADDED from AndroidManifest.xml:45:13
+		ADDED from AndroidManifest.xml:42:13
 	android:name
-		ADDED from AndroidManifest.xml:44:13
+		ADDED from AndroidManifest.xml:41:13
 activity#com.example.appmedirconsumorecursos.Telas.Tela_configuracao_aplicativo
-ADDED from AndroidManifest.xml:47:9
+ADDED from AndroidManifest.xml:44:9
 	android:label
-		ADDED from AndroidManifest.xml:49:13
+		ADDED from AndroidManifest.xml:46:13
 	android:name
-		ADDED from AndroidManifest.xml:48:13
+		ADDED from AndroidManifest.xml:45:13
 activity#com.example.appmedirconsumorecursos.Telas.TelaGrafico
-ADDED from AndroidManifest.xml:51:9
+ADDED from AndroidManifest.xml:48:9
 	android:screenOrientation
-		ADDED from AndroidManifest.xml:54:13
+		ADDED from AndroidManifest.xml:51:13
 	android:label
-		ADDED from AndroidManifest.xml:53:13
+		ADDED from AndroidManifest.xml:50:13
 	android:name
-		ADDED from AndroidManifest.xml:52:13
+		ADDED from AndroidManifest.xml:49:13
 activity#org.achartengine.GraphicalActivity
-ADDED from AndroidManifest.xml:56:9
+ADDED from AndroidManifest.xml:53:9
 	android:name
-		ADDED from AndroidManifest.xml:56:19
+		ADDED from AndroidManifest.xml:53:19
 activity#com.example.appmedirconsumorecursos.Telas.TelaRelatorio1
-ADDED from AndroidManifest.xml:57:9
+ADDED from AndroidManifest.xml:54:9
 	android:label
-		ADDED from AndroidManifest.xml:59:13
+		ADDED from AndroidManifest.xml:56:13
 	android:name
-		ADDED from AndroidManifest.xml:58:13
+		ADDED from AndroidManifest.xml:55:13
+service#com.example.appmedirconsumorecursos.Servicos.AtualizarAutomatico
+ADDED from AndroidManifest.xml:60:9
+	android:exported
+		ADDED from AndroidManifest.xml:61:13
+	android:name
+		ADDED from AndroidManifest.xml:60:18

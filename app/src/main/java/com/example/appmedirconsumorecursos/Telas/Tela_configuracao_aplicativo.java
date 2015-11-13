@@ -17,6 +17,7 @@ import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.R;
+import com.example.appmedirconsumorecursos.Servicos.AtualizarAutomatico;
 
 import java.util.List;
 
@@ -26,7 +27,9 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
                         rbMes,
                         rb110,
                         rb220;
-    private Button btnSalvarConfigApp;
+    private Button btnSalvarConfigApp,
+                   btnIniciarServico,
+                   btnPausarServico;
     private EditText edtVlrTarifaAgua,
                      edtVlrTarifaLuz;
     //
@@ -55,7 +58,12 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
         rb110 = (RadioButton)findViewById(R.id.rb110);
         rb220 = (RadioButton)findViewById(R.id.rb220);
         btnSalvarConfigApp = (Button)findViewById(R.id.btnSalvarConfiguracao);
+        btnIniciarServico = (Button)findViewById(R.id.btnIniciarServico);
+        btnPausarServico = (Button)findViewById(R.id.btnPausarServico);
+        // indica que podem ser clicados os botões
         btnSalvarConfigApp.setOnClickListener(this);
+        btnIniciarServico.setOnClickListener(this);
+        btnPausarServico.setOnClickListener(this);
         //contextTelaParaVoltar = session.getContext();
         dados = getIntent(); // Recebe os dados da tela anterior
 
@@ -163,6 +171,15 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
                 finish();
             }
         }
+        else if(view == btnIniciarServico)
+        {
+            Intent intent = new Intent(this, AtualizarAutomatico.class);
+            startService(intent);
+        }
+        else if(view == btnPausarServico)
+        {
+
+        }
     }
     public void onBackPressed() // precionou o voltar do telefone?
     { // Sim, volta para a página anterior
@@ -172,20 +189,7 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
         startActivity(intent); // chama a próxima tela
         finish();
     }
-    // usando para voltar pela bara de cima(menu)
-//    public void onBackPressed() // precionou o voltar do telefone?
-//    { // Sim, volta para a p?gina anterior
-//        Intent intent = new Intent();
-//        // Volta para a tela que fez a solicita��o
-//        intent.setClass(Tela_configuracao_aplicativo.this, contextTelaParaVoltar.getClass());
-//        if(contextTelaParaVoltar.getClass() == TelaMenu.class)
-//        {
-//            absRecurso = (AbsFactoryRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
-//            intent.putExtra("absClasse", absRecurso);
-//        }
-//        startActivity(intent); // chama a pr?xima tela
-//        finish();
-//    }
+
     private double validarDouble(String sValor)
     {
         double dValor= 0;

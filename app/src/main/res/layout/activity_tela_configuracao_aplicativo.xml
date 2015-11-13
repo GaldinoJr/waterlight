@@ -204,4 +204,22 @@
         android:layout_alignParentEnd="true"
         android:textColor="#4682B4"
         android:background="@drawable/layout_tela_login"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Iniciar serviço"
+        android:id="@+id/btnIniciarServico"
+        android:layout_above="@+id/btnSalvarConfiguracao"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pausar serviço"
+        android:id="@+id/btnPausarServico"
+        android:layout_above="@+id/btnSalvarConfiguracao"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
