@@ -174,11 +174,14 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
         else if(view == btnIniciarServico)
         {
             Intent intent = new Intent(this, AtualizarAutomatico.class);
+            intent.putExtra("delisgarServico", 0);
             startService(intent);
         }
         else if(view == btnPausarServico)
         {
-
+            Intent intent = new Intent(this, AtualizarAutomatico.class);
+            intent.putExtra("delisgarServico", 1);
+            startService(intent);
         }
     }
     public void onBackPressed() // precionou o voltar do telefone?

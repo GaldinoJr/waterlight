@@ -3,18 +3,17 @@ package com.example.appmedirconsumorecursos.Core.impl.SqlDAO;
 /**
  * Created by Galdino on 29/08/2015.
  */
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class SQL extends SQLiteOpenHelper {
     private int i;
@@ -202,17 +201,23 @@ public class SQL extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         Map<String, String> mregistro = null;
-        if (cursor.moveToFirst()) { // ? o primeiro registro do cursor
-            do {
+        try {
+            if (cursor.moveToFirst()) { // ? o primeiro registro do cursor
+                do {
 
-                mregistro = new HashMap<String, String>();
-                for(i = 0; i < colunasBusca.length;i++)
-                    mregistro.put(colunasBusca[i], cursor.getString(i));
+                    mregistro = new HashMap<String, String>();
+                    for (i = 0; i < colunasBusca.length; i++)
+                        mregistro.put(colunasBusca[i], cursor.getString(i));
 
-                // Add o registro na lista de registro
-                LMregistro.add(mregistro);
-            } while (cursor.moveToNext());
+                    // Add o registro na lista de registro
+                    LMregistro.add(mregistro);
+                } while (cursor.moveToNext());
+            }
         }
+        finally {
+            db.close();
+        }
+        db.close();
         return LMregistro;
     }
 

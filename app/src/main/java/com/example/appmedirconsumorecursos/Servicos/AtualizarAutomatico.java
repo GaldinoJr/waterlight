@@ -41,8 +41,9 @@ public class AtualizarAutomatico extends Service {
     private boolean isRunning  = false;
 
     private int qtdTempoParaAtualizar;
-    @Override
+
     public void onCreate() {
+
         Log.i(TAG, "Service onCreate");
 
         isRunning = true;
@@ -51,44 +52,58 @@ public class AtualizarAutomatico extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Log.i(TAG, "Service onStartCommand");
-        qtdTempoParaAtualizar = tempoParaAtualizacao();
-        //Creating new thread for my service
-        //Always write your long running tasks in a separate thread, to avoid ANR
-        if(qtdTempoParaAtualizar > 0 ) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-
-
-                    //Your logic that service will perform will be placed here
-                    //In this example we are just looping and waits for 1000 milliseconds in each loop.
-                    for (int i = 0; i < 5; i++)
-                        // ***** como colocar um while true sem dar pau
-                    // while(true)
-                    {
-                        try {
-                            // Atualiza o banco interno
-                            atualizarGastos();
-                            // Espera o tempo da configuração para atualizar novamente
-                            Thread.sleep(qtdTempoParaAtualizar);
-
-                        } catch (Exception e) {
-
-                        }
-
-                        if (isRunning) {
-                            // Toast.makeText(Tela_configuracao_aplicativo., "Serviço rodando!", Toast.LENGTH_LONG).show();
-                            Log.i(TAG, "Service running");
-                        }
-                    }
-
-                    //Stop service once it finishes its task
-                     stopSelf();
-                }
-            }).start();
+        int deslisgar;
+        deslisgar=(Integer) intent.getExtras().get("delisgarServico");
+//        dados = intent.getExtras();
+//        deslisgar = dados.getInt("delisgarServico");
+        if(deslisgar == 1) {
+            stopSelf();
+            return 0;
         }
+        Log.i(TAG, "Service onStartCommand");
+        if(isRunning) {
+            qtdTempoParaAtualizar = tempoParaAtualizacao();
+            //Creating new thread for my service
+            //Always write your long running tasks in a separate thread, to avoid ANR
+            if (qtdTempoParaAtualizar > 0)
+            {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
 
+
+                        //Your logic that service will perform will be placed here
+                        //In this example we are just looping and waits for 1000 milliseconds in each loop.
+                        //for (int i = 0; i < 5; i++)
+                        // ***** como colocar um while true sem dar pau
+                        // while(true)
+                            while (!Thread.currentThread().isInterrupted()) {
+                                if(isRunning) {
+                                    try {
+                                        // Atualiza o banco interno
+                                        atualizarGastos();
+                                        // Espera o tempo da configuração para atualizar novamente
+                                        Thread.sleep(qtdTempoParaAtualizar);
+
+                                    } catch (Exception e) {
+
+                                    }
+                                    Log.i(TAG, "Service running");
+                                }
+                                else {
+                                    Log.i(TAG, "Serviço pausado");
+                                    Thread.currentThread().interrupt();
+                                    //this.finish();
+                                }
+                            }
+                        //Stop service once it finishes its task
+                        // stopSelf();
+                    }
+                }).start();
+            }
+        }
+        else
+            Log.i(TAG, "Serviço pausado");
         return Service.START_STICKY;
     }
 
@@ -127,6 +142,7 @@ public class AtualizarAutomatico extends Service {
         //gastoHoje.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
         gastoHoje.getMapInstance();
         gastoHoje.setMapCdResidencia(session.getResidencia().getId());
+        Log.i(TAG, "consultar 1");
         listEntDom = gastoHoje.operar(this,false, Controler.DF_CONSULTAR);
         if(listEntDom != null) // Achou algum registro no servidor?
         {
@@ -138,7 +154,9 @@ public class AtualizarAutomatico extends Service {
             GastoHoje gastoHojeAux = new GastoHoje();
             gastoHojeAux.getMapInstance();
             gastoHojeAux.setMapCdResidencia(session.getResidencia().getId());
+            Log.i(TAG, "consultar 2");
             listAux = gastoHojeAux.operar(this,true, Controler.DF_CONSULTAR);
+            Log.i(TAG, "Salvar");
             if(listAux != null) // Achou algum registro no banco interno?
             {
                 gastoHojeAux = (GastoHoje) listAux.get(0);
@@ -158,6 +176,7 @@ public class AtualizarAutomatico extends Service {
         //resultado = controler.doPost(gastoAtual.getMap());
         gastoAtual.getMapInstance();
         gastoAtual.setMapCdResidencia(session.getResidencia().getId());
+        Log.i(TAG, "AAAA");
         listEntDom = gastoAtual.operar(this,false, Controler.DF_CONSULTAR);
         if(listEntDom != null) // Achou algum registro no servidor?
         { // Sim
@@ -247,7 +266,6 @@ public class AtualizarAutomatico extends Service {
 
     @Override
     public void onDestroy() {
-
         isRunning = false;
 
         Log.i(TAG, "Service onDestroy");
