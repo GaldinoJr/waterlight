@@ -42,21 +42,28 @@ public class AtualizarAutomatico extends Service {
 
     private int qtdTempoParaAtualizar;
 
+    private static AtualizarAutomatico instance = null;
+
+    public static boolean isInstanceCreated() {
+        return instance != null;
+    }//met
+
     public void onCreate() {
 
         Log.i(TAG, "Service onCreate");
-
-        isRunning = true;
+        if(!isInstanceCreated()) // Não esta criado o serviço?
+        {
+            instance = this;
+            isRunning = true;
+        }
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        int deslisgar;
-        deslisgar=(Integer) intent.getExtras().get("delisgarServico");
-//        dados = intent.getExtras();
-//        deslisgar = dados.getInt("delisgarServico");
-        if(deslisgar == 1) {
+        int ligado;
+        ligado=(Integer) intent.getExtras().get("delisgarServico");
+        if(ligado == 0) {
             stopSelf();
             return 0;
         }
@@ -88,10 +95,10 @@ public class AtualizarAutomatico extends Service {
                                     } catch (Exception e) {
 
                                     }
-                                    Log.i(TAG, "Service running");
+                                    Log.i(TAG, "Service rodando");
                                 }
                                 else {
-                                    Log.i(TAG, "Serviço pausado");
+                                    Log.i(TAG, "Serviço encerrado");
                                     Thread.currentThread().interrupt();
                                     //this.finish();
                                 }
@@ -267,7 +274,7 @@ public class AtualizarAutomatico extends Service {
     @Override
     public void onDestroy() {
         isRunning = false;
-
+        instance = null;
         Log.i(TAG, "Service onDestroy");
     }
 }

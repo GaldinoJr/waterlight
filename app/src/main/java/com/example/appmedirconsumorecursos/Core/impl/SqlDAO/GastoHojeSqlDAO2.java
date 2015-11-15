@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -120,7 +119,7 @@ public class GastoHojeSqlDAO2 extends AbstractSqlDAO {
             {
                 query += " AND DATE(" + Col_dt_ultimo_registro_dia + ") BETWEEN '" + gastohoje.getsDtInicialBusca() +
                         "' AND '" + gastohoje.getsDtFinalBusca() +
-                "' AND TIME(" + Col_dt_ultimo_registro_dia + ") BETWEEN '00:00:00' AND '00:59:59'";
+                "' AND ((TIME(" + Col_dt_ultimo_registro_dia + ") BETWEEN '00:00:00' AND '00:59:59') OR TIME(" + Col_dt_ultimo_registro_dia + " = '00:00:00'))";
                 query += " ORDER BY " + Col_dt_ultimo_registro_dia + " ASC";
             }
             else

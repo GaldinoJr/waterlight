@@ -7,9 +7,10 @@ import java.util.HashMap;
  */
 public class ConfiguracaoSistema extends EntidadeDominio{
     //
+    public static final String DF_FG_ATUALIZAR_AUTOMATICAMENTE = "fg_atualizar_automaticamente";
     public static final String DF_FG_LOGAR_AUTOMATICAMENTE = "fg_logar_automaticamente";
     public static final String DF_IND_TIPO_ATUALIZACAO = "ind_tipo_atualizacao";
-    // Atualiza o app automaticamente conforme parametriza��o do sistema
+    // Atualiza o app automaticamente conforme parametrização do sistema
     // ind_tipo_atualizacao = 1 - Hora
     //                        2 - Dia
     //                        3 - Mês
@@ -20,12 +21,18 @@ public class ConfiguracaoSistema extends EntidadeDominio{
     public static final String DF_VLR_TARIFA_AGUA = "vlr_tarifa_agua";
     public static final String DF_VLR_TARIFA_LUZ = "vlr_tarifa_luz";
     //
+    private int fgAtualizarAutomaticamente;
     private int fg_logar_automaticamente;
     private int indTipoAtualizacao;
     private int indTipoVoltagem;
     private double vlrTarifaAgua;
     private double vlrTarifaLuz;
+
     // sets
+
+    public void setFgAtualizarAutomaticamente(int fgAtualizarAutomaticamente) {
+        this.fgAtualizarAutomaticamente = fgAtualizarAutomaticamente;
+    }
 
     public void setIndTipoAtualizacao(int indTipoAtualizacao) {
         this.indTipoAtualizacao = indTipoAtualizacao;
@@ -48,6 +55,12 @@ public class ConfiguracaoSistema extends EntidadeDominio{
     }
 
     // gets
+
+
+    public int getFgAtualizarAutomaticamente() {
+        return fgAtualizarAutomaticamente;
+    }
+
     public int getIndTipoAtualizacao() {
         return indTipoAtualizacao;
     }
@@ -70,6 +83,10 @@ public class ConfiguracaoSistema extends EntidadeDominio{
 
     // Gets e sets do mapa
     // sets
+    public void setMapFgAtualizarAutomaticamente(int fgAtualizarAutomaticamente) {
+        map.put(DF_FG_ATUALIZAR_AUTOMATICAMENTE,String.valueOf(fgAtualizarAutomaticamente));
+    }
+
     public void setMapIndTipoAtualizacao(int indTipoAtualizacao) {
         map.put(DF_IND_TIPO_ATUALIZACAO,String.valueOf(indTipoAtualizacao));
     }
@@ -87,13 +104,14 @@ public class ConfiguracaoSistema extends EntidadeDominio{
     public void setMapVlrTarifaLuz(double VlrTarifaLuz) {
         map.put(DF_VLR_TARIFA_LUZ,String.valueOf(VlrTarifaLuz));
     }
+
     public void getMapInstance()
     {
         map = new HashMap<String, String>();
 //        map.put(DF_ID,"");
 //        map.put(DF_FG_LOGAR_AUTOMATICAMENTE,"");
 //        map.put(DF_IND_TIPO_ATUALIZACAO,"");
-//        map.put("operacao", "");          // indica a opera��o que est� sendo realizada
+//        map.put("operacao", "");          // indica a operação que está sendo realizada
         map.put("classe",  ConfiguracaoSistema.class.getName());
     }
 }

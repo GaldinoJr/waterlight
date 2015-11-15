@@ -55,22 +55,12 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             />
-        <TextView
-            android:text="Atualizar por"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textview"
-            android:layout_centerHorizontal="true"
-            android:textColor="#4682B4"
-            android:textSize="@dimen/tamanho25dp"
-            android:layout_alignTop="@+id/Divisor1"
-            android:layout_marginTop="-100dp"/>
 
         <RadioGroup android:id="@+id/rgTipoAtualizacao"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textview"
+            android:layout_below="@+id/chkFgServicoLigado"
             android:layout_alignLeft="@+id/Divisor2"
             android:layout_marginLeft="-120dp">
             <RadioButton
@@ -79,7 +69,7 @@
                 android:text="Hora"
                 android:id="@+id/rbHora"
                 android:checked="false"
-                android:layout_below="@+id/textview"
+                android:layout_below="@+id/chkFgServicoLigado"
                 android:textColor="#4682B4"
                 android:textSize="@dimen/tamanho25dp"/>
 
@@ -175,7 +165,7 @@
                 android:text="110"
                 android:id="@+id/rb110"
                 android:checked="false"
-                android:layout_below="@+id/textview"
+                android:layout_below="@+id/chkFgServicoLigado"
                 android:textColor="#4682B4"
                 android:textSize="@dimen/tamanho25dp"/>
 
@@ -191,6 +181,18 @@
                 android:textColor="#4682B4"
                 android:textSize="@dimen/tamanho25dp"/>
         </RadioGroup>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Atualizar automaticamente?"
+            android:id="@+id/chkFgServicoLigado"
+            android:layout_centerHorizontal="true"
+            android:textColor="#4682B4"
+            android:textSize="@dimen/tamanho25dp"
+            android:layout_alignTop="@+id/Divisor1"
+            android:layout_marginTop="-100dp"
+            android:checked="false" />
     </RelativeLayout>
     <Button
         android:layout_width="wrap_content"
@@ -212,7 +214,9 @@
         android:id="@+id/btnIniciarServico"
         android:layout_above="@+id/btnSalvarConfiguracao"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:enabled="false"
+        android:visibility="invisible"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -221,5 +225,7 @@
         android:id="@+id/btnPausarServico"
         android:layout_above="@+id/btnSalvarConfiguracao"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:enabled="false"
+        android:visibility="invisible"/>
 </RelativeLayout>

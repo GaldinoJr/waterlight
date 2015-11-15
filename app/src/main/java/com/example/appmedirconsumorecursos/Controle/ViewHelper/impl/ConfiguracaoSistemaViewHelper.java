@@ -30,6 +30,8 @@ public class ConfiguracaoSistemaViewHelper implements IViewHelper {
                 configSistema.setVlrTarifaAgua(Double.parseDouble((String) request.get(configSistema.DF_VLR_TARIFA_AGUA)));
             if(request.get(configSistema.DF_VLR_TARIFA_LUZ) != null)
                 configSistema.setVlrTarifaLuz(Double.parseDouble((String) request.get(configSistema.DF_VLR_TARIFA_LUZ)));
+            if(request.get(configSistema.DF_FG_ATUALIZAR_AUTOMATICAMENTE) != null)
+                configSistema.setFgAtualizarAutomaticamente(Integer.parseInt((String) request.get(configSistema.DF_FG_ATUALIZAR_AUTOMATICAMENTE)));
             return configSistema;
         }
         catch (Exception e)

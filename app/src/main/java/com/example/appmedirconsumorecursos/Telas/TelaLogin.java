@@ -167,6 +167,8 @@ public class TelaLogin extends Activity implements View.OnClickListener {
                     configSistema.setMapId(session.getResidencia().getId()); // grava o ID na config
                     configSistema.setMapFgLogarAutomaticamente(chkLogar);
                     listEntDom = configSistema.operar(this,true, Controler.DF_ALTERAR);
+                    configSistema.setId(session.getResidencia().getId());
+                    configSistema.setFgLogarAutomaticamente(chkLogar);
                     session.setConfiguracaoSistema(configSistema);
                 }
             }
@@ -177,6 +179,8 @@ public class TelaLogin extends Activity implements View.OnClickListener {
                 configSistema.setMapId(session.getResidencia().getId()); // grava o ID na config
                 configSistema.setMapFgLogarAutomaticamente(chkLogar);
                 listEntDom = configSistema.operar(this, true, Controler.DF_SALVAR);
+                configSistema.setId(session.getResidencia().getId());
+                configSistema.setFgLogarAutomaticamente(chkLogar);
                 session.setConfiguracaoSistema(configSistema);
             }
             if (resultado.getMsg() != null) {

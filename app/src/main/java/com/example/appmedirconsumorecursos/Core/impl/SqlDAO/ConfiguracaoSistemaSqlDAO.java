@@ -18,13 +18,14 @@ import java.util.Map;
 public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
     private static final String Col_cd_residencia = "cd_residencia";
     private static final String Col_fg_logar_automaticamente = "fg_logar_automaticamente";
+    private static final String Col_fg_atualizar_automaticamente = "fg_atualizar_automaticamente";
     private static final String Col_ind_tipo_atualizacao = "ind_tipo_atualizacao";
     private static final String Col_ind_tipo_voltagem = "ind_tipo_voltagem";
     private static final String Col_vlr_tarifa_agua = "vlr_tarifa_agua";
     private static final String Col_vlr_tarifa_luz = "vlr_tarifa_luz";
     //
-    private static final String[] colunas = { Col_fg_logar_automaticamente, Col_ind_tipo_atualizacao, Col_ind_tipo_voltagem, Col_vlr_tarifa_agua, Col_vlr_tarifa_luz};
-    private static final String[] colunasBusca = {Col_cd_residencia, Col_fg_logar_automaticamente,Col_ind_tipo_atualizacao, Col_ind_tipo_voltagem, Col_vlr_tarifa_agua, Col_vlr_tarifa_luz};
+    private static final String[] colunas = { Col_fg_logar_automaticamente, Col_fg_atualizar_automaticamente,Col_ind_tipo_atualizacao, Col_ind_tipo_voltagem, Col_vlr_tarifa_agua, Col_vlr_tarifa_luz};
+    private static final String[] colunasBusca = {Col_cd_residencia, Col_fg_logar_automaticamente, Col_fg_atualizar_automaticamente, Col_ind_tipo_atualizacao, Col_ind_tipo_voltagem, Col_vlr_tarifa_agua, Col_vlr_tarifa_luz};
     private SQL db;
     private Map<String, String> mapGeral;
     private List<EntidadeDominio> listGeral;
@@ -43,6 +44,7 @@ public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
         sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nomeTabela+ "( " +
                 Col_cd_residencia + " INTEGER PRIMARY KEY, " +
                 Col_fg_logar_automaticamente + " INTEGER, " +
+                Col_fg_atualizar_automaticamente + " INTEGER, " +
                 Col_ind_tipo_voltagem + " INTEGER, " +
                 Col_vlr_tarifa_agua + " REAL, " +
                 Col_vlr_tarifa_luz + " REAL, " +
@@ -55,6 +57,7 @@ public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
         configSistema =  (ConfiguracaoSistema)entidade;
         try {
             mapGeral.put(Col_fg_logar_automaticamente, String.valueOf(configSistema.getFgLogarAutomaticamente()));
+            mapGeral.put(Col_fg_atualizar_automaticamente, String.valueOf(configSistema.getFgAtualizarAutomaticamente()));
             mapGeral.put(Col_ind_tipo_voltagem, String.valueOf(configSistema.getIndTipoVoltagem()));
             mapGeral.put(Col_vlr_tarifa_agua, String.valueOf(configSistema.getVlrTarifaAgua()));
             mapGeral.put(Col_vlr_tarifa_luz, String.valueOf(configSistema.getVlrTarifaLuz()));
@@ -75,6 +78,7 @@ public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
             int i;
             mapGeral = new HashMap<String, String>();
             mapGeral.put(Col_fg_logar_automaticamente, String.valueOf(configSistema.getFgLogarAutomaticamente()));
+            mapGeral.put(Col_fg_atualizar_automaticamente, String.valueOf(configSistema.getFgAtualizarAutomaticamente()));
             mapGeral.put(Col_ind_tipo_voltagem, String.valueOf(configSistema.getIndTipoVoltagem()));
             mapGeral.put(Col_vlr_tarifa_agua, String.valueOf(configSistema.getVlrTarifaAgua()));
             mapGeral.put(Col_vlr_tarifa_luz, String.valueOf(configSistema.getVlrTarifaLuz()));
@@ -114,10 +118,11 @@ public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
                 // ******************* TEM QUE SER A MESMA SEQUENCIA DA LISTA(colunasBusca)***********************
                 g.setId(listMapGeral.get(i).get(colunasBusca[0]));
                 g.setFgLogarAutomaticamente(Integer.parseInt(listMapGeral.get(i).get(colunasBusca[1])));
-                g.setIndTipoAtualizacao(Integer.parseInt(listMapGeral.get(i).get(colunasBusca[2])));
-                g.setIndTipoVoltagem(Integer.parseInt(listMapGeral.get(i).get(colunasBusca[3])));
-                g.setVlrTarifaAgua(Double.parseDouble(listMapGeral.get(i).get(colunasBusca[4])));
-                g.setVlrTarifaLuz(Double.parseDouble(listMapGeral.get(i).get(colunasBusca[5])));
+                g.setFgAtualizarAutomaticamente(Integer.parseInt(listMapGeral.get(i).get(colunasBusca[2])));
+                g.setIndTipoAtualizacao(Integer.parseInt(listMapGeral.get(i).get(colunasBusca[3])));
+                g.setIndTipoVoltagem(Integer.parseInt(listMapGeral.get(i).get(colunasBusca[4])));
+                g.setVlrTarifaAgua(Double.parseDouble(listMapGeral.get(i).get(colunasBusca[5])));
+                g.setVlrTarifaLuz(Double.parseDouble(listMapGeral.get(i).get(colunasBusca[6])));
                 listGeral.add(g);
             }
             if(listGeral.size() > 0)

@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -32,6 +33,8 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
                    btnPausarServico;
     private EditText edtVlrTarifaAgua,
                      edtVlrTarifaLuz;
+
+    private CheckBox chkFgServicoLigado;
     //
     private Session session;
     private ConfiguracaoSistema configSistema;
@@ -39,6 +42,7 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
     //
     private int indTipoAtualizacao;
     private int indTipoVoltagem;
+    private boolean fgServicoLigado;
     //private Context contextTelaParaVoltar;
     private Intent dados;
    // private AbsFactoryRecurso absRecurso;
@@ -50,6 +54,7 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
         //
         session = Session.getInstance();
         //
+        chkFgServicoLigado = (CheckBox)findViewById(R.id.chkFgServicoLigado);
         edtVlrTarifaAgua = (EditText)findViewById(R.id.edtVlrTarifaAgua);
         edtVlrTarifaLuz = (EditText)findViewById(R.id.edtVlrTarifaLuz);
         rbHora = (RadioButton)findViewById(R.id.rbHora);
@@ -93,7 +98,11 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
                 rb220.setChecked(true);
                 break;
         }
-
+        if(configSistema.getFgAtualizarAutomaticamente() ==1)
+            fgServicoLigado = true;
+        else
+            fgServicoLigado = false;
+        chkFgServicoLigado.setChecked(fgServicoLigado);
         edtVlrTarifaAgua.setText(String.valueOf(configSistema.getVlrTarifaAgua()));
         edtVlrTarifaLuz.setText(String.valueOf(configSistema.getVlrTarifaLuz()));
     }
@@ -145,7 +154,12 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
             double vlrTarifaAgua, vlrTarifaLuz;
             vlrTarifaAgua = validarDouble(edtVlrTarifaAgua.getText().toString());
             vlrTarifaLuz = validarDouble(edtVlrTarifaLuz.getText().toString());
-
+            int fgLigaDesliga = chkFgServicoLigado.isChecked()? 1 : 0;
+            if(chkFgServicoLigado.isChecked() && indTipoAtualizacao == 0)
+            {
+                Toast.makeText(Tela_configuracao_aplicativo.this, "Para ativar o serviço, selecione o periodo de atualização.", Toast.LENGTH_LONG).show();
+                return;
+            }
             session = Session.getInstance();
             configSistema = session.getConfiguracaoSistema();
             if(configSistema != null) // Achou alguma casa cadastrada na config do sitema?
@@ -157,13 +171,17 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
                 configSistema.setMapIndTipoVoltagem(indTipoVoltagem);
                 configSistema.setMapVlrTarifaAgua(vlrTarifaAgua);
                 configSistema.setMapVlrTarifaLuz(vlrTarifaLuz);
+                configSistema.setMapFgAtualizarAutomaticamente(fgLigaDesliga);
+                configSistema.setMapFgLogarAutomaticamente(configSistema.getFgLogarAutomaticamente());
                 configSistema.operar(this, true, Controler.DF_ALTERAR);
                 // add a classe
                 configSistema.setIndTipoAtualizacao(indTipoAtualizacao);
                 configSistema.setIndTipoVoltagem(indTipoVoltagem);
                 configSistema.setVlrTarifaAgua(vlrTarifaAgua);
                 configSistema.setVlrTarifaLuz(vlrTarifaLuz);
+                configSistema.setFgAtualizarAutomaticamente(fgLigaDesliga);
                 session.setConfiguracaoSistema(configSistema);
+                //ligarDesligarServico(fgLigaDesliga);
                 Toast.makeText(Tela_configuracao_aplicativo.this, "Configurações gravadas com sucesso", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
                 intent.setClass(Tela_configuracao_aplicativo.this, TelaPrincipal.class);
@@ -173,17 +191,20 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
         }
         else if(view == btnIniciarServico)
         {
-            Intent intent = new Intent(this, AtualizarAutomatico.class);
-            intent.putExtra("delisgarServico", 0);
-            startService(intent);
+            ligarDesligarServico(1);
         }
         else if(view == btnPausarServico)
         {
-            Intent intent = new Intent(this, AtualizarAutomatico.class);
-            intent.putExtra("delisgarServico", 1);
-            startService(intent);
+            ligarDesligarServico(0);
         }
     }
+    private void ligarDesligarServico(int acao)
+    {
+        Intent intent = new Intent(this, AtualizarAutomatico.class);
+        intent.putExtra("delisgarServico", acao);
+        startService(intent);
+    }
+
     public void onBackPressed() // precionou o voltar do telefone?
     { // Sim, volta para a página anterior
         Intent intent = new Intent();

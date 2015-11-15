@@ -1,6 +1,7 @@
 package com.example.appmedirconsumorecursos.Core.impl.Controle;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
 import com.example.appmedirconsumorecursos.Dominio.Residencia;
@@ -15,6 +16,7 @@ public class Session {
     private static Context context; //Para dizer na FACHADA se á uma requisição interna ou externa
     private Residencia residencia;
     private ConfiguracaoSistema configuracaoSistema;
+    private Intent servico;
 
     // Construtor privado (suprime o construtor público padrão).
     private Session() {}
@@ -31,6 +33,10 @@ public class Session {
         return context;
     }
 
+    public Intent getServico() {
+        return servico;
+    }
+
     public Residencia getResidencia() {
         return residencia;
     }
@@ -40,6 +46,11 @@ public class Session {
     }
 
     // sets
+
+
+    public void setServico(Intent servico) {
+        this.servico = servico;
+    }
 
     public void setResidencia(Residencia residencia) {
         this.residencia = residencia;

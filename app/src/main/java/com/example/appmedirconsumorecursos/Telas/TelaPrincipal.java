@@ -1,5 +1,13 @@
 package com.example.appmedirconsumorecursos.Telas;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
+
 import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.AbsFactoryRecurso;
@@ -9,14 +17,7 @@ import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.Luz;
 import com.example.appmedirconsumorecursos.R;
 import com.example.appmedirconsumorecursos.R.id;
-
-import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageButton;
+import com.example.appmedirconsumorecursos.Servicos.AtualizarAutomatico;
 
 import java.util.List;
 
@@ -45,7 +46,12 @@ public class TelaPrincipal extends Activity implements OnClickListener {
 		btnLuz.setOnClickListener(this);
 		btnConfig.setOnClickListener(this);
 		btnLogoff.setOnClickListener(this);
-		
+		session = Session.getInstance();
+		if(session.getConfiguracaoSistema().getFgAtualizarAutomaticamente() == 1 )
+			ligarDesligarServico(1);
+		else
+			ligarDesligarServico(0);
+
 	}
 
 	@Override
@@ -128,5 +134,24 @@ public class TelaPrincipal extends Activity implements OnClickListener {
 		startActivity(intent);
 		finish();
 	}
+	private void ligarDesligarServico(int ligadaDesliga)
+	{
 
+		 if(session.getServico() == null)  // verifica se o serviço já não foi instanciado
+		 { // então instancia
+			 session.setServico(new Intent(this, AtualizarAutomatico.class));
+			 session.getServico().putExtra("delisgarServico", ligadaDesliga); // liga ou desliga o que já foi ligado
+			 startService(session.getServico());
+		 }
+		 else // serviço já esta funcionado
+		 {
+			 if(ligadaDesliga == 0)
+			 {
+				 session.getServico().putExtra("delisgarServico", ligadaDesliga); // liga ou desliga o que já foi ligado
+				 startService(session.getServico()); // Para o serviço
+				 session.setServico(null); // indica que o mesmo está parado
+			 }
+		 }
+
+	}
 }
