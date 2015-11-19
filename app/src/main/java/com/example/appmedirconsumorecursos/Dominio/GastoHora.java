@@ -236,11 +236,28 @@ public class GastoHora extends EntidadeDominio {
     {
         //String a = new SimpleDateFormat("dd/MM/yyyy").format(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(data));
         String sDate;
+        String sDia = "";
+        String sMes = "";
+
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(data);
         int dia = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+        if (dia > 0) {
+            if (dia < 10) {
+                sDia = "0";
+            }
+        }
+        sDia += dia;
+
         int mes = calendar.get(GregorianCalendar.MONTH);
         mes = mes + 1;
+        if (mes > 0) {
+            if (mes < 10) {
+                sMes = "0";
+            }
+        }
+        sMes += mes;
+
         int ano = calendar.get(GregorianCalendar.YEAR);
 
         int hora = calendar.get(GregorianCalendar.HOUR);
@@ -270,7 +287,8 @@ public class GastoHora extends EntidadeDominio {
             sMin += "0";
         sMin += String.valueOf(min);
         sHora += String.valueOf(hora) + sMin + ":00";
-        sDate = String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + String.valueOf(ano) + sHora;
+        // ******************* verificar se não precisa trocar / para -
+        sDate = String.valueOf(dia) + "/" + sMes + "/" + sDia + sHora;
         return sDate;
 
     }

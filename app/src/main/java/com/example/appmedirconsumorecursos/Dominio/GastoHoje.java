@@ -1,6 +1,5 @@
 package com.example.appmedirconsumorecursos.Dominio;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -265,14 +264,33 @@ public class GastoHoje extends EntidadeDominio {
     private String formatarData(Date data)
     {
         String sDate;
+        String sDia = "";
+        String sMes = "";
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(data);
         int dia = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+
+        if (dia > 0) {
+            if (dia < 10) {
+                sDia = "0";
+            }
+        }
+        sDia += dia;
+
+
         int mes = calendar.get(GregorianCalendar.MONTH);
         mes = mes + 1;
+        if (mes > 0) {
+            if (mes < 10) {
+                sMes = "0";
+            }
+        }
+        sMes += mes;
+
         int ano = calendar.get(GregorianCalendar.YEAR);
 
         int hora = calendar.get(GregorianCalendar.HOUR);
+        // amPm
         // 0 = dia
         // 1 = noite
         int amPm = calendar.get(GregorianCalendar.AM_PM);
@@ -298,7 +316,7 @@ public class GastoHoje extends EntidadeDominio {
             sMin += "0";
         sMin += String.valueOf(min);
         sHora += String.valueOf(hora) + sMin + ":00";
-        sDate = String.valueOf(ano) + "-" + String.valueOf(mes) + "-" + String.valueOf(dia)  + sHora;
+        sDate = String.valueOf(ano) + "-" + sMes + "-" + sDia  + sHora;
         return sDate;
 
     }
