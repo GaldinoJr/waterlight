@@ -24,10 +24,10 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/layout_tela_login"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="90dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="120dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="80dp"
         android:id="@+id/relativeLayout2">
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                 android:textSize="@dimen/tamanho25dp"
                 android:layout_centerHorizontal="true"
                 android:layout_alignTop="@+id/Divisor1"
-                android:layout_marginTop="-100dp"
+                android:layout_marginTop="-120dp"
                 />
 
             <TextView
@@ -69,9 +69,9 @@
                 android:textColor="#4682B4"
                 android:text="@string/gastoAtual"
                 android:textSize="@dimen/tamanho25dp"
-                android:layout_below="@+id/R$GastoHj"
+                android:layout_below="@+id/txtDataUltimaAtualizacaoGastoHoje"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="15dp"/>
 
 
             <TextView
@@ -82,8 +82,9 @@
                 android:layout_below="@+id/gastoAtual"
                 android:text="@string/zero"
                 android:textSize="@dimen/tamanho25dp"
-                android:layout_marginTop="10dp"
-                android:layout_alignLeft="@+id/txtGastoHj"/>
+                android:layout_marginTop="5dp"
+                android:layout_alignLeft="@+id/gastoHj"
+                android:layout_marginLeft="-30dp"/>
 
             <TextView
                 android:id="@+id/mediaFinal"
@@ -91,10 +92,10 @@
                 android:layout_height="wrap_content"
                 android:textColor="#4682B4"
                 android:text="@string/MediaValorFinal"
-                android:layout_below="@+id/txtR$GastoAtual"
+                android:layout_below="@+id/txtDataUltimaAtualizacaoGastoAtual"
                 android:layout_centerHorizontal="true"
                 android:textSize="@dimen/tamanho25dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 />
 
             <TextView
@@ -105,9 +106,9 @@
                 android:text="@string/zero"
                 android:textColor="#4682B4"
                 android:textSize="@dimen/tamanho25dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_alignLeft="@+id/gastoHj"
-                android:layout_marginLeft="-20dp"/>
+                android:layout_marginLeft="-25dp"/>
 
             <TextView
                 android:id="@+id/txtUnMedidaGastoHoje"
@@ -117,7 +118,8 @@
                 android:text="m³"
                 android:layout_toRightOf="@+id/txtGastoHj"
                 android:layout_alignBottom="@+id/txtGastoHj"
-                android:textSize="@dimen/tamanho25dp"/>
+                android:textSize="@dimen/tamanho25dp"
+                android:layout_marginLeft="5dp"/>
 
             <TextView
                 android:id="@+id/txtMediaFina"
@@ -129,8 +131,9 @@
                 android:maxLength="7"
                 android:layout_below="@+id/mediaFinal"
                 android:textSize="@dimen/tamanho25dp"
-                android:layout_marginTop="10dp"
-                android:layout_alignLeft="@+id/txtGastoHj"/>
+                android:layout_marginTop="5dp"
+                android:layout_alignLeft="@+id/gastoHj"
+                android:layout_marginLeft="-35dp"/>
 
             <TextView
                 android:id="@+id/R$GastoHj"
@@ -161,7 +164,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="#4682B4"
                 android:layout_alignBottom="@+id/txtMediaFina"
-                android:layout_alignLeft="@+id/R$GastoHj"
+                android:layout_toRightOf="@+id/txtUnMedidaMediaFinal"
+                android:layout_marginLeft="@dimen/tamanho20dp"
                 android:text="@string/rs"
                 android:textSize="@dimen/tamanho25dp"/>
 
@@ -172,9 +176,9 @@
                 android:textColor="#4682B4"
                 android:layout_alignBottom="@+id/R$GastoAtual"
                 android:layout_toRightOf="@+id/R$GastoAtual"
-                android:layout_alignLeft="@+id/txtR$GastoHj"
                 android:text="@string/zero"
-                android:textSize="@dimen/tamanho25dp"/>
+                android:textSize="@dimen/tamanho25dp"
+                android:layout_marginLeft="5dp"/>
 
             <TextView
                 android:id="@+id/txtR$GastoHj"
@@ -185,7 +189,7 @@
                 android:layout_alignBottom="@+id/R$GastoHj"
                 android:text="@string/zero"
                 android:textSize="@dimen/tamanho25dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="5dp"/>
 
 
 
@@ -195,11 +199,12 @@
                 android:layout_height="wrap_content"
                 android:textColor="#4682B4"
                 android:layout_alignBottom="@+id/R$MediaFinal"
-                android:layout_alignLeft="@+id/txtR$GastoHj"
+                android:layout_toRightOf="@+id/R$MediaFinal"
                 android:text="@string/zero"
                 android:numeric="decimal"
                 android:maxLength="7"
-                android:textSize="@dimen/tamanho25dp"/>
+                android:textSize="@dimen/tamanho25dp"
+                android:layout_marginLeft="5dp"/>
 
                 <TextView
                     android:id="@+id/txtUnMediaGastoAtual"
@@ -209,7 +214,8 @@
                     android:text="m³"
                     android:layout_toRightOf="@+id/txtGastoAtua"
                     android:layout_alignBottom="@+id/txtGastoAtua"
-                    android:textSize="@dimen/tamanho25dp"/>
+                    android:textSize="@dimen/tamanho25dp"
+                    android:layout_marginLeft="5dp"/>
 
                 <TextView
                     android:id="@+id/txtUnMedidaMediaFinal"
@@ -220,14 +226,37 @@
                     android:layout_toRightOf="@+id/txtMediaFina"
                     android:layout_alignBottom="@+id/txtMediaFina"
                     android:textSize="@dimen/tamanho25dp"
+                    android:layout_marginLeft="5dp"
                     />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01/01/2001 00:00:00"
+                android:id="@+id/txtDataUltimaAtualizacaoGastoHoje"
+                android:textColor="#4682B4"
+                android:textSize="@dimen/tamanho25dp"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/txtGastoHj" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01/01/2001 00:00:00"
+                android:id="@+id/txtDataUltimaAtualizacaoGastoAtual"
+                android:layout_below="@+id/txtGastoAtua"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:textColor="#4682B4"
+                android:textSize="@dimen/tamanho25dp"/>
         </RelativeLayout>
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linearParaBotao"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:weightSum="1">

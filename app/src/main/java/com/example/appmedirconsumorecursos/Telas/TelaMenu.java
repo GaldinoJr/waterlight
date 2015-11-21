@@ -1,19 +1,8 @@
 package com.example.appmedirconsumorecursos.Telas;
 
-import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
-import com.example.appmedirconsumorecursos.Dominio.AbsFactoryRecurso;
-import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
-import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
-import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
-import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
-import com.example.appmedirconsumorecursos.Dominio.GastoAtual;
-import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
-import com.example.appmedirconsumorecursos.R;
-import com.example.appmedirconsumorecursos.R.id;
-
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,8 +11,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
+import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
+import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
+import com.example.appmedirconsumorecursos.Dominio.AbsFactoryRecurso;
+import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
+import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
+import com.example.appmedirconsumorecursos.Dominio.GastoAtual;
+import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
+import com.example.appmedirconsumorecursos.R;
+import com.example.appmedirconsumorecursos.R.id;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
@@ -36,7 +37,12 @@ public class TelaMenu extends Activity implements OnClickListener {
 			txtMediaFinal,
 			txtValorGastoHj,
 			txtValorGastoAtual,
-			txtValorMediaFinal;
+			txtValorMediaFinal,
+			txtDataUltimaAtualizacaoGastoAtual,
+			txtDataUltimaAtualizacaoGastoHoje,
+			txtUnMedidaGastoHoje,
+			txtUnMediaGastoAtual,
+			txtUnMedidaMediaFinal;
 	private Button btnAtualizar,
 			btnHistorico,
 			btnRelatorio;
@@ -86,6 +92,11 @@ public class TelaMenu extends Activity implements OnClickListener {
 		txtValorGastoHj = (TextView)findViewById(id.txtR$GastoHj);
 		txtValorGastoAtual = (TextView)findViewById(id.txtR$GastoAtual);
 		txtValorMediaFinal = (TextView)findViewById(id.txtR$MediaFinal);
+		txtDataUltimaAtualizacaoGastoAtual  = (TextView)findViewById(id.txtDataUltimaAtualizacaoGastoAtual);
+		txtDataUltimaAtualizacaoGastoHoje = (TextView)findViewById(id.txtDataUltimaAtualizacaoGastoHoje);
+		txtUnMedidaGastoHoje  = (TextView)findViewById(id.txtUnMedidaGastoHoje);
+		txtUnMediaGastoAtual  = (TextView)findViewById(id.txtUnMediaGastoAtual);
+		txtUnMedidaMediaFinal  = (TextView)findViewById(id.txtUnMedidaMediaFinal);
 		//
 		btnAtualizar = (Button)findViewById(id.btnAtualizarDados);
 		btnHistorico = (Button)findViewById(id.btnHistorico);
@@ -102,6 +113,12 @@ public class TelaMenu extends Activity implements OnClickListener {
 		//txtNome.setText(absFactoryRecurso.getNome()); // Recebe o nome do recurso e manda pra tela
 		imgRecurso.setImageResource(absFactoryRecurso.getIdIcone()); // Recebe o id da imagem e manda pra tela
 		idRecurso = Integer.parseInt(absFactoryRecurso.getIdRecurso());
+		if(idRecurso == 2) // luz ?
+		{
+			txtUnMedidaGastoHoje.setText("Kw/h");
+			txtUnMediaGastoAtual.setText("Kw/h");
+			txtUnMedidaMediaFinal.setText("Kw/h");
+		}
 		// Consulta a ultima medição registrada para apresentá-la
 		session = Session.getInstance();
 		// Gasto no dia
@@ -122,6 +139,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 				txtGastoHj.setText(String.valueOf(gastoHoje.getNrWatts()));
 				txtValorGastoHj.setText(String.valueOf(gastoHoje.getVlrGastLuz()));
 			}
+			txtDataUltimaAtualizacaoGastoHoje.setText(String.valueOf(formatarDataParaApresentacao(gastoHoje.getDtUltimaRegistroDia())));
 		}
 		// Gasto atual
 		instanciarClasses(); // consulta no banco interno
@@ -143,6 +161,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 
 				calcularGastoLuz(gastoAtual.getDtUltimaMedicao());
 			}
+			txtDataUltimaAtualizacaoGastoAtual.setText(String.valueOf(formatarDataParaApresentacao(gastoAtual.getDtUltimaMedicao())));
 		}
 	}
 
@@ -295,4 +314,39 @@ public class TelaMenu extends Activity implements OnClickListener {
 		txtMediaFinal.setText(String.valueOf(formatarNumero.format(mediaFinalMesWatts)));
 		txtValorMediaFinal.setText(String.valueOf(formatarNumero.format(mediaFianalMesValor)));
 	}
+	private String formatarDataParaApresentacao(Date data)
+	{
+		if(data == null)
+			return null;
+		else
+		{
+			int dia, mes, ano, hora, min;
+			String sData;
+			Calendar calendar = new GregorianCalendar();
+			calendar.setTime(data);
+			dia = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+			mes = calendar.get(GregorianCalendar.MONTH);
+			ano = calendar.get(GregorianCalendar.YEAR);
+			hora = calendar.get(GregorianCalendar.HOUR);
+			// amPm
+			// 0 = dia
+			// 1 = noite
+			int amPm = calendar.get(GregorianCalendar.AM_PM);
+
+			if(amPm == 1)
+			{
+				if(hora>0 && hora < 13)
+				{
+					if(hora == 12)
+						hora = 0;
+					else
+						hora += 12;
+				}
+			}
+			min = calendar.get(GregorianCalendar.MINUTE);
+			sData = dia + "/" + mes + "/" + ano + " " + hora + ":" + min;
+			return sData;
+		}
+	}
 }
+
