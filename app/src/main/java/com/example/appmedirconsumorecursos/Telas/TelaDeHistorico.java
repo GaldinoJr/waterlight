@@ -387,16 +387,15 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 	private int descobrirPeriodoComparacaoMaiorConsumo()
 	{
 		int tipoGrafico;
-		final RadioGroup rgMaiorConsumo = (RadioGroup)findViewById(id.rgMaiorConsumo);
-		int idRadioButton = rgMaiorConsumo.getCheckedRadioButtonId();
-		if (idRadioButton == id.rbMes)
-			tipoGrafico = 1;
-		else if(idRadioButton == id.rbDia)
-			tipoGrafico = 2;
-		else {
-			tipoGrafico = -1;
+		if (mes > 0) // selecionou o mes?
+		{
+			if(dia > 0)
+				tipoGrafico = 2;
+			else
+				tipoGrafico = 1;
 		}
-
+		else
+			tipoGrafico = -1;
 		return tipoGrafico;
 	}
 	private int validarInt(String sInt)

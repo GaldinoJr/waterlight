@@ -141,7 +141,13 @@ public class TelaGrafico extends Activity {
                 gastoHora.setMapFitro_indTipoComparacaoMaiorConsumo(String.valueOf(indTipoComparacaoMaiorConsumo));
                 gastoHora.setMapFiltro_idRecurso(String.valueOf(idRecurso));
                 listEntDom = gastoHora.operar(this,false,Controler.DF_CONSULTAR);
-                graficoMaiorConsumo(listEntDom);
+                if(listEntDom != null)
+                    graficoMaiorConsumo(listEntDom);
+                else
+                {
+                    Toast.makeText(TelaGrafico.this, "Não a registros nessa Data.", Toast.LENGTH_SHORT).show();
+                    onBackPressed();
+                }
             }
         }
         else // Vai pesquisar o gasto dos dias do mês
@@ -164,7 +170,13 @@ public class TelaGrafico extends Activity {
                 gastoHoje.setMapFiltro_idRecurso(String.valueOf(idRecurso));
                 listEntDom = gastoHoje.operar(this,false,Controler.DF_CONSULTAR);
                 //openChart();
-                graficoMaiorConsumo(listEntDom);
+                if(listEntDom != null)
+                    graficoMaiorConsumo(listEntDom);
+                else
+                {
+                    Toast.makeText(TelaGrafico.this, "Não a registros nessa Data.", Toast.LENGTH_SHORT).show();
+                    onBackPressed();
+                }
             }
                // createChart();
         }
