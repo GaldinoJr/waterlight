@@ -128,8 +128,8 @@ public class TelaGrafico extends Activity {
             if(indTipoComparacaoMaiorConsumo == 0) {
                 //data += " 00:00:00";
                 pesquisarGastoNoDia(data);
-            }
-            else
+        }
+        else
             {
                 gastoHora = new GastoHora();
                 gastoHora.getMapInstance();
@@ -354,8 +354,8 @@ public class TelaGrafico extends Activity {
     {
         LinearLayout layout = (LinearLayout) findViewById(R.id.layout_chart);
 
-        if (graphicalView == null) {
-
+        if (graphicalView == null)
+        {
             iniciarGrafico(series);
 
             graphicalView = ChartFactory.getCubeLineChartView(this, msDataset, mRenderer, 0.3f);
@@ -379,7 +379,7 @@ public class TelaGrafico extends Activity {
         mCurrentRenderer = new XYSeriesRenderer();
 
         mCurrentRenderer.setFillBelowLine(true);
-
+        mCurrentRenderer.setChartValuesTextSize(20);
 
         //mCurrentRenderer.setColor(Color.RED); // cor da linha do grafico
         if(idRecurso == 1) // agua?
@@ -396,11 +396,15 @@ public class TelaGrafico extends Activity {
         mCurrentRenderer.setPointStyle(PointStyle.CIRCLE);
         mCurrentRenderer.setPointStrokeWidth(3);
         mCurrentRenderer.setDisplayChartValues(true);
+        mCurrentRenderer.setChartValuesTextSize(20);
         //
 //        mCurrentRenderer.setFillBelowLine(true);
 //        mCurrentRenderer.setFillBelowLineColor(Color.parseColor("#bb20bff2"));
 
         mRenderer.addSeriesRenderer(mCurrentRenderer);
+        mRenderer.setLabelsTextSize(16);
+        mRenderer.setLegendTextSize(15);
+
         // We want to avoid black border
 
         mRenderer.setMarginsColor(Color.argb(0x00, 0xff, 0x00, 0x00)); // transparent margins
@@ -733,6 +737,7 @@ public class TelaGrafico extends Activity {
         aguaRenderer.setFillPoints(true);
         aguaRenderer.setLineWidth(2);
         aguaRenderer.setDisplayChartValues(true);
+        aguaRenderer.setChartValuesTextSize(20);
 
         // Creating XYSeriesRenderer to customize expenseSeries
         XYSeriesRenderer luzRenderer = new XYSeriesRenderer();
@@ -742,10 +747,13 @@ public class TelaGrafico extends Activity {
         luzRenderer.setFillPoints(true);
         luzRenderer.setLineWidth(2);
         luzRenderer.setDisplayChartValues(true);
-
+        luzRenderer.setChartValuesTextSize(20);
         // Creating a XYMultipleSeriesRenderer to customize the whole chart
         XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
         multiRenderer.setXLabels(0);
+        multiRenderer.setAxisTitleTextSize(16);
+        multiRenderer.setLegendTextSize(15);
+        multiRenderer.setLabelsTextSize(16);
 
         String nmTempo;
         String titulo = "";
