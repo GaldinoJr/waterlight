@@ -124,12 +124,13 @@ public class TelaGrafico extends Activity {
         if(dia > 0) // Vai pesquisar o gasto das horas do dia?
         {
             fgBuscaNoDia = true;
-            data = sDia + "/" + sMes + "/" + sAno;
-            if(indTipoComparacaoMaiorConsumo == 0) {
+            data = sAno + "-" + sMes + "-" + sDia;
+            if(indTipoComparacaoMaiorConsumo == 0)
+            {
                 //data += " 00:00:00";
                 pesquisarGastoNoDia(data);
-        }
-        else
+            }
+            else
             {
                 gastoHora = new GastoHora();
                 gastoHora.getMapInstance();

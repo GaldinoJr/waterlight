@@ -25,8 +25,19 @@ public class GastoAtual  extends EntidadeDominio {
            nrWatts,
            nrMetroCubicoAgua;
     private Integer cdResidencia;
+    private String  sDtInicioMedicao,
+                    sDtUltimaMedicao;
 
     // SETS
+
+
+    public void setsDtInicioMedicao(String sDtInicioMedicao) {
+        this.sDtInicioMedicao = sDtInicioMedicao;
+    }
+
+    public void setsDtUltimaMedicao(String sDtUltimaMedicao) {
+        this.sDtUltimaMedicao = sDtUltimaMedicao;
+    }
 
     public void setDtInicioMedicao(Date dtInicioMedicao) {
         this.dtInicioMedicao = dtInicioMedicao;
@@ -58,6 +69,15 @@ public class GastoAtual  extends EntidadeDominio {
 
     // GETS
 
+
+    public String getsDtInicioMedicao() {
+        return sDtInicioMedicao;
+    }
+
+    public String getsDtUltimaMedicao() {
+        return sDtUltimaMedicao;
+    }
+
     public Date getDtInicioMedicao() {
         return dtInicioMedicao;
     }
@@ -88,12 +108,12 @@ public class GastoAtual  extends EntidadeDominio {
 
 // SETS DO MAPA
 
-    public void setMapDtInicioMedicao(String dtInicioMedicao) {
-        map.put(DF_dtInicioMedicao,String.valueOf(dtInicioMedicao));
+    public void setMapsDtInicioMedicao(String dtInicioMedicao) {
+        map.put(DF_dtInicioMedicao, sDtInicioMedicao);
     }
 
-    public void setMapDtUltimaMedicao(String dtUltimaMedicao) {
-        map.put(DF_dtUltimaMedicao,String.valueOf(dtUltimaMedicao));
+    public void setMapsDtUltimaMedicao(String dtUltimaMedicao) {
+        map.put(DF_dtUltimaMedicao,sDtUltimaMedicao);
     }
 
     public void setMapVlrGastoAgua(String vlrGastoAgua) {
@@ -188,8 +208,7 @@ public class GastoAtual  extends EntidadeDominio {
             sMin += "0";
         sMin += String.valueOf(min);
         sHora += String.valueOf(hora) + sMin + ":00";
-        // ************verificar se não precisa trocar / por -
-        sDate = String.valueOf(dia) + "/" + sMes + "/" + sDia + sHora;
+        sDate = String.valueOf(ano) + "-" + sMes + "-" + sDia + sHora;
         return sDate;
 
     }

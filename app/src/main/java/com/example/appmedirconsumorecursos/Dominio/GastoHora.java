@@ -19,7 +19,6 @@ public class GastoHora extends EntidadeDominio {
             DF_CD_TABELA = "cd_gasto_hora",
             DF_NOME_PHP = "cadGastoHora.php";
 
-    public final static String DF_AUX_DATA = "AUX_dt_inclusao";
 
     // Filtros
     public final static String  DF_FILTRO_indTipoComparacaoMaiorConsumo = "indTipoComparacaoMaiorConsumo",
@@ -162,11 +161,7 @@ public class GastoHora extends EntidadeDominio {
 
     public void setMapsDtInclusao(String sDtInclusao)
     {
-        map.put(DF_AUX_DATA, sDtInclusao);
-    }
-
-    public void setMapDtInclusao(String dtInicioMedicao) {
-        map.put(DF_dt_inclusao,String.valueOf(dtInicioMedicao));
+        map.put(DF_dt_inclusao, sDtInclusao);
     }
 
     public void setMapVlrGastoAgua(String vlrGastoAgua) {
@@ -218,7 +213,6 @@ public class GastoHora extends EntidadeDominio {
 
     public void popularMap() {
         map.put(DF_ID, id);
-
         map.put(DF_dt_inclusao, formatarData(dtInclusao));
         map.put(DF_vlrGastoAgua, String.valueOf(vlrGastoAgua));
         map.put(DF_vlrGastLuz,String.valueOf(vlrGastLuz));
@@ -287,8 +281,7 @@ public class GastoHora extends EntidadeDominio {
             sMin += "0";
         sMin += String.valueOf(min);
         sHora += String.valueOf(hora) + sMin + ":00";
-        // ******************* verificar se não precisa trocar / para -
-        sDate = String.valueOf(dia) + "/" + sMes + "/" + sDia + sHora;
+        sDate = String.valueOf(ano) + "-" + sMes + "-" + sDia + sHora;
         return sDate;
 
     }

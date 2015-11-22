@@ -1,15 +1,11 @@
 package com.example.appmedirconsumorecursos.Controle.ViewHelper.impl;
 
 import com.example.appmedirconsumorecursos.Controle.ViewHelper2.IViewHelper;
-import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
-import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.GastoAtual;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -25,6 +21,8 @@ public class GastoAtualViewHelper implements IViewHelper {
             gastoAtual.setId((String) request.get(gastoAtual.DF_ID));
             gastoAtual.setDtInicioMedicao(fomatarData((String) request.get(gastoAtual.DF_dtInicioMedicao)));
             gastoAtual.setDtUltimaMedicao(fomatarData((String) request.get(gastoAtual.DF_dtUltimaMedicao)));
+            gastoAtual.setsDtUltimaMedicao((String) request.get(gastoAtual.DF_dtUltimaMedicao));
+            gastoAtual.setsDtInicioMedicao((String) request.get(gastoAtual.DF_dtInicioMedicao));
             if(request.get(gastoAtual.DF_vlrGastoAgua)!= null)
                 gastoAtual.setVlrGastoAgua(Double.parseDouble((String) request.get(gastoAtual.DF_vlrGastoAgua)));
             if(request.get(gastoAtual.DF_vlrGastLuz)!= null)

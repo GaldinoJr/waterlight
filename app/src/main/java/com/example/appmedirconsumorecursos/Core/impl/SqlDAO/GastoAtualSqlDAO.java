@@ -9,11 +9,9 @@ import com.example.appmedirconsumorecursos.Dominio.GastoAtual;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -65,8 +63,8 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
         mapGastoAtual = new HashMap<String, String>();
         gastoAtual =  (GastoAtual)entidade;
         try {
-            mapGastoAtual.put(Col_dt_inicio_medicao, String.valueOf(gastoAtual.getDtInicioMedicao()));
-            mapGastoAtual.put(Col_dt_ultima_medicao, String.valueOf(gastoAtual.getDtUltimaMedicao()));
+            mapGastoAtual.put(Col_dt_inicio_medicao,gastoAtual.getsDtInicioMedicao());
+            mapGastoAtual.put(Col_dt_ultima_medicao, gastoAtual.getsDtUltimaMedicao());
             mapGastoAtual.put(Col_vlr_gasto_agua, String.valueOf(gastoAtual.getVlrGastoAgua()));
             mapGastoAtual.put(Col_vlr_gasto_luz, String.valueOf(gastoAtual.getVlrGastLuz()));
             mapGastoAtual.put(Col_nr_watts, String.valueOf(gastoAtual.getNrWatts()));
@@ -87,8 +85,8 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
         try
         {
             int i;
-            mapGastoAtual.put(Col_dt_inicio_medicao, String.valueOf(gastoAtual.getDtInicioMedicao()));
-            mapGastoAtual.put(Col_dt_ultima_medicao, String.valueOf(gastoAtual.getDtUltimaMedicao()));
+            mapGastoAtual.put(Col_dt_inicio_medicao, gastoAtual.getsDtInicioMedicao());
+            mapGastoAtual.put(Col_dt_ultima_medicao, gastoAtual.getsDtUltimaMedicao());
             mapGastoAtual.put(Col_vlr_gasto_agua, String.valueOf(gastoAtual.getVlrGastoAgua()));
             mapGastoAtual.put(Col_vlr_gasto_luz, String.valueOf(gastoAtual.getVlrGastLuz()));
             mapGastoAtual.put(Col_nr_watts, String.valueOf(gastoAtual.getNrWatts()));
@@ -128,8 +126,8 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
                 GastoAtual g = new GastoAtual();
                 // ******************* TEM QUE SER A MESMA SEQUENCIA DA LISTA(colunasBusca)***********************
                 g.setId(listMapGastoAtual.get(i).get(colunasBusca[0]));
-                g.setDtInicioMedicao(converterStringParaData(listMapGastoAtual.get(i).get(colunasBusca[1])));
-                g.setDtUltimaMedicao(converterStringParaData(listMapGastoAtual.get(i).get(colunasBusca[2])));
+                g.setDtInicioMedicao(formatarData(listMapGastoAtual.get(i).get(colunasBusca[1])));
+                g.setDtUltimaMedicao(formatarData(listMapGastoAtual.get(i).get(colunasBusca[2])));
                 g.setVlrGastoAgua(Double.parseDouble(listMapGastoAtual.get(i).get(colunasBusca[3])));
                 g.setVlrGastLuz(Double.parseDouble(listMapGastoAtual.get(i).get(colunasBusca[4])));
                 g.setNrWatts(Double.parseDouble(listMapGastoAtual.get(i).get(colunasBusca[5])));
@@ -162,23 +160,23 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
         }
         return dc;
     }
-    private Date converterStringParaData(String sDate) {
-        Date date;
-        String dia,
-                mes,
-                ano,
-                hora;
-        dia = sDate.substring(8, 10);
-        mes = sDate.substring(4, 7);
-        ano = sDate.substring(24, 28);
-        hora = sDate.substring(10, 19);
-        try {
-            mes = new SimpleDateFormat("MM").format(new SimpleDateFormat("MMM", Locale.ENGLISH).parse(mes));
-        } catch (Exception e2) {
-            mes = null;
-        }
-        sDate = ano+"-"+mes+"-"+dia + " " + hora;
-        date = formatarData(sDate);
-        return date;
-    }
+//    private Date converterStringParaData(String sDate) {
+//        Date date;
+//        String dia,
+//                mes,
+//                ano,
+//                hora;
+//        dia = sDate.substring(8, 10);
+//        mes = sDate.substring(4, 7);
+//        ano = sDate.substring(24, 28);
+//        hora = sDate.substring(10, 19);
+//        try {
+//            mes = new SimpleDateFormat("MM").format(new SimpleDateFormat("MMM", Locale.ENGLISH).parse(mes));
+//        } catch (Exception e2) {
+//            mes = null;
+//        }
+//        sDate = ano+"-"+mes+"-"+dia + " " + hora;
+//        date = formatarData(sDate);
+//        return date;
+//    }
 }

@@ -30,7 +30,7 @@ public class GastoHoraViewHelper  implements IViewHelper {
             if(request.get(gastoHora.DF_vlrGastoAgua)!= null)
                 gastoHora.setNrMetroCubicoAgua(Double.parseDouble((String) request.get(gastoHora.DF_nrMetroCubicoAgua)));
             gastoHora.setCdResidencia(Integer.parseInt((String) request.get(gastoHora.DF_cdResidencia)));
-            gastoHora.setsDtInclusao((String) request.get(gastoHora.DF_AUX_DATA));
+            gastoHora.setsDtInclusao((String) request.get(gastoHora.DF_dt_inclusao));
 
             // filtros
             if(request.get(gastoHora.DF_FILTRO_fgCompararOutrasResidencias)!= null)

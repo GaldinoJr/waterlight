@@ -12,6 +12,7 @@ import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.GastoAtual;
 import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
+import com.example.appmedirconsumorecursos.Dominio.GastoHora;
 import com.example.appmedirconsumorecursos.Dominio.Residencia;
 
 import java.util.Date;
@@ -36,6 +37,7 @@ public class AtualizarAutomatico extends Service {
 
     private GastoAtual gastoAtual;
     private GastoHoje gastoHoje;
+    private GastoHora gastoHora;
 
     private static final String TAG = "Atualizar automático";
     private boolean isRunning  = false;
@@ -145,7 +147,8 @@ public class AtualizarAutomatico extends Service {
     private void atualizarGastos()
     {
         List<EntidadeDominio> listAux;
-        instanciarClasses(); // consulta no banco interno
+        listEntDom = new LinkedList<EntidadeDominio>();
+        gastoHoje = new GastoHoje();
         //gastoHoje.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
         gastoHoje.getMapInstance();
         gastoHoje.setMapCdResidencia(session.getResidencia().getId());
@@ -177,7 +180,8 @@ public class AtualizarAutomatico extends Service {
             else
                 gastoHoje.operar(this, true, Controler.DF_SALVAR);
         }
-        instanciarClasses(); // consulta no banco interno
+        listEntDom = new LinkedList<EntidadeDominio>();
+        gastoAtual = new GastoAtual();
         //gastoAtual.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
         //gastoAtual.popularMap(gastoAtual, "consultar", GastoAtual.class.getName());
         //resultado = controler.doPost(gastoAtual.getMap());
@@ -209,6 +213,39 @@ public class AtualizarAutomatico extends Service {
             }
             else
                 gastoAtual.operar(this, true, Controler.DF_SALVAR);
+        }
+        listEntDom = new LinkedList<EntidadeDominio>();
+        gastoHora = new GastoHora();
+        //
+        gastoHora.getMapInstance();
+        gastoHora.setMapCdResidencia(session.getResidencia().getId());
+        Log.i(TAG, "consultar 1");
+        listEntDom = gastoHora.operar(this,false, Controler.DF_CONSULTAR);
+        if(listEntDom != null) // Achou algum registro no servidor?
+        {
+            gastoHora = (GastoHora) listEntDom.get(0);
+            gastoHora.getMapInstance();
+            gastoHora.popularMap();
+            // Verifica se é um novo registro
+            listAux = new LinkedList<EntidadeDominio>();
+            GastoHora gastoHoraAux = new GastoHora();
+            gastoHoraAux.getMapInstance();
+            gastoHoraAux.setMapCdResidencia(session.getResidencia().getId());
+            Log.i(TAG, "consultar 2");
+            listAux = gastoHoraAux.operar(this,true, Controler.DF_CONSULTAR);
+            Log.i(TAG, "Salvar");
+            if(listAux != null) // Achou algum registro no banco interno?
+            {
+                gastoHoraAux = (GastoHora) listAux.get(0);
+                gastoHoraAux.getMapInstance();
+                gastoHoraAux.popularMap();
+                if (gastoHora.getDtInclusao().compareTo(gastoHoraAux.getDtInclusao()) != 0) {
+                    // Então atualiza o banco interno
+                    gastoHora.operar(this, true, Controler.DF_SALVAR);
+                }
+            }
+            else
+                gastoHora.operar(this, true, Controler.DF_SALVAR);
         }
     }
 
@@ -258,12 +295,7 @@ public class AtualizarAutomatico extends Service {
         residencia = new Residencia();
         controler = new Controler();
     }
-    private void instanciarClasses()
-    {
-        listEntDom = new LinkedList<EntidadeDominio>();
-        gastoAtual = new GastoAtual();
-        gastoHoje = new GastoHoje();
-    }
+
 
     @Override
     public IBinder onBind(Intent arg0) {
