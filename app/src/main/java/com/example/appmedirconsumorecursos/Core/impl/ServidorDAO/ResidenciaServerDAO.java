@@ -2,6 +2,7 @@ package com.example.appmedirconsumorecursos.Core.impl.ServidorDAO;
 
 import android.text.TextUtils;
 
+import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.Residencia;
 
@@ -17,6 +18,7 @@ import java.util.List;
  */
 public class ResidenciaServerDAO extends AbstractServerDAO
 {
+    Session session;
     private List<EntidadeDominio> listResidencias;
     private Residencia residencia;
     public ResidenciaServerDAO()
@@ -30,8 +32,39 @@ public class ResidenciaServerDAO extends AbstractServerDAO
     }
 
     @Override
-    public void alterar(EntidadeDominio entidade) {
+    public void alterar(EntidadeDominio entidade)
+    {
+        session = Session.getInstance();
+        String retornoJason = "";
+        residencia =  (Residencia)entidade;
+        JSONObject jo = new JSONObject();
 
+        try
+        {
+            String query = "UPDATE tb_residencia SET ";
+            query += "tarifa_agua = " + session.getConfiguracaoSistema().getVlrTarifaAgua()+
+                     " ,tarifa_energia = " + session.getConfiguracaoSistema().getVlrTarifaLuz()+
+                     " ,voltagem = " + session.getConfiguracaoSistema().getIndTipoVoltagem();
+            query += " WHERE cd_residencia = " + residencia.getId() +
+                     " and ds_senha = '" +  residencia.getSenha() + "'" +
+                     " and ds_nome = '" + residencia.getNome() + "'";
+//            if (!TextUtils.isEmpty(residencia.getId()))
+//                query += " cd_residencia = '" + residencia.getId() + "'";
+
+//            if (!TextUtils.isEmpty(session.getConfiguracaoSistema().getVlrTarifaAgua()))
+//                query += " AND ds_nome = '" + residencia.getNome() + "'";
+            //
+            jo.put("query", query);
+            String json = jo.toString();
+            //
+            retornoJason = openConnection("send-json", json);
+           // JSONArray jsonArray = new JSONArray(retornoJason);
+            //
+        }
+        catch(JSONException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override

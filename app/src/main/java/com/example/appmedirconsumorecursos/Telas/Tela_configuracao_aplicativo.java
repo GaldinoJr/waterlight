@@ -14,15 +14,22 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.appmedirconsumorecursos.Controle.Controler.Controler;
+import com.example.appmedirconsumorecursos.Core.Aplicacao.Resultado;
 import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
 import com.example.appmedirconsumorecursos.Dominio.ConfiguracaoSistema;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
+import com.example.appmedirconsumorecursos.Dominio.Residencia;
 import com.example.appmedirconsumorecursos.R;
 import com.example.appmedirconsumorecursos.Servicos.AtualizarAutomatico;
 
+import java.util.LinkedList;
 import java.util.List;
 
-public class Tela_configuracao_aplicativo extends Activity implements View.OnClickListener {
+public class Tela_configuracao_aplicativo extends Activity implements View.OnClickListener
+{
+    private Resultado resultado;
+    private Residencia residencia;
+    private Controler controler;
     private RadioButton rbHora,
                         rbDia,
                         rbMes,
@@ -164,7 +171,6 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
             configSistema = session.getConfiguracaoSistema();
             if(configSistema != null) // Achou alguma casa cadastrada na config do sitema?
             {
-                // Add ao mapa
                 configSistema.getMapInstance();
                 configSistema.setMapId(configSistema.getId());
                 configSistema.setMapIndTipoAtualizacao(indTipoAtualizacao);
@@ -174,13 +180,29 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
                 configSistema.setMapFgAtualizarAutomaticamente(fgLigaDesliga);
                 configSistema.setMapFgLogarAutomaticamente(configSistema.getFgLogarAutomaticamente());
                 configSistema.operar(this, true, Controler.DF_ALTERAR);
-                // add a classe
+                //
+                int antesVoltagem = configSistema.getIndTipoVoltagem();
+                double antesVlrTarifaAgua = configSistema.getVlrTarifaAgua(),
+                        antesVlrTarifaLuz = configSistema.getVlrTarifaLuz();
+                //
                 configSistema.setIndTipoAtualizacao(indTipoAtualizacao);
                 configSistema.setIndTipoVoltagem(indTipoVoltagem);
                 configSistema.setVlrTarifaAgua(vlrTarifaAgua);
                 configSistema.setVlrTarifaLuz(vlrTarifaLuz);
                 configSistema.setFgAtualizarAutomaticamente(fgLigaDesliga);
                 session.setConfiguracaoSistema(configSistema);
+                // Verifica se mudou algum dado referente ao custo
+                if(antesVoltagem != indTipoVoltagem || antesVlrTarifaAgua != vlrTarifaAgua || antesVlrTarifaLuz != vlrTarifaLuz)
+                {
+                    // se mudou atualiza o servidor
+                    instanciarClasses(false); // operação no servidor
+                    residencia.setSenha(session.getResidencia().getSenha());
+                    residencia.setNome(session.getResidencia().getNome());
+                    residencia.setId(session.getResidencia().getId());
+                    residencia.popularMap(residencia, Controler.DF_ALTERAR, Residencia.class.getName());
+                    resultado = controler.doPost(residencia.getMap());
+                    //listEntDom = resultado.getEntidades();
+                }
                 //ligarDesligarServico(fgLigaDesliga);
                 Toast.makeText(Tela_configuracao_aplicativo.this, "Configurações gravadas com sucesso", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
@@ -225,5 +247,17 @@ public class Tela_configuracao_aplicativo extends Activity implements View.OnCli
             }
         }
         return dValor;
+    }
+    private void instanciarClasses(boolean fgSql)
+    {
+        session = Session.getInstance();
+        if(fgSql)
+            session.setContext(this);
+        else
+            session.setContext(null);
+        listEntDom = new LinkedList<EntidadeDominio>();
+        resultado = new Resultado();
+        residencia = new Residencia();
+        controler = new Controler();
     }
 }

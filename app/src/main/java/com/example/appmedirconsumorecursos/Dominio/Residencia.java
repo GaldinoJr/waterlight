@@ -137,6 +137,7 @@ public class Residencia extends EntidadeDominio{
     {
         Residencia residencia = (Residencia)entidadeDominio;
         map = new HashMap<String, String>();
+        map.put(DF_ID, id);
         map.put(residencia.DF_NOME, residencia.getNome());
         map.put(residencia.DF_ENDERECO,residencia.getEndereco());
         map.put(residencia.DF_BAIRRO,residencia.getBairro());
