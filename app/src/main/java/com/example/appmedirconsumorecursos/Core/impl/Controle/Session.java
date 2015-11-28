@@ -17,6 +17,7 @@ public class Session {
     private Residencia residencia;
     private ConfiguracaoSistema configuracaoSistema;
     private Intent servico;
+    private String nameInstanceClass;
 
     // Construtor privado (suprime o construtor público padrão).
     private Session() {}
@@ -29,6 +30,11 @@ public class Session {
     }
 
     // gets
+
+    public String getNameInstanceClass() {
+        return nameInstanceClass;
+    }
+
     public Context getContext() {
         return context;
     }
@@ -45,8 +51,12 @@ public class Session {
         return configuracaoSistema;
     }
 
+
     // sets
 
+    public void setNameInstanceClass(String nameInstanceClass) {
+        this.nameInstanceClass = nameInstanceClass;
+    }
 
     public void setServico(Intent servico) {
         this.servico = servico;

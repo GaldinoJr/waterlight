@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 public class SQL extends SQLiteOpenHelper {
+    private static SQL sInstance;
+
     private int i;
     private String sqlCriarTabela;
     private String[] colunas;
@@ -23,9 +25,35 @@ public class SQL extends SQLiteOpenHelper {
     private String nomeTabela;
     // Database Version
     private static final int DATABASE_VERSION = 2;
-    public SQL(Context context, String nomeBase, String nomeTabela, String[] colunas, String sqlCriarTabela) {
-        super(context, nomeBase, null, DATABASE_VERSION);
-        //onUpgrade();
+//    public SQL(Context context, String nomeBase, String nomeTabela, String[] colunas, String sqlCriarTabela) {
+//        super(context, nomeBase, null, DATABASE_VERSION);
+//        //onUpgrade();
+//        this.nomeTabela = nomeTabela;
+//        this.colunas = new String[colunas.length];
+//        this.colunas = colunas;
+//        this.sqlCriarTabela = sqlCriarTabela;
+//        try {
+//            SQLiteDatabase db = getReadableDatabase();
+//            onCreate(db); // sempre colocar IF NOT EXISTS na criacão da tabela
+//        }
+//        catch (SQLiteException e)
+//        {
+//            e.printStackTrace();
+//        }
+//
+//    }
+    public static synchronized SQL getInstance(Context context, String nomeBase) {
+
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (sInstance == null) {
+            sInstance = new SQL(context, nomeBase);
+        }
+        return sInstance;
+    }
+    public void popularInfo(String nomeTabela, String[] colunas, String sqlCriarTabela)
+    {
         this.nomeTabela = nomeTabela;
         this.colunas = new String[colunas.length];
         this.colunas = colunas;
@@ -38,7 +66,9 @@ public class SQL extends SQLiteOpenHelper {
         {
             e.printStackTrace();
         }
-
+    }
+    private SQL(Context context, String nomeBase) {
+        super(context, nomeBase, null, DATABASE_VERSION);
     }
 
 
@@ -219,6 +249,12 @@ public class SQL extends SQLiteOpenHelper {
         }
         db.close();
         return LMregistro;
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        this.close();
+        super.finalize();
     }
 
     // mudar para deletar registro

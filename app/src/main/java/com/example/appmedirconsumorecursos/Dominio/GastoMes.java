@@ -14,8 +14,9 @@ import java.util.List;
 /**
  * Created by Galdino on 14/09/2015.
  */
-public class GastoMes extends EntidadeDominio {
-
+public class GastoMes extends EntidadeDominio
+{
+    private Session session;
     public final static String
             DF_vlrGastoAgua = "vlr_gasto_agua",
             DF_vlrGastLuz = "vlr_gasto_luz",
@@ -110,6 +111,8 @@ public class GastoMes extends EntidadeDominio {
         map.put(DF_cdResidencia, String.valueOf(cdResidencia));
         map.put("operacao", acao);          // indica a operação que está sendo realizada
         map.put("classe", GastoMes.class.getName());
+        session = Session.getInstance();
+        session.setNameInstanceClass(GastoMes.class.getName());
     }
 
     public List<EntidadeDominio> operar(Context context, boolean fgSql, String operacao)

@@ -1,12 +1,14 @@
 package com.example.appmedirconsumorecursos.Dominio;
 
+import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
+
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Galdino on 24/08/2015.
  */
 public class Residencia extends EntidadeDominio{
+    private Session session;
     private String  ds_nome,
                     ds_endereco,
                     ds_bairro,
@@ -31,8 +33,12 @@ public class Residencia extends EntidadeDominio{
                                 DF_FG_EXCLUIDO = "fg_excluido";
 
 
+    public Residencia()
+    {
+        session = Session.getInstance();
+        session.setNameInstanceClass(Residencia.class.getName());
+    }
     // sets
-
 
     public void setCep(String nr_cep) {
         this.nr_cep = nr_cep;

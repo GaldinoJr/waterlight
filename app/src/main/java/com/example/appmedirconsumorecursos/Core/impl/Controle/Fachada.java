@@ -68,17 +68,29 @@ public class Fachada  implements IFachada {
         else// Banco interno
         {
             /***************ADD AS CLASSES DAO CORRESPONDENTES AS CLASSES CONCRETAS ******/
-            ResidenciaSqlDAO residenciaSqlDAO = new ResidenciaSqlDAO(session.getContext());
-            ConfiguracaoSistemaSqlDAO configSistemaSqlDAO = new ConfiguracaoSistemaSqlDAO(session.getContext());
-            GastoAtualSqlDAO gastoAtualSqlDAO = new GastoAtualSqlDAO(session.getContext());
-            GastoHojeSqlDAO2 gastoHojeSqlDAO = new GastoHojeSqlDAO2(session.getContext());
-            GastoHoraSqlDAO gastoHoraSqlDAO = new GastoHoraSqlDAO(session.getContext());
-            // ADD AS CLASSES DAO CORRESPONDENTES AS CLASSES CONCRETAS ******
-            daos.put(Residencia.class.getName(), residenciaSqlDAO);
-            daos.put(ConfiguracaoSistema.class.getName(), configSistemaSqlDAO);
-            daos.put(GastoAtual.class.getName(),gastoAtualSqlDAO);
-            daos.put(GastoHoje.class.getName(), gastoHojeSqlDAO);
-            daos.put(GastoHora.class.getName(), gastoHoraSqlDAO);
+            if(session.getNameInstanceClass() != null) {
+                if (session.getNameInstanceClass() == Residencia.class.getName()) {
+                    ResidenciaSqlDAO residenciaSqlDAO = new ResidenciaSqlDAO(session.getContext());
+                    daos.put(Residencia.class.getName(), residenciaSqlDAO);
+                }
+                if (session.getNameInstanceClass() == ConfiguracaoSistema.class.getName()) {
+                    ConfiguracaoSistemaSqlDAO configSistemaSqlDAO = new ConfiguracaoSistemaSqlDAO(session.getContext());
+                    daos.put(ConfiguracaoSistema.class.getName(), configSistemaSqlDAO);
+                }
+                if (session.getNameInstanceClass() == GastoAtual.class.getName()) {
+                    GastoAtualSqlDAO gastoAtualSqlDAO = new GastoAtualSqlDAO(session.getContext());
+                    daos.put(GastoAtual.class.getName(), gastoAtualSqlDAO);
+                }
+                if (session.getNameInstanceClass() == GastoHoje.class.getName()) {
+                    GastoHojeSqlDAO2 gastoHojeSqlDAO = new GastoHojeSqlDAO2(session.getContext());
+                    daos.put(GastoHoje.class.getName(), gastoHojeSqlDAO);
+                }
+                if (session.getNameInstanceClass() == GastoHora.class.getName()) {
+                    GastoHoraSqlDAO gastoHoraSqlDAO = new GastoHoraSqlDAO(session.getContext());
+                    daos.put(GastoHora.class.getName(), gastoHoraSqlDAO);
+                }
+                // ADD AS CLASSES DAO CORRESPONDENTES AS CLASSES CONCRETAS ******
+            }
         }
 
 

@@ -40,7 +40,9 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
     public GastoAtualSqlDAO(Context context)
     {
         iniciar();
-        db  = new SQL(context, DATABASE_NAME, nomeTabela,colunas, sqlCriarTabela );
+        //db  = new SQL(context, DATABASE_NAME, nomeTabela,colunas, sqlCriarTabela );
+        db  = SQL.getInstance(context, DATABASE_NAME );
+        db.popularInfo( nomeTabela, colunas, sqlCriarTabela);
     }
     @Override
     protected void iniciar() {
@@ -71,6 +73,7 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
             mapGastoAtual.put(Col_nr_metro_cubico_agua, String.valueOf(gastoAtual.getNrMetroCubicoAgua()));
             mapGastoAtual.put(Col_cd_residencia, String.valueOf(gastoAtual.getCdResidencia()));
             db.addRegistro(mapGastoAtual);
+            //db.close();
         }
         catch(Exception e)
         {
@@ -93,6 +96,7 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
             mapGastoAtual.put(Col_nr_metro_cubico_agua, String.valueOf(gastoAtual.getNrMetroCubicoAgua()));
             mapGastoAtual.put(Col_cd_residencia, String.valueOf(gastoAtual.getCdResidencia()));
             i = db.alterarRegistro(mapGastoAtual,Col_cd_gasto_atual, gastoAtual.getId());
+            //db.close();
 
         }
         catch(Exception e){ e.printStackTrace(); }
@@ -121,6 +125,7 @@ public class GastoAtualSqlDAO extends AbstractSqlDAO {
             listGastoAtual = new ArrayList<EntidadeDominio>();
             List<Map<String, String>> listMapGastoAtual = new LinkedList<Map<String, String>>();
             listMapGastoAtual = db.pesquisarComSelect(query, colunasBusca);
+           // db.close();
             for(i = 0; i< listMapGastoAtual.size();i++)
             {
                 GastoAtual g = new GastoAtual();

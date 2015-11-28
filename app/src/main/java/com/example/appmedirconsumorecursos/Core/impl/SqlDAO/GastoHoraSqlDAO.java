@@ -32,14 +32,16 @@ public class GastoHoraSqlDAO  extends AbstractSqlDAO {
     private static final String[] colunas = { Col_dt_inclusao, Col_vlr_gasto_agua, Col_vlr_gasto_luz, Col_nr_watts, Col_nr_metro_cubico_agua, Col_cd_residencia};
     private static final String[] colunasBusca = {Col_cd_gasto_hora, Col_dt_inclusao, Col_vlr_gasto_agua, Col_vlr_gasto_luz, Col_nr_watts, Col_nr_metro_cubico_agua, Col_cd_residencia};
     private SQL db;
-    private Map<String, String> mapGastoHoje;
-    private List<EntidadeDominio> listGastoHoje;
+    private Map<String, String> mapGastoHora;
+    private List<EntidadeDominio> listGastoHora;
     private GastoHora gastoHora;
 
     public GastoHoraSqlDAO(Context context)
     {
         iniciar();
-        db  = new SQL(context, DATABASE_NAME, nomeTabela,colunas, sqlCriarTabela );
+        //db  = new SQL(context, DATABASE_NAME, nomeTabela,colunas, sqlCriarTabela );
+        db  = SQL.getInstance(context, DATABASE_NAME);
+        db.popularInfo( nomeTabela, colunas, sqlCriarTabela);
     }
 
     @Override
@@ -58,16 +60,17 @@ public class GastoHoraSqlDAO  extends AbstractSqlDAO {
 
     @Override
     public void salvar(EntidadeDominio entidade) {
-        mapGastoHoje = new HashMap<String, String>();
+        mapGastoHora = new HashMap<String, String>();
         gastoHora =  (GastoHora)entidade;
         try {
-            mapGastoHoje.put(Col_dt_inclusao, String.valueOf(gastoHora.getsDtInclusao()));
-            mapGastoHoje.put(Col_vlr_gasto_agua, String.valueOf(gastoHora.getVlrGastoAgua()));
-            mapGastoHoje.put(Col_vlr_gasto_luz, String.valueOf(gastoHora.getVlrGastLuz()));
-            mapGastoHoje.put(Col_nr_watts, String.valueOf(gastoHora.getNrWatts()));
-            mapGastoHoje.put(Col_nr_metro_cubico_agua, String.valueOf(gastoHora.getNrMetroCubicoAgua()));
-            mapGastoHoje.put(Col_cd_residencia, String.valueOf(gastoHora.getCdResidencia()));
-            db.addRegistro(mapGastoHoje);
+            mapGastoHora.put(Col_dt_inclusao, String.valueOf(gastoHora.getsDtInclusao()));
+            mapGastoHora.put(Col_vlr_gasto_agua, String.valueOf(gastoHora.getVlrGastoAgua()));
+            mapGastoHora.put(Col_vlr_gasto_luz, String.valueOf(gastoHora.getVlrGastLuz()));
+            mapGastoHora.put(Col_nr_watts, String.valueOf(gastoHora.getNrWatts()));
+            mapGastoHora.put(Col_nr_metro_cubico_agua, String.valueOf(gastoHora.getNrMetroCubicoAgua()));
+            mapGastoHora.put(Col_cd_residencia, String.valueOf(gastoHora.getCdResidencia()));
+            db.addRegistro(mapGastoHora);
+           // db.close();
         }
         catch(Exception e)
         {
@@ -81,14 +84,14 @@ public class GastoHoraSqlDAO  extends AbstractSqlDAO {
         try
         {
             int i;
-            mapGastoHoje.put(Col_dt_inclusao, String.valueOf(gastoHora.getsDtInclusao()));
-            mapGastoHoje.put(Col_vlr_gasto_agua, String.valueOf(gastoHora.getVlrGastoAgua()));
-            mapGastoHoje.put(Col_vlr_gasto_luz, String.valueOf(gastoHora.getVlrGastLuz()));
-            mapGastoHoje.put(Col_nr_watts, String.valueOf(gastoHora.getNrWatts()));
-            mapGastoHoje.put(Col_nr_metro_cubico_agua, String.valueOf(gastoHora.getNrMetroCubicoAgua()));
-            mapGastoHoje.put(Col_cd_residencia, String.valueOf(gastoHora.getCdResidencia()));
-            i = db.alterarRegistro(mapGastoHoje,Col_cd_gasto_hora, gastoHora.getId());
-
+            mapGastoHora.put(Col_dt_inclusao, String.valueOf(gastoHora.getsDtInclusao()));
+            mapGastoHora.put(Col_vlr_gasto_agua, String.valueOf(gastoHora.getVlrGastoAgua()));
+            mapGastoHora.put(Col_vlr_gasto_luz, String.valueOf(gastoHora.getVlrGastLuz()));
+            mapGastoHora.put(Col_nr_watts, String.valueOf(gastoHora.getNrWatts()));
+            mapGastoHora.put(Col_nr_metro_cubico_agua, String.valueOf(gastoHora.getNrMetroCubicoAgua()));
+            mapGastoHora.put(Col_cd_residencia, String.valueOf(gastoHora.getCdResidencia()));
+            i = db.alterarRegistro(mapGastoHora,Col_cd_gasto_hora, gastoHora.getId());
+            db.close();
         }
         catch(Exception e){ e.printStackTrace(); }
     }
@@ -122,9 +125,10 @@ public class GastoHoraSqlDAO  extends AbstractSqlDAO {
 
             query += " ORDER BY "+Col_dt_inclusao+ " DESC";
             //query += " ORDER BY " + Col_dt_inclusao + " ASC";
-            listGastoHoje = new ArrayList<EntidadeDominio>();
+            listGastoHora = new ArrayList<EntidadeDominio>();
             List<Map<String, String>> listMapGastoHoje = new LinkedList<Map<String, String>>();
             listMapGastoHoje = db.pesquisarComSelect(query, colunasBusca);
+           // db.close();
             for(i = 0; i< listMapGastoHoje.size();i++)
             {
                 GastoHora g = new GastoHora();
@@ -136,10 +140,10 @@ public class GastoHoraSqlDAO  extends AbstractSqlDAO {
                 g.setNrWatts(Double.parseDouble(listMapGastoHoje.get(i).get(colunasBusca[4])));
                 g.setNrMetroCubicoAgua(Double.parseDouble(listMapGastoHoje.get(i).get(colunasBusca[5])));
                 g.setCdResidencia(Integer.parseInt(listMapGastoHoje.get(i).get(colunasBusca[6])));
-                listGastoHoje.add(g);
+                listGastoHora.add(g);
             }
-            if(listGastoHoje.size() > 0)
-                return listGastoHoje;
+            if(listGastoHora.size() > 0)
+                return listGastoHora;
             else
                 return null;
         }

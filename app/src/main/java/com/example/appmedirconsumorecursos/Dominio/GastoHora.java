@@ -1,5 +1,7 @@
 package com.example.appmedirconsumorecursos.Dominio;
 
+import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
+
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -8,6 +10,7 @@ import java.util.HashMap;
  * Created by Galdino on 24/10/2015.
  */
 public class GastoHora extends EntidadeDominio {
+    private Session session;
     public final static String
             DF_vlrGastoAgua = "vlr_gasto_agua",
             DF_vlrGastLuz = "vlr_gasto_luz",
@@ -225,6 +228,8 @@ public class GastoHora extends EntidadeDominio {
     {
         map = new HashMap<String, String>();
         map.put("classe", GastoHora.class.getName());
+        session = Session.getInstance();
+        session.setNameInstanceClass(GastoHora.class.getName());
     }
     private String formatarData(Date data)
     {

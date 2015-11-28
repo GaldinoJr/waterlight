@@ -326,6 +326,7 @@ public class TelaMenu extends Activity implements OnClickListener {
 			calendar.setTime(data);
 			dia = calendar.get(GregorianCalendar.DAY_OF_MONTH);
 			mes = calendar.get(GregorianCalendar.MONTH);
+			mes++;
 			ano = calendar.get(GregorianCalendar.YEAR);
 			hora = calendar.get(GregorianCalendar.HOUR);
 			// amPm

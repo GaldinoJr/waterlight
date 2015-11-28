@@ -1,11 +1,14 @@
 package com.example.appmedirconsumorecursos.Dominio;
 
+import com.example.appmedirconsumorecursos.Core.impl.Controle.Session;
+
 import java.util.HashMap;
 
 /**
  * Created by Galdino on 02/09/2015.
  */
 public class ConfiguracaoSistema extends EntidadeDominio{
+    private Session session;
     //
     public static final String DF_FG_ATUALIZAR_AUTOMATICAMENTE = "fg_atualizar_automaticamente";
     public static final String DF_FG_LOGAR_AUTOMATICAMENTE = "fg_logar_automaticamente";
@@ -113,5 +116,7 @@ public class ConfiguracaoSistema extends EntidadeDominio{
 //        map.put(DF_IND_TIPO_ATUALIZACAO,"");
 //        map.put("operacao", "");          // indica a operação que está sendo realizada
         map.put("classe",  ConfiguracaoSistema.class.getName());
+        session = Session.getInstance();
+        session.setNameInstanceClass(ConfiguracaoSistema.class.getName());
     }
 }

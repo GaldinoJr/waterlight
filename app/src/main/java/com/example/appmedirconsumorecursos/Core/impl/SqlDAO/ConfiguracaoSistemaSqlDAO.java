@@ -34,7 +34,9 @@ public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
     public ConfiguracaoSistemaSqlDAO(Context context)
     {
         iniciar();
-        db  = new SQL(context, DATABASE_NAME, nomeTabela,colunas, sqlCriarTabela );
+        //db  = new SQL(context, DATABASE_NAME, nomeTabela,colunas, sqlCriarTabela );
+        db  = SQL.getInstance(context, DATABASE_NAME );
+        db.popularInfo( nomeTabela, colunas, sqlCriarTabela);
     }
 
     @Override
@@ -63,6 +65,7 @@ public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
             mapGeral.put(Col_vlr_tarifa_luz, String.valueOf(configSistema.getVlrTarifaLuz()));
             mapGeral.put(Col_ind_tipo_atualizacao, String.valueOf(configSistema.getIndTipoAtualizacao()));
             db.addRegistro(mapGeral);
+            //db.close();
         }
         catch(Exception e)
         {
@@ -84,6 +87,7 @@ public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
             mapGeral.put(Col_vlr_tarifa_luz, String.valueOf(configSistema.getVlrTarifaLuz()));
             mapGeral.put(Col_ind_tipo_atualizacao, String.valueOf(configSistema.getIndTipoAtualizacao()));
             i = db.alterarRegistro(mapGeral,Col_cd_residencia, configSistema.getId());
+          //  db.close();
 
         }
         catch(Exception e){ e.printStackTrace(); }
@@ -112,6 +116,7 @@ public class ConfiguracaoSistemaSqlDAO extends AbstractSqlDAO{
             listGeral = new ArrayList<EntidadeDominio>();
             List<Map<String, String>> listMapGeral = new LinkedList<Map<String, String>>();
             listMapGeral = db.pesquisarComSelect(query, colunasBusca);
+            //db.close();
             for(i = 0; i< listMapGeral.size();i++)
             {
                 ConfiguracaoSistema g = new ConfiguracaoSistema();

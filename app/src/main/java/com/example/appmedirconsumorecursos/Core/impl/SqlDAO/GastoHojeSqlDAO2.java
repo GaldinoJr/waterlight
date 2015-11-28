@@ -39,7 +39,9 @@ public class GastoHojeSqlDAO2 extends AbstractSqlDAO {
     public GastoHojeSqlDAO2(Context context)
     {
         iniciar();
-        db  = new SQL(context, DATABASE_NAME, nomeTabela,colunas, sqlCriarTabela );
+       // db  = SQL.getInstance(context, DATABASE_NAME, nomeTabela, colunas, sqlCriarTabela );
+        db  = SQL.getInstance(context, DATABASE_NAME);
+        db.popularInfo( nomeTabela, colunas, sqlCriarTabela);
     }
 
     @Override
@@ -68,6 +70,7 @@ public class GastoHojeSqlDAO2 extends AbstractSqlDAO {
             mapGastoHoje.put(Col_nr_metro_cubico_agua, String.valueOf(gastohoje.getNrMetroCubicoAgua()));
             mapGastoHoje.put(Col_cd_residencia, String.valueOf(gastohoje.getCdResidencia()));
             db.addRegistro(mapGastoHoje);
+           /// db.close();
         }
         catch(Exception e)
         {
@@ -88,7 +91,7 @@ public class GastoHojeSqlDAO2 extends AbstractSqlDAO {
             mapGastoHoje.put(Col_nr_metro_cubico_agua, String.valueOf(gastohoje.getNrMetroCubicoAgua()));
             mapGastoHoje.put(Col_cd_residencia, String.valueOf(gastohoje.getCdResidencia()));
             i = db.alterarRegistro(mapGastoHoje,Col_cd_gasto_hoje, gastohoje.getId());
-
+           // db.close();
         }
         catch(Exception e){ e.printStackTrace(); }
     }
@@ -127,6 +130,8 @@ public class GastoHojeSqlDAO2 extends AbstractSqlDAO {
             listGastoHoje = new ArrayList<EntidadeDominio>();
             List<Map<String, String>> listMapGastoHoje = new LinkedList<Map<String, String>>();
             listMapGastoHoje = db.pesquisarComSelect(query, colunasBusca);
+           // db.close();
+            //db.finalize();
             for(i = 0; i< listMapGastoHoje.size();i++)
             {
                 GastoHoje g = new GastoHoje();
@@ -145,9 +150,11 @@ public class GastoHojeSqlDAO2 extends AbstractSqlDAO {
             else
                 return null;
         }
-        catch(Exception e){ e.printStackTrace(); }
+        catch(Exception e){ e.printStackTrace(); } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
 
-            return null;
+        return null;
     }
     private Date formatarData(String data)
     {

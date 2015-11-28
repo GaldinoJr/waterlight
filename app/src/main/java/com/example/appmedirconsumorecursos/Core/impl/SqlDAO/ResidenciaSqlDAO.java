@@ -6,8 +6,6 @@ import android.text.TextUtils;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.Residencia;
 
-import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -43,7 +41,9 @@ public class ResidenciaSqlDAO extends AbstractSqlDAO {
 
     public ResidenciaSqlDAO(Context context){
         iniciar();
-        db  = new SQL(context, DATABASE_NAME, nomeTabela,colunas, sqlCriarTabela );
+       // db  = new SQL(context, DATABASE_NAME, nomeTabela,colunas, sqlCriarTabela );
+        db  = SQL.getInstance(context, DATABASE_NAME );
+        db.popularInfo( nomeTabela, colunas, sqlCriarTabela);
     }
 
 
@@ -84,6 +84,8 @@ public class ResidenciaSqlDAO extends AbstractSqlDAO {
             mapResidencia.put(Col_fg_excluido, String.valueOf(residencia.getFgExcluido()));
 
             db.addRegistro(mapResidencia);
+
+           // db.close();
         }
         catch(Exception e)
         {
@@ -121,6 +123,7 @@ public class ResidenciaSqlDAO extends AbstractSqlDAO {
             listResidencias = new ArrayList<EntidadeDominio>();
              List<Map<String, String>> lmResidencias = new LinkedList<Map<String, String>>();
             lmResidencias = db.pesquisarComSelect(query, colunasBusca);
+           // db.close();
             for(i = 0; i< lmResidencias.size();i++)
             {
                 Residencia r = new Residencia();

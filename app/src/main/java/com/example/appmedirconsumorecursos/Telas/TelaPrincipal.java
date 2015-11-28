@@ -116,6 +116,11 @@ public class TelaPrincipal extends Activity implements OnClickListener {
 			configSistema = session.getConfiguracaoSistema();
 			configSistema.getMapInstance();
 			configSistema.setMapId(configSistema.getId());
+			configSistema.setMapIndTipoAtualizacao(configSistema.getIndTipoAtualizacao());
+			configSistema.setMapIndTipoVoltagem(configSistema.getIndTipoVoltagem());
+			configSistema.setMapVlrTarifaAgua(configSistema.getVlrTarifaAgua());
+			configSistema.setMapVlrTarifaLuz(configSistema.getVlrTarifaLuz());
+			configSistema.setMapFgAtualizarAutomaticamente(configSistema.getFgAtualizarAutomaticamente());
 			configSistema.setMapFgLogarAutomaticamente(0);
 			listEntDom = configSistema.operar(this, true, Controler.DF_ALTERAR);
 			//

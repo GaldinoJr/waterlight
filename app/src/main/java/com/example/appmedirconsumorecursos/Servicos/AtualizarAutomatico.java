@@ -76,6 +76,7 @@ public class AtualizarAutomatico extends Service {
             //Always write your long running tasks in a separate thread, to avoid ANR
             if (qtdTempoParaAtualizar > 0)
             {
+                Log.i(TAG, "new thread");
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -92,7 +93,7 @@ public class AtualizarAutomatico extends Service {
                                         // Atualiza o banco interno
                                         atualizarGastos();
                                         // Espera o tempo da configuração para atualizar novamente
-                                        Thread.sleep(qtdTempoParaAtualizar);
+                                        Thread.sleep (qtdTempoParaAtualizar);
 
                                     } catch (Exception e) {
 
@@ -143,6 +144,22 @@ public class AtualizarAutomatico extends Service {
         }
         return tempo;
     }
+//PARA TESTE
+//    private void atualizarGastos() {
+//        List<EntidadeDominio> listAux = new LinkedList<EntidadeDominio>();
+//        GastoHoje gastoHojeAux = new GastoHoje();
+//        gastoHojeAux.getMapInstance();
+//        gastoHojeAux.setMapCdResidencia(session.getResidencia().getId());
+//        Log.i(TAG, "consultar gasto hoje interno");
+//        listAux = gastoHojeAux.operar(this,true, Controler.DF_CONSULTAR);
+//        if(listAux != null) // Achou algum registro no banco interno?
+//        {
+//            gastoHojeAux = (GastoHoje) listAux.get(0);
+//            gastoHojeAux.getMapInstance();
+//            gastoHojeAux.popularMap();
+//            Log.i(TAG, "BBBLEZA");
+//        }
+//    }
 
     private void atualizarGastos()
     {
@@ -152,7 +169,7 @@ public class AtualizarAutomatico extends Service {
         //gastoHoje.setCdResidencia(Integer.parseInt(session.getResidencia().getId()));
         gastoHoje.getMapInstance();
         gastoHoje.setMapCdResidencia(session.getResidencia().getId());
-        Log.i(TAG, "consultar 1");
+        Log.i(TAG, "consultar gasto hoje externo");
         listEntDom = gastoHoje.operar(this,false, Controler.DF_CONSULTAR);
         if(listEntDom != null) // Achou algum registro no servidor?
         {
@@ -164,7 +181,7 @@ public class AtualizarAutomatico extends Service {
             GastoHoje gastoHojeAux = new GastoHoje();
             gastoHojeAux.getMapInstance();
             gastoHojeAux.setMapCdResidencia(session.getResidencia().getId());
-            Log.i(TAG, "consultar 2");
+            Log.i(TAG, "consultar gasto hoje interno");
             listAux = gastoHojeAux.operar(this,true, Controler.DF_CONSULTAR);
             Log.i(TAG, "Salvar");
             if(listAux != null) // Achou algum registro no banco interno?
@@ -188,6 +205,7 @@ public class AtualizarAutomatico extends Service {
         gastoAtual.getMapInstance();
         gastoAtual.setMapCdResidencia(session.getResidencia().getId());
         Log.i(TAG, "AAAA");
+        Log.i(TAG, "consultar gasto atual externo");
         listEntDom = gastoAtual.operar(this,false, Controler.DF_CONSULTAR);
         if(listEntDom != null) // Achou algum registro no servidor?
         { // Sim
@@ -200,6 +218,7 @@ public class AtualizarAutomatico extends Service {
             GastoAtual gastoAtualAux = new GastoAtual();
             gastoAtualAux.getMapInstance();
             gastoAtualAux.setMapCdResidencia(session.getResidencia().getId());
+            Log.i(TAG, "consultar gasto atual externo");
             listAux = gastoAtualAux.operar(this,true, Controler.DF_CONSULTAR);
             if(listAux != null) // Achou algum registro no servidor?
             {
