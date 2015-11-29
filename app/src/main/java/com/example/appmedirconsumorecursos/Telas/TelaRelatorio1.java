@@ -491,11 +491,6 @@ public class TelaRelatorio1 extends Activity {
                     hora += 12;
             }
         }
-        //
-        hora--;
-        if(hora<0)
-            hora = 23;
-        //
         String sHora = " ";
         if(hora<=9)
         {
