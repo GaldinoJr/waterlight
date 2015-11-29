@@ -158,9 +158,8 @@ public class TelaMenu extends Activity implements OnClickListener {
 			{
 				txtGastoAtual.setText(String.valueOf(gastoAtual.getNrWatts()));
 				txtValorGastoAtual.setText(String.valueOf(gastoAtual.getVlrGastLuz()));
-
-				calcularGastoLuz(gastoAtual.getDtUltimaMedicao());
 			}
+			calcularPrevisaoGasto(gastoAtual.getDtUltimaMedicao());
 			txtDataUltimaAtualizacaoGastoAtual.setText(String.valueOf(formatarDataParaApresentacao(gastoAtual.getDtUltimaMedicao())));
 		}
 	}
@@ -255,9 +254,9 @@ public class TelaMenu extends Activity implements OnClickListener {
 				{
 					txtGastoAtual.setText(String.valueOf(gastoAtual.getNrWatts()));
 					txtValorGastoAtual.setText(String.valueOf(gastoAtual.getVlrGastLuz()));
-
-					calcularGastoLuz(gastoAtual.getDtUltimaMedicao());
 				}
+				calcularPrevisaoGasto(gastoAtual.getDtUltimaMedicao());
+				txtDataUltimaAtualizacaoGastoAtual.setText(String.valueOf(formatarDataParaApresentacao(gastoAtual.getDtUltimaMedicao())));
 			}
 			Toast.makeText(TelaMenu.this, "Dados atualizados com sucesso", Toast.LENGTH_LONG).show();
 		}
@@ -294,25 +293,68 @@ public class TelaMenu extends Activity implements OnClickListener {
 		gastoAtual = new GastoAtual();
 		gastoHoje = new GastoHoje();
 	}
-	private void calcularGastoLuz(Date date)
+	private void calcularPrevisaoGasto(Date date)
 	{
+		double vlrTarifa = 0,
+				consumo = 0,
+				vlrGastoAtual = 0;
+		if(idRecurso == 1) {
+			vlrTarifa = session.getConfiguracaoSistema().getVlrTarifaAgua();
+			consumo = gastoAtual.getNrMetroCubicoAgua();
+			//vlrGastoAtual = gastoAtual.getVlrGastoAgua();
+		}
+		else if(idRecurso == 2) {
+			vlrTarifa = session.getConfiguracaoSistema().getVlrTarifaLuz();
+			consumo = gastoAtual.getNrWatts();
+			//vlrGastoAtual = gastoAtual.getVlrGastLuz();
+		}
+		if(vlrTarifa ==0)
+			Toast.makeText(TelaMenu.this, "Para calcular a previsão primeiro cadastre o valor da tarifa nas configurações.", Toast.LENGTH_LONG).show();
+
+		vlrGastoAtual = consumo * vlrTarifa;
 		// calcular média final
 		GregorianCalendar calendar = new GregorianCalendar();
 		calendar.setTime(date);
 		int diaCorrente = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+		//***************hora corrente***************************
+		int horaCorrente = calendar.get(GregorianCalendar.HOUR);
+		// amPm
+		// 0 = dia
+		// 1 = noite
+		int amPm = calendar.get(GregorianCalendar.AM_PM);
+
+		if(amPm == 1)
+		{
+			if(horaCorrente>0 && horaCorrente < 13)
+			{
+				if(horaCorrente == 12)
+					horaCorrente = 0;
+				else
+					horaCorrente += 12;
+			}
+		}
+		int qtdHorasPassadas = (diaCorrente - 1) * 24;
+		qtdHorasPassadas += horaCorrente;
+		//*******************************************************
 		//int mes = calendar.get(GregorianCalendar.MONTH);
 		int qtdDiasMes = calendar.getActualMaximum(calendar.DAY_OF_MONTH);
+		//******************horas faltantes**************************
 		int diasFaltantes = qtdDiasMes - diaCorrente;
-		// **********************PEGAR A HORA E ACERTAR***************************
-		double mediaHoraWatts = (gastoAtual.getNrWatts() / diaCorrente) / 24;
-		double mediaFinalMesWatts = (diasFaltantes * mediaHoraWatts) * 24;
-		mediaFinalMesWatts += gastoAtual.getNrWatts();
-		double vlrTarifa = 0.15; //********************vai vim do banco
-		double mediaFianalMesValor = ((mediaHoraWatts * vlrTarifa)*24) * diasFaltantes;
-		mediaFianalMesValor += gastoAtual.getVlrGastLuz();
+		int qtdHorasFaltantes = diasFaltantes * 24;
+		//***********************************************************
+		//
+//		double mediaHoraConsumo = (consumo / diaCorrente) / 24;
+//		double mediaFinalMesConsumo = (diasFaltantes * mediaHoraConsumo) * 24;
+		double mediaHoraConsumo = (consumo /qtdHorasPassadas);
+		double mediaFinalMesConsumo = mediaHoraConsumo * qtdHorasFaltantes;
+		mediaFinalMesConsumo += consumo;
+		//********************vai vim do banco
+//		double mediaFinalMesValor = ((mediaHoraConsumo * vlrTarifa)*24) * diasFaltantes;
+//		mediaFinalMesValor += vlrGastoAtual;
+		double mediaFinalMesValor = mediaFinalMesConsumo * vlrTarifa;
 		NumberFormat formatarNumero = new DecimalFormat(".##");
-		txtMediaFinal.setText(String.valueOf(formatarNumero.format(mediaFinalMesWatts)));
-		txtValorMediaFinal.setText(String.valueOf(formatarNumero.format(mediaFianalMesValor)));
+		txtMediaFinal.setText(String.valueOf(formatarNumero.format(mediaFinalMesConsumo)));
+		txtValorMediaFinal.setText(String.valueOf(formatarNumero.format(mediaFinalMesValor)));
 	}
 	private String formatarDataParaApresentacao(Date data)
 	{
