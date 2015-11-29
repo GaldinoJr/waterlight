@@ -1,8 +1,8 @@
 package com.example.appmedirconsumorecursos.Telas;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,9 +19,10 @@ import com.example.appmedirconsumorecursos.Dominio.AbsFactoryRecurso;
 import com.example.appmedirconsumorecursos.Dominio.EntidadeDominio;
 import com.example.appmedirconsumorecursos.Dominio.GastoHoje;
 import com.example.appmedirconsumorecursos.Dominio.GastoHora;
-import com.example.appmedirconsumorecursos.Dominio.GastoMes;
 import com.example.appmedirconsumorecursos.R;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -275,23 +276,75 @@ public class TelaRelatorio1 extends Activity {
             // Verificar se é necessário**************
             String sDataMedicao;
             String linha;
-            String[] vetSGasto = new String[listEntDom.size()];
-            for (int i = 0; i < listEntDom.size(); i++) {
+            String[] vetSGasto = new String[listEntDom.size()+1];
+            //
+            double nrTotalConsumo = 0,
+                    vlrTotalDinheiro = 0,
+                    perConsumo;
+            int i,
+                qtdRegistros;
+            //
+            qtdRegistros = listEntDom.size();
+            NumberFormat formatarNumero = new DecimalFormat(".##");
+            for(i = 0; i < qtdRegistros; i++)
+            {
+                GastoHora g = (GastoHora) listEntDom.get(i);
+                if(idRecurso == 1) // agua?
+                {
+                    vlrTotalDinheiro += g.getVlrGastoAgua();
+                    nrTotalConsumo += g.getNrMetroCubicoAgua();
+                }
+                else if(idRecurso == 2) // luz?
+                {
+                    vlrTotalDinheiro += g.getVlrGastLuz();
+                    nrTotalConsumo += g.getNrWatts();
+                }
+            }
+            //
+            for (i = 0; i < qtdRegistros; i++) {
                 GastoHora g = (GastoHora) listEntDom.get(i);
                 linha = "";
                 sDataMedicao ="";
                 //sDataMedicao = extrairDiaDoMes(g.getDtUltimaRegistroDia());
                 if(idRecurso == 1) // agua?
                 {
-                    linha = "Consumo: " + g.getNrMetroCubicoAgua() + "m³ - " + g.getVlrGastoAgua() + " R$ - ";
+                    perConsumo = (g.getNrMetroCubicoAgua() * 100)/nrTotalConsumo;
+                    linha = "Consumo da hora: "+extrairHora(g.getDtInclusao()) +"\n"+
+                            "M³/h: " + g.getNrMetroCubicoAgua() + "\n" +
+                            "R$     : " + g.getVlrGastoAgua() + "\n" +
+                            "%       : " + formatarNumero.format(perConsumo);
                 }
                 else if(idRecurso == 2) // luz?
                 {
-                    linha = "Consumo: " + g.getNrWatts() + "kw/h - " + g.getVlrGastLuz() + " R$ - ";
+                    perConsumo = (g.getNrWatts() * 100)/nrTotalConsumo;
+                    linha = "Consumo da hora: "+extrairHora(g.getDtInclusao()) +"\n"+
+                            "Kw/h: " + g.getNrWatts() + "\n" +
+                            "R$     : " + g.getVlrGastLuz() + "\n" +
+                            "%       : " + formatarNumero.format(perConsumo);
                 }
                 sDataMedicao = converterDataParaString(String.valueOf(g.getDtInclusao()));
-                vetSGasto[i] = linha + sDataMedicao;
+                vetSGasto[i] = linha + "\nData: " +sDataMedicao;
             }
+            linha = "TOTAL\n"+
+                    "Qtde de horas analizadas: " + qtdRegistros  + "\n";
+            if(idRecurso== 1)
+                linha+="M³: ";
+            else if(idRecurso ==2)
+                linha+="Kw: ";
+            String auxTotalConsumo;
+            if(nrTotalConsumo < 1)
+                auxTotalConsumo = "0" + formatarNumero.format(nrTotalConsumo);
+            else
+                auxTotalConsumo =formatarNumero.format(nrTotalConsumo);
+
+            String auxTotalValor;
+            if(vlrTotalDinheiro < 1)
+                auxTotalValor = "0" + formatarNumero.format(vlrTotalDinheiro);
+            else
+                auxTotalValor =formatarNumero.format(vlrTotalDinheiro);
+            linha += auxTotalConsumo + "\n" +
+                    "R$:  " +auxTotalValor;
+            vetSGasto[qtdRegistros] = linha;
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1, vetSGasto);
 
@@ -319,23 +372,64 @@ public class TelaRelatorio1 extends Activity {
             // Verificar se é necessário**************
             String sDataMedicao;
             String linha;
-            String[] vetSGasto = new String[listEntDom.size()];
-            for (int i = 0; i < listEntDom.size(); i++) {
+            String[] vetSGasto = new String[listEntDom.size()+1];
+            //
+            double nrTotalConsumo = 0,
+                    vlrTotalDinheiro = 0,
+                    perConsumo;
+            int i,
+                qtdRegistros;
+            qtdRegistros = listEntDom.size();
+            NumberFormat formatarNumero = new DecimalFormat(".##");
+            for(i = 0; i < qtdRegistros; i++)
+            {
+                GastoHoje g = (GastoHoje) listEntDom.get(i);
+                if(idRecurso == 1) // agua?
+                {
+                    vlrTotalDinheiro += g.getVlrGastoAgua();
+                    nrTotalConsumo += g.getNrMetroCubicoAgua();
+                }
+                else if(idRecurso == 2) // luz?
+                {
+                    vlrTotalDinheiro += g.getVlrGastLuz();
+                    nrTotalConsumo += g.getNrWatts();
+                }
+            }
+            //
+            for (i = 0; i < qtdRegistros; i++) {
                 GastoHoje g = (GastoHoje) listEntDom.get(i);
                 linha = "";
                 sDataMedicao ="";
                 //sDataMedicao = extrairDiaDoMes(g.getDtUltimaRegistroDia());
                 if(idRecurso == 1) // agua?
                 {
-                    linha = "Consumo: " + g.getNrMetroCubicoAgua() + "m³ - " + g.getVlrGastoAgua() + " R$ - ";
+                    perConsumo = (g.getNrMetroCubicoAgua() * 100)/nrTotalConsumo;
+                    linha = "Consumo do dia "+ extrairDia(g.getDtUltimaRegistroDia()) +"\n"+
+                            "M³/h: " + g.getNrMetroCubicoAgua() + "\n" +
+                            "R$     : " + g.getVlrGastoAgua() + "\n" +
+                            "%       : " + formatarNumero.format(perConsumo);
                 }
                 else if(idRecurso == 2) // luz?
                 {
-                    linha = "Consumo: " + g.getNrWatts() + "kw/h - " + g.getVlrGastLuz() + " R$ - ";
+                    perConsumo = (g.getNrWatts() * 100)/nrTotalConsumo;
+                    linha = "Consumo do dia " + extrairDia(g.getDtUltimaRegistroDia()) + "\n"+
+                            "Kw/h: " + g.getNrWatts() + "\n" +
+                            "R$     : " + g.getVlrGastLuz() + "\n" +
+                            "%       : " + formatarNumero.format(perConsumo);
                 }
                 sDataMedicao = converterDataParaString(String.valueOf(g.getDtUltimaRegistroDia()));
-                vetSGasto[i] = linha + sDataMedicao;
+                vetSGasto[i] = linha + "\nData: " +sDataMedicao;
             }
+
+            linha = "TOTAL\n"+
+                       "Qtde de dias analizados: " + qtdRegistros  + "\n";
+            if(idRecurso== 1)
+                linha+="M³: ";
+            else if(idRecurso ==2)
+                linha+="Kw: ";
+            linha += formatarNumero.format(nrTotalConsumo) + "\n" +
+                    "R$:  " +formatarNumero.format(vlrTotalDinheiro);
+            vetSGasto[qtdRegistros] = linha;
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1, vetSGasto);
 
@@ -361,6 +455,54 @@ public class TelaRelatorio1 extends Activity {
         sDia = String.valueOf(d);
         sData = sAno + "-" + sMes + "-" + sDia;
         return sData;
+    }
+    private String extrairDia(Date dt)
+    {
+        String sD = "";
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(dt);
+        int dia = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+
+        if (dia > 0) {
+            if (dia < 10) {
+                sD = "0";
+            }
+        }
+        sD += dia;
+        return  sD;
+    }
+    private String extrairHora(Date dt)
+    {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(dt);
+        int hora = calendar.get(GregorianCalendar.HOUR);
+        // amPm
+        // 0 = dia
+        // 1 = noite
+        int amPm = calendar.get(GregorianCalendar.AM_PM);
+
+        if(amPm == 1)
+        {
+            if(hora>=0 && hora < 13)
+            {
+                if(hora == 12)
+                    hora = 0;
+                else
+                    hora += 12;
+            }
+        }
+        //
+        hora--;
+        if(hora<0)
+            hora = 23;
+        //
+        String sHora = " ";
+        if(hora<=9)
+        {
+            sHora += "0";
+        }
+        sHora +=hora;
+        return sHora;
     }
     private Date formatarData(String data)
     {
@@ -392,7 +534,7 @@ public class TelaRelatorio1 extends Activity {
         } catch (Exception e2) {
             mes = null;
         }
-        sDate = dia +"-"+mes+"-"+ ano + " " + hora;
+        sDate = dia +"-"+mes+"-"+ ano + " ás " + hora;
 
         return sDate;
     }

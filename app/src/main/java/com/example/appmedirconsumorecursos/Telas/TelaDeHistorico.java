@@ -117,9 +117,13 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 		//
 		dados = getIntent(); // Recebe os dados da tela anterior
 		absFactoryRecurso = (AbsFactoryRecurso)dados.getSerializableExtra("absClasse"); // Recebe a classe correspondente
-		//txtNomeRecurso.setText(absFactoryRecurso.getNome()); // Recebe o nome do recurso e manda pra tela
-		imgRecurso.setImageResource(absFactoryRecurso.getIdIcone()); // Recebe o id da imagem e manda pra tela
+//		//txtNomeRecurso.setText(absFactoryRecurso.getNome()); // Recebe o nome do recurso e manda pra tela
+//		imgRecurso.setImageResource(absFactoryRecurso.getIdIcone()); // Recebe o id da imagem e manda pra tela
 		idRecurso = Integer.parseInt(absFactoryRecurso.getIdRecurso());
+		if(idRecurso == 1)
+			imgRecurso.setImageResource(R.drawable.icone_agua_transparente_azul_300x500);
+		else if(idRecurso == 2)
+			imgRecurso.setImageResource(R.drawable.icone_lampada_azul_transparente_azul358x640);
 		//
 		vetNano = new Integer[85];
 		for(i= 0; i < 85; i++, j++) // Popula o sppiner de ano
