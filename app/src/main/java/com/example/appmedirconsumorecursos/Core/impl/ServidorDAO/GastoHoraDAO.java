@@ -163,14 +163,16 @@ public class GastoHoraDAO  extends AbstractServerDAO {
                         if(j == 0) // Na primeira vez, busca os dados da residencia que usa o app
                         {
                             if (gastoHora.getsDtInclusao() != null) {
-                                query += " AND DATE_FORMAT(dt_inclusao ,'%d/%m/%Y') = '" + gastoHora.getsDtInclusao() + "'";
+                                //**********editei para aparecer gráfico de maior consumo
+                                query += " AND DATE_FORMAT(gh.dt_inclusao ,'%Y-%m-%d') = '" + gastoHora.getsDtInclusao() + "'";
 
                                 if (gastoHora.getFitro_indTipoComparacaoMaiorConsumo() != 0) {
                                     query +=
                                             " AND gh." + colunaParaComparacao + " = " +
                                                     "(" +
                                                     " SELECT MAX(" + colunaParaComparacao + ") FROM tb_gasto_hora WHERE dt_inclusao ";
-                                                    query += " AND DATE_FORMAT(dt_inclusao ,'%d/%m/%Y') = '" + gastoHora.getsDtInclusao() + "'";
+                                                    //******************tive que mudar o formato
+                                                    query += " AND DATE_FORMAT(dt_inclusao ,'%Y-%m-%d') = '" + gastoHora.getsDtInclusao() + "'";
                                     if (cdResidenciaPesquisa > 0)
                                         query += " AND cd_residencia = " + String.valueOf(cdResidenciaPesquisa);
 

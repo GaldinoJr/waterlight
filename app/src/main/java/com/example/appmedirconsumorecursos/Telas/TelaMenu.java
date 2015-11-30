@@ -353,7 +353,11 @@ public class TelaMenu extends Activity implements OnClickListener {
 //		mediaFinalMesValor += vlrGastoAtual;
 		double mediaFinalMesValor = mediaFinalMesConsumo * vlrTarifa;
 		NumberFormat formatarNumero = new DecimalFormat(".##");
-		txtMediaFinal.setText(String.valueOf(formatarNumero.format(mediaFinalMesConsumo)));
+		String aux="";
+		if(mediaFinalMesConsumo<1)
+			aux = "0";
+		aux+=formatarNumero.format(mediaFinalMesConsumo);
+		txtMediaFinal.setText(aux);
 		txtValorMediaFinal.setText(String.valueOf(formatarNumero.format(mediaFinalMesValor)));
 	}
 	private String formatarDataParaApresentacao(Date data)
