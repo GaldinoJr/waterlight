@@ -27,6 +27,9 @@ import com.example.appmedirconsumorecursos.Dominio.GastoMes;
 import com.example.appmedirconsumorecursos.R;
 import com.example.appmedirconsumorecursos.R.id;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class TelaDeHistorico extends Activity implements View.OnClickListener {
@@ -183,6 +186,8 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 							{
 								sDia = "01";
 								data = sDia + "/" + mes + "/" + String.valueOf(ano);
+								sDia = descobrirUltimoDiaData(data);
+								data = sDia + "/" + mes + "/" + String.valueOf(ano);
 								retorno = pesquisarMes(data);
 								if (retorno == false) {
 									Toast.makeText(TelaDeHistorico.this, spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
@@ -262,7 +267,7 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 								}
 								sDia += String.valueOf(dia);
 								data = String.valueOf(ano) + "-" + sMes + "-" + sDia;
-								data += " 00:00:00";
+								//data += " 00:00:00";
 								retorno = pesquisarDia(data);
 								if(retorno == false) {
 									Toast.makeText(TelaDeHistorico.this, "Dia " + sDia + " de " + spMes.getSelectedItem().toString() + " de " + sAno + " não contem registros.", Toast.LENGTH_SHORT).show();
@@ -273,7 +278,8 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 							{
 								sDia += "01";
 								data = sDia + "/" + sMes + "/" + String.valueOf(ano);
-
+								sDia = descobrirUltimoDiaData(data);
+								data = sDia + "/" + sMes + "/" + String.valueOf(ano);
 								retorno = pesquisarMes(data);
 								if (retorno == false)
 								{
@@ -348,6 +354,30 @@ public class TelaDeHistorico extends Activity implements View.OnClickListener {
 		}
 		else
 			return false;
+	}
+	private String descobrirUltimoDiaData(String sData)
+	{
+		int d;
+		Date data = formatarData(sData);
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(data);
+		d = calendar.getMaximum(GregorianCalendar.DAY_OF_MONTH);
+		d--;
+		return String.valueOf(d);
+	}
+	private Date formatarData(String data)
+	{
+		SimpleDateFormat df;
+		Date dc;
+		try
+		{
+			df = new SimpleDateFormat("dd/MM/yyyy");
+			dc = df.parse(data);
+		}
+		catch (Exception e) {
+			dc = null;
+		}
+		return dc;
 	}
 	private boolean pesquisarDia(String data)
 	{

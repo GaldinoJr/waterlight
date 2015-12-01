@@ -62,12 +62,13 @@ public class GastoHojeDAO extends AbstractServerDAO {
                     query += " AND cd_residencia = " + String.valueOf(gastoHoje.getCdResidencia());
                 if (gastoHoje.getsDtUltimoRegistroDia() != null)
                 {
-                    query += " AND dt_ultimo_registro_dia = STR_TO_DATE( '" + gastoHoje.getsDtUltimoRegistroDia() + "' ,'%Y-%m-%d %H:%i:%s')";
+                   // query += " AND dt_ultimo_registro_dia = STR_TO_DATE( '" + gastoHoje.getsDtUltimoRegistroDia() + "' ,'%Y-%m-%d %H:%i:%s')";
+                    query += " AND DATE_FORMAT(dt_ultimo_registro_dia,'%Y-%m-%d') = '" + gastoHoje.getsDtUltimoRegistroDia() + "'";
                 }
                 if (gastoHoje.getsDtInicialBusca() != null && gastoHoje.getsDtFinalBusca() != null) {
                     query += " AND dt_ultimo_registro_dia " +
                             " BETWEEN '" + gastoHoje.getsDtInicialBusca() + "' AND '" + gastoHoje.getsDtFinalBusca() + "' " +
-                            " AND concat(DATE_FORMAT(dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT(dt_ultimo_registro_dia,  '%i')) BETWEEN '00:00' AND '00:59'";
+                            " AND concat(DATE_FORMAT(dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT(dt_ultimo_registro_dia,  '%i')) BETWEEN '23:00' AND '23:59'";
                 }
                 //            if(!TextUtils.isEmpty(residencia.getNome()))
                 //                query += " AND ds_nome = '" + residencia.getNome() +"'";
@@ -168,7 +169,7 @@ public class GastoHojeDAO extends AbstractServerDAO {
                                 // Validade data e hora(TEM QUE SER A PRIMEIRA HORA DO DIA)
                                 query += " AND gh.dt_ultimo_registro_dia" +
                                         " BETWEEN '" + gastoHoje.getsDtInicialBusca() + "' AND '" + gastoHoje.getsDtFinalBusca() + "' " +
-                                        " AND concat(DATE_FORMAT(gh.dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT(gh.dt_ultimo_registro_dia,  '%i')) BETWEEN '00:00' AND '00:59'";
+                                        " AND concat(DATE_FORMAT(gh.dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT(gh.dt_ultimo_registro_dia,  '%i')) BETWEEN '23:00' AND '23:59'";
 
 
                                 if (gastoHoje.getFitro_indTipoComparacaoMaiorConsumo() != 0) {
@@ -178,7 +179,7 @@ public class GastoHojeDAO extends AbstractServerDAO {
                                                     " SELECT MAX(" + colunaParaComparacao + ") FROM tb_gasto_hoje WHERE dt_ultimo_registro_dia " +
                                                     " BETWEEN '" + gastoHoje.getsDtInicialBusca() + "' AND '" + gastoHoje.getsDtFinalBusca() + "' " +
                                                     "AND concat(DATE_FORMAT(dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT( dt_ultimo_registro_dia,  '%i'))" +
-                                                    "BETWEEN '00:00' AND '00:59'";
+                                                    "BETWEEN '23:00' AND '23:59'";
                                     if (cdResidenciaPesquisa > 0)
                                         query += " AND cd_residencia = " + String.valueOf(cdResidenciaPesquisa);
 
@@ -200,7 +201,7 @@ public class GastoHojeDAO extends AbstractServerDAO {
                             {
                                 // Validade data e hora(TEM QUE SER A PRIMEIRA HORA DO DIA)
                                 query += " AND DATE_FORMAT(gh.dt_ultimo_registro_dia, '%Y-%m-%d') = STR_TO_DATE('" + dataParaComparacao + "', '%Y-%m-%d')" +
-                                        " AND concat(DATE_FORMAT(gh.dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT(gh.dt_ultimo_registro_dia,  '%i')) BETWEEN '00:00' AND '00:59'";
+                                        " AND concat(DATE_FORMAT(gh.dt_ultimo_registro_dia ,'%H'), ':', DATE_FORMAT(gh.dt_ultimo_registro_dia,  '%i')) BETWEEN '23:00' AND '23:59'";
                             }
 
                             if (gastoHoje.getFitro_indTipoComparacaoMaiorConsumo() != 0)

@@ -45,7 +45,7 @@ public class GastoMesDAO extends AbstractServerDAO {
                 query += " AND cd_residencia = " + String.valueOf(gastoMes.getCdResidencia());
 //
             if(gastoMes.getSdt_inclusao() != null)
-               query += " AND dt_inclusao = STR_TO_DATE( '" + gastoMes.getSdt_inclusao()+"' ,'%d/%m/%Y')";
+               query += " AND DATE_FORMAT(dt_inclusao,'%d/%m/%Y') = '" + gastoMes.getSdt_inclusao()+"'";
 
             //
             jo.put("query", query);
