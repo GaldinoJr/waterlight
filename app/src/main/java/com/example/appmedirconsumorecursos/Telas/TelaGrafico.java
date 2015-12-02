@@ -80,6 +80,7 @@ public class TelaGrafico extends Activity {
     private int dia;
     private String data;
     private boolean fgBuscaNoDia;
+    private double maiorValor;
     // GRAFICO DE BARRA
     private GraphicalView mChartView;
     //
@@ -208,6 +209,7 @@ public class TelaGrafico extends Activity {
 
     private void pesquisarGastoNoMes(String data)
     {
+        maiorValor = 0;
         gastoHoje = new GastoHoje();
         gastoHoje.getMapInstance();
         gastoHoje.setMapCdResidencia(session.getResidencia().getId());
@@ -243,11 +245,15 @@ public class TelaGrafico extends Activity {
                     {
                         vetNrGastoAgua[i] = g.getNrMetroCubicoAgua();
                         aguaSeries.add(diaParaGrafico,vetNrGastoAgua[i]);
+                        if(maiorValor < g.getNrMetroCubicoAgua())
+                            maiorValor = g.getNrMetroCubicoAgua();
                     }
                     else if(tipoGrafico == 2) // valor gasto
                     {
                         vetNrVlrGastoAgua[i] = g.getVlrGastoAgua();
                         aguaSeries.add(diaParaGrafico,vetNrVlrGastoAgua[i]);
+                        if(maiorValor < g.getVlrGastoAgua())
+                            maiorValor = g.getVlrGastoAgua();
                     }
                 }
                 else if(idRecurso == 2) // luz?
@@ -256,11 +262,15 @@ public class TelaGrafico extends Activity {
                     {
                         vetNrGastoLuz[i] = g.getNrWatts();
                         luzSeries.add(diaParaGrafico, vetNrGastoLuz[i]);
+                        if(maiorValor < g.getNrWatts())
+                            maiorValor = g.getNrWatts();
                     }
                     else if(tipoGrafico == 2) // valor gasto?
                     {
                         vetNrVlrGastoLuz[i] = g.getVlrGastLuz();
                         luzSeries.add(diaParaGrafico,vetNrVlrGastoLuz[i]);
+                        if(maiorValor < g.getVlrGastLuz())
+                            maiorValor = g.getVlrGastLuz();
                     }
                 }
             }
@@ -281,6 +291,7 @@ public class TelaGrafico extends Activity {
 
     private void pesquisarGastoNoDia(String data)
     {
+        maiorValor = 0;
         gastoHora = new GastoHora();
         gastoHora.getMapInstance();
         gastoHora.setMapCdResidencia(session.getResidencia().getId());
@@ -316,11 +327,15 @@ public class TelaGrafico extends Activity {
                     {
                         vetNrGastoAgua[i] = g.getNrMetroCubicoAgua();
                         aguaSeries.add(diaParaGrafico,vetNrGastoAgua[i]);
+                        if(maiorValor <g.getNrMetroCubicoAgua())
+                            maiorValor = g.getNrMetroCubicoAgua();
                     }
                     else if(tipoGrafico == 2) // valor gasto
                     {
                         vetNrVlrGastoAgua[i] = g.getVlrGastoAgua();
                         aguaSeries.add(diaParaGrafico,vetNrVlrGastoAgua[i]);
+                        if(maiorValor < g.getVlrGastoAgua())
+                            maiorValor = g.getVlrGastoAgua();
                     }
                 }
                 else if(idRecurso == 2) // luz?
@@ -329,11 +344,15 @@ public class TelaGrafico extends Activity {
                     {
                         vetNrGastoLuz[i] = g.getNrWatts();
                         luzSeries.add(diaParaGrafico, vetNrGastoLuz[i]);
+                        if(maiorValor < g.getNrWatts())
+                            maiorValor = g.getNrWatts();
                     }
                     else if(tipoGrafico == 2) // valor gasto?
                     {
                         vetNrVlrGastoLuz[i] = g.getVlrGastLuz();
                         luzSeries.add(diaParaGrafico,vetNrVlrGastoLuz[i]);
+                        if(maiorValor < g.getVlrGastLuz())
+                            maiorValor = g.getVlrGastLuz();
                     }
                 }
             }
@@ -417,7 +436,19 @@ public class TelaGrafico extends Activity {
         mRenderer.setPanEnabled(false, false);
 
         // ****************TORNAR ISSO DINÂMICO DE ACORDO COM O MAIOR E O MENOR DADO QUE VEM DO BANCO
-        mRenderer.setYAxisMax(10);
+        //double valorAntigo = maiorValor;
+        if(maiorValor == 0)
+            maiorValor = 8;
+        else if(maiorValor <= 0.5)
+            maiorValor = 0.5;
+        else
+            maiorValor = Math.round(maiorValor+0.5);
+//        if(maiorValor < valorAntigo)
+//            maiorValor++;
+//        if(maiorValor == 0)
+//            maiorValor = 8;
+
+        mRenderer.setYAxisMax(maiorValor);
 
         mRenderer.setYAxisMin(0);
         //
@@ -449,8 +480,6 @@ public class TelaGrafico extends Activity {
         {
             yTitulo += "(R$)";
         }
-
-
 
         mRenderer.setXTitle(xTituto);
         mRenderer.setYTitle(yTitulo);
