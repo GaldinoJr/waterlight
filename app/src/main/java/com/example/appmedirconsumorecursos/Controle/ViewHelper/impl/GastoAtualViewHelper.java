@@ -33,6 +33,9 @@ public class GastoAtualViewHelper implements IViewHelper {
                 gastoAtual.setNrMetroCubicoAgua(Double.parseDouble((String) request.get(gastoAtual.DF_nrMetroCubicoAgua)));
             if(request.get(gastoAtual.DF_cdResidencia)!= null)
                 gastoAtual.setCdResidencia(Integer.parseInt((String) request.get(gastoAtual.DF_cdResidencia)));
+
+            if(request.get(gastoAtual.DF_FILTRO_fgTodosRegistros)!= null)
+                gastoAtual.setFiltro_fgTodosRegistros(Integer.parseInt((String) request.get(gastoAtual.DF_FILTRO_fgTodosRegistros)));
             return gastoAtual;
         }
         catch (Exception e)

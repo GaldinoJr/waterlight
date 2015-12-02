@@ -122,8 +122,10 @@ public class GastoHoraSqlDAO  extends AbstractSqlDAO {
                 query += " AND DATE(" + Col_dt_inclusao + ") = '"+ gastoHora.getsDtInclusao() +
                         "' AND TIME(" + Col_dt_inclusao + ") BETWEEN '00:00:00' AND '23:59:59'";
             }
-
-            query += " ORDER BY "+Col_dt_inclusao+ " DESC";
+            if(gastoHora.getFiltro_fgTodosRegistros() == 1)
+                query += " ORDER BY " + Col_dt_inclusao + " ASC";
+            else
+                query += " ORDER BY "+Col_dt_inclusao+ " DESC";
             //query += " ORDER BY " + Col_dt_inclusao + " ASC";
             listGastoHora = new ArrayList<EntidadeDominio>();
             List<Map<String, String>> listMapGastoHoje = new LinkedList<Map<String, String>>();

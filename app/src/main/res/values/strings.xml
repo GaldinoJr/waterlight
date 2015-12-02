@@ -42,4 +42,5 @@
     <string name="gerarGrafico">Gerar gráfico</string>
     <string name="tipoGrafico">Gráfico baseado</string>
     <string name="title_activity_tela_relatorio">telaRelatorio</string>
+    <string name="title_activity_funcao_implantacao">Funcao_implantacao</string>
 </resources>

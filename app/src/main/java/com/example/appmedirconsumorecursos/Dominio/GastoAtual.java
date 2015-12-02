@@ -31,8 +31,15 @@ public class GastoAtual  extends EntidadeDominio {
     private String  sDtInicioMedicao,
                     sDtUltimaMedicao;
 
+    //
+    public final static String DF_FILTRO_fgTodosRegistros = "filtro_fgTodosRegistros";
+    private int filtro_fgTodosRegistros;
+
     // SETS
 
+    public void setFiltro_fgTodosRegistros(int filtro_fgTodosRegistros) {
+        this.filtro_fgTodosRegistros = filtro_fgTodosRegistros;
+    }
 
     public void setsDtInicioMedicao(String sDtInicioMedicao) {
         this.sDtInicioMedicao = sDtInicioMedicao;
@@ -73,6 +80,10 @@ public class GastoAtual  extends EntidadeDominio {
     // GETS
 
 
+    public int getFiltro_fgTodosRegistros() {
+        return filtro_fgTodosRegistros;
+    }
+
     public String getsDtInicioMedicao() {
         return sDtInicioMedicao;
     }
@@ -110,6 +121,10 @@ public class GastoAtual  extends EntidadeDominio {
     }
 
 // SETS DO MAPA
+
+    public void setMapFiltro_fgTodosRegistros(String filtro_fgTodosRegistros) {
+        map.put(DF_FILTRO_fgTodosRegistros,String.valueOf(filtro_fgTodosRegistros));
+    }
 
     public void setMapsDtInicioMedicao(String dtInicioMedicao) {
         map.put(DF_dtInicioMedicao, sDtInicioMedicao);
@@ -149,6 +164,7 @@ public class GastoAtual  extends EntidadeDominio {
         map.put(DF_nrWatts, String.valueOf(nrWatts));
         map.put(DF_nrMetroCubicoAgua, String.valueOf(nrMetroCubicoAgua));
         map.put(DF_cdResidencia, String.valueOf(cdResidencia));
+        map.put(DF_FILTRO_fgTodosRegistros, String.valueOf(filtro_fgTodosRegistros));
     }
 
     public void getMapInstance()

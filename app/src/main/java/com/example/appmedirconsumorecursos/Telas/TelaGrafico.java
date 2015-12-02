@@ -285,6 +285,7 @@ public class TelaGrafico extends Activity {
         gastoHora.getMapInstance();
         gastoHora.setMapCdResidencia(session.getResidencia().getId());
         gastoHora.setMapsDtInclusao(data);
+        gastoHora.setMapFiltro_fgTodosRegistros("1");
         // Mudar a consulta par a
         listEntDom = gastoHora.operar(session.getContext(), true, Controler.DF_CONSULTAR);
         if (listEntDom != null) {

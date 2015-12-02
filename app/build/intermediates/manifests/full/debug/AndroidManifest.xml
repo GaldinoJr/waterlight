@@ -80,6 +80,10 @@
         <!-- <action android:name="android.intent.action.BOOT_COMPLETED" /> -->
         <!-- </intent-filter> -->
         <!-- </receiver> -->
+        <activity
+            android:name="com.example.appmedirconsumorecursos.Telas.Tela_funcao_implantacao"
+            android:label="@string/title_activity_funcao_implantacao" >
+        </activity>
     </application>
 
 </manifest>

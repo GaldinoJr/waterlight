@@ -47,7 +47,10 @@ public class GastoAtualDAO  extends AbstractServerDAO {
 //            if(!TextUtils.isEmpty(residencia.getNome()))
 //                query += " AND ds_nome = '" + residencia.getNome() +"'";
 
-            query += " ORDER BY cd_gasto_atual DESC LIMIT 1;";
+            if(gastoAtual.getFiltro_fgTodosRegistros() == 1) // usado para indicar que vai trazer todos os registros
+                query += " ORDER BY dt_ultima_medicao ASC;";
+            else
+                query += " ORDER BY cd_gasto_atual DESC LIMIT 1;";
             //
             jo.put("query", query);
             String json = jo.toString();

@@ -122,7 +122,7 @@ public class GastoHojeSqlDAO2 extends AbstractSqlDAO {
             {
                 query += " AND DATE(" + Col_dt_ultimo_registro_dia + ") BETWEEN '" + gastohoje.getsDtInicialBusca() +
                         "' AND '" + gastohoje.getsDtFinalBusca() +
-                "' AND ((TIME(" + Col_dt_ultimo_registro_dia + ") BETWEEN '00:00:00' AND '00:59:59') OR TIME(" + Col_dt_ultimo_registro_dia + ") = '00:00:00')";
+                "' AND ((TIME(" + Col_dt_ultimo_registro_dia + ") BETWEEN '23:00:00' AND '23:59:59') OR TIME(" + Col_dt_ultimo_registro_dia + ") = '23:00:00')";
                 query += " ORDER BY " + Col_dt_ultimo_registro_dia + " ASC";
             }
             else
